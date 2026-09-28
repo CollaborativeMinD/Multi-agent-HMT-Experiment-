@@ -4,7 +4,10 @@ from pathlib import Path
 root=Path(sys.argv[1]);games={}
 for cohort in ['frontier','mainstream']:
  p=root/(cohort+'.jsonl')
- if p.exists():games[cohort]=[json.loads(line) for line in p.read_text().splitlines()]
+ if p.exists():
+  records=[json.loads(line) for line in p.read_text().splitlines()]
+  fields=['kind','seed','models','snapshot','player','action','decision','newLog','status','source_run']
+  games[cohort]=[{k:r[k] for k in fields if k in r} for r in records]
 data=json.dumps(games,separators=(',',':')).replace('<','\\u003c')
 html=r'''<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Whiz 100 · Baseline replay</title>
 <style>body{margin:0;background:#0c141c;color:#e8eef2;font:16px system-ui}main{max-width:1180px;margin:auto;padding:24px}h1{margin:0}header{display:flex;justify-content:space-between;gap:20px;align-items:center}.muted{color:#a8b7c5}button,select{background:#243443;color:inherit;border:1px solid #506777;border-radius:7px;padding:9px;cursor:pointer}.controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:20px 0}input[type=range]{flex:1;min-width:200px}.table{display:grid;grid-template-columns:1fr 1fr;gap:16px}.seat{border:2px solid #344653;background:#142731;border-radius:12px;padding:16px}.active{border-color:#f2c66a}.cards{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}.card{display:inline-block;background:#f1f2ed;color:#101820;padding:7px;border-radius:5px;font:bold 18px Georgia;min-width:25px;text-align:center}.red{color:#b12436}.center{margin:18px 0;padding:20px;border:1px solid #456557;border-radius:12px;background:#10392d;text-align:center}.scores{font-size:24px}.model{font-size:12px;overflow-wrap:anywhere}.play{display:inline-block;margin:5px}.hidden{display:none!important}#log{white-space:pre-wrap;font:14px monospace;max-height:140px;overflow:auto}@media(max-width:650px){.table{grid-template-columns:1fr}header{display:block}}body.clean .controls,body.clean #log{display:none}</style>
