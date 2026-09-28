@@ -33,6 +33,18 @@ class RunnerTests(unittest.TestCase):
  def test_function_length(self):
   for n in ast.walk(ast.parse(Path(r.__file__).read_text())):
    if isinstance(n,ast.FunctionDef):self.assertLessEqual(n.end_lineno-n.lineno+1,60,n.name)
+ def test_resume_real_prefix(self):
+  import subprocess
+  root=Path(r.__file__).parent
+  with tempfile.TemporaryDirectory() as d,patch.object(r,'OUT',Path(d)):
+   proc=subprocess.Popen(['node',str(root/'engine.mjs')],stdin=subprocess.PIPE,stdout=subprocess.PIPE,text=True)
+   try:
+    original=[json.loads(x) for x in (root/'resume/frontier.jsonl').read_text().splitlines()]
+    frame=r.engine(proc,{'op':'init','seed':7,'id':'whiz100-frontier'})
+    frame,count=r.restore(proc,'frontier',[{'model':m} for m in original[0]['models']],frame)
+    self.assertEqual(count,10);self.assertEqual(frame['hash'],original[-1]['final_hash'])
+    self.assertTrue(r.engine(proc,{'op':'verify'})['replay_verified'])
+   finally:proc.terminate();proc.wait();proc.stdin.close();proc.stdout.close()
  def test_headless_evidence(self):
   models=[self.model()]*4
   with tempfile.TemporaryDirectory() as d,patch.object(r,'OUT',Path(d)),patch.object(r,'select',side_effect=lambda m,v:(v['legal'][-1],{'kind':'TEST_POLICY'})),contextlib.redirect_stdout(io.StringIO()):
