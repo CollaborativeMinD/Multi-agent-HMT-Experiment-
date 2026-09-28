@@ -1,0 +1,120 @@
+{
+  "scope": "smoke_only_not_scored_play",
+  "requests": [
+    {
+      "provider": "openrouter",
+      "model": "qwen/qwen3.8-2.4t-a95b",
+      "endpoint": "https://openrouter.ai/api/v1/chat/completions",
+      "body": {
+        "model": "qwen/qwen3.8-2.4t-a95b",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Spades follow-suit canary. Hearts were led. Your remaining hand is [\"2H\", \"AS\"]. You must follow the led suit when able. Return only a JSON play action with action and card fields. No explanation."
+          }
+        ],
+        "max_tokens": 1024,
+        "reasoning": {
+          "effort": "low"
+        },
+        "provider": {
+          "only": [
+            "alibaba"
+          ],
+          "allow_fallbacks": false,
+          "require_parameters": true
+        },
+        "response_format": {
+          "type": "json_schema",
+          "json_schema": {
+            "name": "play_action",
+            "strict": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "action": {
+                  "type": "string",
+                  "enum": [
+                    "play"
+                  ]
+                },
+                "card": {
+                  "type": "string",
+                  "enum": [
+                    "2H",
+                    "AS"
+                  ]
+                }
+              },
+              "required": [
+                "action",
+                "card"
+              ],
+              "additionalProperties": false
+            }
+          }
+        }
+      }
+    },
+    {
+      "provider": "openrouter",
+      "model": "qwen/qwen3.8-flash",
+      "endpoint": "https://openrouter.ai/api/v1/chat/completions",
+      "body": {
+        "model": "qwen/qwen3.8-flash",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Spades follow-suit canary. Hearts were led. Your remaining hand is [\"2H\", \"AS\"]. You must follow the led suit when able. Return only a JSON play action with action and card fields. No explanation."
+          }
+        ],
+        "max_tokens": 1024,
+        "reasoning": {
+          "max_tokens": 512
+        },
+        "provider": {
+          "only": [
+            "alibaba"
+          ],
+          "allow_fallbacks": false,
+          "require_parameters": true
+        },
+        "response_format": {
+          "type": "json_schema",
+          "json_schema": {
+            "name": "play_action",
+            "strict": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "action": {
+                  "type": "string",
+                  "enum": [
+                    "play"
+                  ]
+                },
+                "card": {
+                  "type": "string",
+                  "enum": [
+                    "2H",
+                    "AS"
+                  ]
+                }
+              },
+              "required": [
+                "action",
+                "card"
+              ],
+              "additionalProperties": false
+            }
+          }
+        }
+      }
+    }
+  ],
+  "gap_seconds": 30,
+  "max_requests": 2,
+  "retries": 0,
+  "order": "2.4T then Flash",
+  "purpose": "Repeat original Qwen canary with spacing; not a causal timing experiment"
+}
