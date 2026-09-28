@@ -1,0 +1,42 @@
+{
+  "commit": "72896ce95c45b8f144c154b8f9c002036dcc441f",
+  "max_requests": 4,
+  "results": [
+    {
+      "http_status": 200,
+      "latency_ms": 876,
+      "models_on_first_page": 140,
+      "provider": "openai",
+      "reason": "AUTHENTICATED_METADATA_ACCESS",
+      "status": "PASS"
+    },
+    {
+      "http_status": 200,
+      "latency_ms": 310,
+      "models_on_first_page": 13,
+      "provider": "anthropic",
+      "reason": "AUTHENTICATED_METADATA_ACCESS",
+      "status": "PASS"
+    },
+    {
+      "http_status": 200,
+      "latency_ms": 196,
+      "models_on_first_page": 50,
+      "provider": "gemini",
+      "reason": "AUTHENTICATED_METADATA_ACCESS",
+      "status": "PASS"
+    },
+    {
+      "http_status": 200,
+      "latency_ms": 114,
+      "models_on_first_page": null,
+      "provider": "openrouter",
+      "reason": "AUTHENTICATED_METADATA_ACCESS",
+      "status": "PASS"
+    }
+  ],
+  "retries": 0,
+  "scope": "metadata_only_no_inference",
+  "utc": "2026-09-28T21:55:45.690294+00:00",
+  "run_url": "https://github.com/CollaborativeMinD/Multi-agent-HMT-Experiment-/actions/runs/36489273567"
+}
