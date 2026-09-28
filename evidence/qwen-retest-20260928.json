@@ -1,0 +1,64 @@
+{
+  "commit": "46d28e1284aaea905aa18677f74d6382b0e68256",
+  "gap_seconds": 30,
+  "input_token_reserve": 8192,
+  "max_requests": 2,
+  "output_token_cap": 1024,
+  "prompt_sha256": "67676c624582f8e0b15b73709e71f6dfe68e98306709083be2b111bc7302e471",
+  "reserved_usd_by_account": {
+    "openrouter": "0.02423808"
+  },
+  "results": [
+    {
+      "action": {
+        "action": "play",
+        "card": "2H"
+      },
+      "estimated_cost_usd": "0.000652",
+      "finished_utc": "2026-09-28T22:43:39.395739+00:00",
+      "http_status": 200,
+      "input_tokens": 98,
+      "latency_ms": 3661,
+      "model": "qwen/qwen3.8-2.4t-a95b",
+      "output_tokens_including_reasoning": 76,
+      "provider": "openrouter",
+      "provider_reported_cost_usd": 0.000652,
+      "reason": "INFERENCE_SCHEMA_LEGALITY_USAGE_PASS",
+      "request_sent": true,
+      "request_sha256": "9dc8327efa40d9f58a14c20cc19b293a73509c153c2e96f141fce9c02c3afd5d",
+      "reserved_usd": "0.022528",
+      "returned_model": "qwen/qwen3.8-2.4t-a95b",
+      "returned_provider": "Alibaba",
+      "started_utc": "2026-09-28T22:43:35.734709+00:00",
+      "status": "PASS"
+    },
+    {
+      "action": {
+        "action": "play",
+        "card": "2H"
+      },
+      "estimated_cost_usd": "0.00004384",
+      "finished_utc": "2026-09-28T22:44:11.974178+00:00",
+      "http_status": 200,
+      "input_tokens": 98,
+      "latency_ms": 2578,
+      "model": "qwen/qwen3.8-flash",
+      "output_tokens_including_reasoning": 62,
+      "provider": "openrouter",
+      "provider_reported_cost_usd": 0.00004384,
+      "reason": "INFERENCE_SCHEMA_LEGALITY_USAGE_PASS",
+      "request_sent": true,
+      "request_sha256": "6eda76cd46ab30cff2d43089a67afd5ed652e132a416bc978426ae4038c564f9",
+      "reserved_usd": "0.00171008",
+      "returned_model": "qwen/qwen3.8-flash",
+      "returned_provider": "Alibaba",
+      "started_utc": "2026-09-28T22:44:09.396106+00:00",
+      "status": "PASS"
+    }
+  ],
+  "retries": 0,
+  "schema_sha256": "cd0183c39cf65252f906a56feb4a8bcee6be634430e7ff00cd46bbfccb7ec22d",
+  "scope": "one_follow_suit_canary_per_model_not_playing_strength",
+  "utc": "2026-09-28T22:44:11.974268+00:00",
+  "run_url": "https://github.com/CollaborativeMinD/Multi-agent-HMT-Experiment-/actions/runs/36494065776"
+}
