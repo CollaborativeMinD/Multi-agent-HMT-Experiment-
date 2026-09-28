@@ -1,0 +1,167 @@
+{
+  "commit": "d93af2313938731d9d505e31bc1883f4145f0260",
+  "input_token_reserve": 8192,
+  "max_requests": 8,
+  "output_token_cap": 1024,
+  "prompt_sha256": "67676c624582f8e0b15b73709e71f6dfe68e98306709083be2b111bc7302e471",
+  "reserved_usd_by_account": {
+    "anthropic": "0.159744",
+    "gemini": "0.0150016",
+    "openai": "0.159744",
+    "openrouter": "0.02423808"
+  },
+  "results": [
+    {
+      "action": {
+        "action": "play",
+        "card": "2H"
+      },
+      "estimated_cost_usd": "0.00185",
+      "http_status": 200,
+      "input_tokens": 95,
+      "latency_ms": 3524,
+      "model": "gpt-6-astra",
+      "output_tokens_including_reasoning": 18,
+      "provider": "openai",
+      "reason": "INFERENCE_SCHEMA_LEGALITY_USAGE_PASS",
+      "request_sent": true,
+      "request_sha256": "a1f31b1718d56ca3ee685d9d6a94a7d414aa4c029800a7e367fd377b33bbf517",
+      "reserved_usd": "0.13312",
+      "returned_model": "gpt-6-astra",
+      "status": "PASS"
+    },
+    {
+      "action": {
+        "action": "play",
+        "card": "2H"
+      },
+      "estimated_cost_usd": "0.00037",
+      "http_status": 200,
+      "input_tokens": 95,
+      "latency_ms": 1532,
+      "model": "gpt-6-sol",
+      "output_tokens_including_reasoning": 18,
+      "provider": "openai",
+      "reason": "INFERENCE_SCHEMA_LEGALITY_USAGE_PASS",
+      "request_sent": true,
+      "request_sha256": "8d014bdea672bc35e926b5d9156d4e1cf8953b325352361c33b09a0ab74d721c",
+      "reserved_usd": "0.026624",
+      "returned_model": "gpt-6-sol",
+      "status": "PASS"
+    },
+    {
+      "action": {
+        "action": "play",
+        "card": "2H"
+      },
+      "estimated_cost_usd": "0.00403",
+      "http_status": 200,
+      "input_tokens": 323,
+      "latency_ms": 5483,
+      "model": "claude-fable-5-1",
+      "output_tokens_including_reasoning": 16,
+      "provider": "anthropic",
+      "reason": "INFERENCE_SCHEMA_LEGALITY_USAGE_PASS",
+      "request_sent": true,
+      "request_sha256": "36a5dad0ec499ab3217e092509158679d503e55b19b446e1eef90cbc75ba7a9c",
+      "reserved_usd": "0.13312",
+      "returned_model": "claude-fable-5-1",
+      "status": "PASS"
+    },
+    {
+      "action": {
+        "action": "play",
+        "card": "2H"
+      },
+      "estimated_cost_usd": "0.000806",
+      "http_status": 200,
+      "input_tokens": 323,
+      "latency_ms": 1230,
+      "model": "claude-sonnet-5-5",
+      "output_tokens_including_reasoning": 16,
+      "provider": "anthropic",
+      "reason": "INFERENCE_SCHEMA_LEGALITY_USAGE_PASS",
+      "request_sent": true,
+      "request_sha256": "16a11c8fbe6c9d2cfcc1625d00568fd31690def9a99f875cee292d87a61913f9",
+      "reserved_usd": "0.026624",
+      "returned_model": "claude-sonnet-5-5",
+      "status": "PASS"
+    },
+    {
+      "action": {
+        "action": "play",
+        "card": "2H"
+      },
+      "estimated_cost_usd": "0.00026775",
+      "http_status": 200,
+      "input_tokens": 47,
+      "latency_ms": 1127,
+      "model": "gemini-3.8-flash",
+      "output_tokens_including_reasoning": 62,
+      "provider": "gemini",
+      "reason": "INFERENCE_SCHEMA_LEGALITY_USAGE_PASS",
+      "request_sent": true,
+      "request_sha256": "0468bead17f556e89ff6d0b1ed9372f44df638303f3a59ddf94d089632553093",
+      "reserved_usd": "0.009984",
+      "returned_model": "gemini-3.8-flash",
+      "status": "PASS"
+    },
+    {
+      "action": {
+        "action": "play",
+        "card": "2H"
+      },
+      "estimated_cost_usd": "0.0000641",
+      "http_status": 200,
+      "input_tokens": 47,
+      "latency_ms": 697,
+      "model": "gemini-3.5-flash-lite",
+      "output_tokens_including_reasoning": 20,
+      "provider": "gemini",
+      "reason": "INFERENCE_SCHEMA_LEGALITY_USAGE_PASS",
+      "request_sent": true,
+      "request_sha256": "0468bead17f556e89ff6d0b1ed9372f44df638303f3a59ddf94d089632553093",
+      "reserved_usd": "0.0050176",
+      "returned_model": "gemini-3.5-flash-lite",
+      "status": "PASS"
+    },
+    {
+      "action": {
+        "action": "play",
+        "card": "2H"
+      },
+      "estimated_cost_usd": "0.000664",
+      "http_status": 200,
+      "input_tokens": 98,
+      "latency_ms": 4679,
+      "model": "qwen/qwen3.8-2.4t-a95b",
+      "output_tokens_including_reasoning": 78,
+      "provider": "openrouter",
+      "provider_reported_cost_usd": 0.000664,
+      "reason": "INFERENCE_SCHEMA_LEGALITY_USAGE_PASS",
+      "request_sent": true,
+      "request_sha256": "9dc8327efa40d9f58a14c20cc19b293a73509c153c2e96f141fce9c02c3afd5d",
+      "reserved_usd": "0.022528",
+      "returned_model": "qwen/qwen3.8-2.4t-a95b",
+      "returned_provider": "Alibaba",
+      "status": "PASS"
+    },
+    {
+      "http_status": 429,
+      "latency_ms": 5703,
+      "model": "qwen/qwen3.8-flash",
+      "provider": "openrouter",
+      "reason": "HTTP_ERROR_429",
+      "request_sent": true,
+      "request_sha256": "6eda76cd46ab30cff2d43089a67afd5ed652e132a416bc978426ae4038c564f9",
+      "reserved_usd": "0.00171008",
+      "status": "HOLD"
+    }
+  ],
+  "retries": 0,
+  "schema_sha256": "cd0183c39cf65252f906a56feb4a8bcee6be634430e7ff00cd46bbfccb7ec22d",
+  "scope": "one_follow_suit_canary_per_model_not_playing_strength",
+  "utc": "2026-09-28T22:33:01.904229+00:00",
+  "run_url": "https://github.com/CollaborativeMinD/Multi-agent-HMT-Experiment-/actions/runs/36493005982",
+  "request_hash_scope": "Canonical JSON request body only; URL and model are identified separately in request-profile.json. Gemini bodies are identical across model URLs."
+}
