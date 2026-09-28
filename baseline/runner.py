@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
 import smoke
+smoke.CAP=4096  # Protocol amendment after observed 1024-token reservation breach.
 ROOT=Path(__file__).resolve().parent
 OUT=ROOT/'evidence';OUT.mkdir(exist_ok=True)
 LIMIT=Decimal('3.00')
@@ -65,7 +66,9 @@ def parse(body:dict[str,Any],m:dict[str,Any],n:int,row:dict[str,Any])->int:
     ni,no=smoke.token_count(r['input']),smoke.token_count(r['output'])
     rates=m['standard_text_usd_per_million_tokens']
     actual=(ni*Decimal(str(rates['input']))+no*Decimal(str(rates['output'])))/1000000
-    row.update(input_tokens=ni,output_tokens_including_reasoning=no,estimated_cost_usd=str(actual))
+    row.update(input_tokens=ni,output_tokens_including_reasoning=no,estimated_cost_usd=str(actual),
+               finish_reason=r.get('reason'),returned_model=r.get('model'),returned_provider=r.get('route'),
+               response_sha256=hashlib.sha256(canonical(body)).hexdigest())
     if ni>row['input_reserve'] or no>smoke.CAP:raise ValueError('TOKEN_RESERVATION_EXCEEDED')
     if not r['complete']:raise ValueError('INCOMPLETE_OR_REFUSAL')
     if r['model']!=m['model']:raise ValueError('MODEL_ID_MISMATCH')
@@ -92,20 +95,24 @@ def call(m:dict[str,Any],v:dict[str,Any],attempt:int)->tuple[int|None,dict[str,A
     if cool:time.sleep(cool)
     spent[provider]+=reserve
     row=dict(model=m['model'],provider=provider,hand=v['handNumber'],turn=v['turn'],seat=v['you'],attempt=attempt,
-             reserved_usd=str(reserve),input_reserve=input_reserve,status='HOLD',http_status=None,
+             reserved_usd=str(reserve),input_reserve=input_reserve,output_cap=smoke.CAP,status='HOLD',http_status=None,
              cooldown_seconds=round(cool,3),request_sha256=hashlib.sha256(url.encode()+b'\n'+encoded).hexdigest())
     started=time.monotonic();choice=None
     try:
-        signal.signal(signal.SIGALRM,smoke.timeout_handler);signal.alarm(90)
+        signal.signal(signal.SIGALRM,smoke.timeout_handler);signal.alarm(120)
         req=urllib.request.Request(url,data=encoded,headers=h,method='POST')
-        with urllib.request.build_opener(smoke.NoRedirect()).open(req,timeout=60) as response:
+        with urllib.request.build_opener(smoke.NoRedirect()).open(req,timeout=110) as response:
             row['http_status']=response.status;raw=response.read(1048577)
         if len(raw)>1048576:raise ValueError('RESPONSE_TOO_LARGE')
         choice=parse(json.loads(raw),m,len(v['legal']),row)
     except urllib.error.HTTPError as exc:
         row['http_status']=exc.code;row['reason']='HTTP_ERROR'
     except (urllib.error.URLError,TimeoutError):row['reason']='NETWORK_OR_TIMEOUT'
-    except (ValueError,TypeError,KeyError,IndexError):row['reason']='RESPONSE_OR_CONTRACT_HOLD'
+    except ValueError as exc:
+        allowed={'TOKEN_RESERVATION_EXCEEDED','INCOMPLETE_OR_REFUSAL','MODEL_ID_MISMATCH','PROVIDER_ROUTE_MISMATCH',
+                 'ACTION_SCHEMA_INVALID','DUPLICATE_KEY','RESPONSE_TOO_LARGE','USAGE_INVALID'}
+        row['reason']=str(exc) if str(exc) in allowed else 'MALFORMED_RESPONSE'
+    except (TypeError,KeyError,IndexError):row['reason']='RESPONSE_OR_CONTRACT_HOLD'
     finally:
         signal.alarm(0);last_finished[provider]=time.monotonic()
     row['latency_ms']=round((time.monotonic()-started)*1000)
@@ -121,13 +128,32 @@ def select(m:dict[str,Any],v:dict[str,Any])->tuple[dict[str,Any],dict[str,Any]]:
     if choice is None:raise ValueError('MODEL_HOLD:'+m['model'])
     return v['legal'][choice],{'kind':'MODEL_CHOICE','call':row}
 
+def restore(proc:subprocess.Popen,cohort:str,models:list,frame:dict)->tuple[dict,int]:
+    source=ROOT/'resume'/f'{cohort}.jsonl'
+    if not source.exists():
+        emit(cohort,{'kind':'INITIAL','seed':7,'models':[m['model'] for m in models],**frame})
+        return frame,0
+    rows=[json.loads(x) for x in source.read_text().splitlines()]
+    if rows[0]['hash']!=frame['hash'] or rows[0]['models']!=[m['model'] for m in models]:
+        raise ValueError('RESUME_INITIAL_MISMATCH')
+    count=0
+    for row in rows:
+        if row['kind']=='ACTION':
+            frame=engine(proc,{'op':'step','action':row['action']})
+            if frame['hash']!=row['hash']:raise ValueError('RESUME_STATE_MISMATCH')
+            count+=1
+        if row['kind'] in ['INITIAL','ACTION']:emit(cohort,row)
+    emit(cohort,{'kind':'RESUME','source_run':36496016934,'actions':count,'output_cap':smoke.CAP})
+    return frame,count
+
+
 def game(cohort:str,models:list[dict[str,Any]])->dict[str,Any]:
     proc=subprocess.Popen(['node',str(ROOT/'engine.mjs')],stdin=subprocess.PIPE,stdout=subprocess.PIPE,text=True)
     frame=engine(proc,{'op':'init','seed':7,'id':'whiz100-'+cohort})
-    emit(cohort,{'kind':'INITIAL','seed':7,'models':[m['model'] for m in models],**frame})
+    frame,start=restore(proc,cohort,models,frame)
     result={'cohort':cohort,'status':'HOLD','models':[m['model'] for m in models]}
     try:
-        for i in range(6*56):
+        for i in range(start,6*56):
             if frame['snapshot']['status']=='ended':break
             v=engine(proc,{'op':'observe'});m=models[v['activePlayerIndex']]
             action,decision=select(m,v)
@@ -150,13 +176,18 @@ def game(cohort:str,models:list[dict[str,Any]])->dict[str,Any]:
 def main()->int:
     if os.environ.get('GITHUB_RUN_ATTEMPT','1')!='1':raise ValueError('RERUN_BLOCKED')
     manifest=json.loads(MODEL_FILE.read_text());results=[]
+    prior=ROOT/'resume'/'summary.json'
+    if prior.exists():
+        for p,cost in json.loads(prior.read_text())['accounting_usd'].items():spent[p]=Decimal(cost)
+        (OUT/'prior_calls.jsonl').write_bytes((ROOT/'resume'/'calls.jsonl').read_bytes())
     if not all(m['inference_verified'] for m in manifest['models']):raise ValueError('ROSTER_NOT_VERIFIED')
     for cohort in ['frontier','mainstream']:
         models=[next(m for m in manifest['models'] if m['cohort']==cohort and m['account']==p) for p in spent]
         result=game(cohort,models);results.append({k:v for k,v in result.items() if k!='log'})
         if result['status']!='COMPLETE':break
     report=dict(utc=datetime.now(timezone.utc).isoformat(),commit=os.environ.get('GITHUB_SHA'),
-                target=100,mode='strict_whiz',seed=7,results=results,
+                target=100,mode='strict_whiz',seed=7,results=results,output_cap=smoke.CAP,
+                resumed_from_run=36496016934 if prior.exists() else None,
                 accounting_usd={p:str(v) for p,v in spent.items()},per_account_limit=str(LIMIT),
                 nonclaims=['single unrotated partnership game per cohort','legal-action-assisted','not general intelligence ranking'])
     (OUT/'summary.json').write_text(json.dumps(report,indent=2)+'\n')
