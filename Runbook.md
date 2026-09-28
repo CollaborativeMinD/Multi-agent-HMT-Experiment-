@@ -1,0 +1,37 @@
+# Runbook
+
+## Scope
+
+This repository currently contains model selection and API probes for a Whiz Spades experiment. A passed smoke canary proves one valid response at the recorded settings. It does not authorize scored play or prove strategic quality, sustained throughput, or remaining balance.
+
+## Inspect evidence
+
+1. Read `config/models.lock.json` for the roster and campaign status.
+2. Read `evidence/inference-smoke-20260928.json` and its linked Actions run.
+3. Inspect `evidence/inference-gates.sql` or reconstruct SQLite with `sqlite3 inference-gates.sqlite < evidence/inference-gates.sql`.
+4. Read `docs/INFERENCE_SMOKE.md` for outcomes and remaining gates.
+
+## Reproduce local checks without keys
+
+Run `python -m unittest discover -s tests -p 'test_smoke.py' -v` with `PYTHONPATH=scripts` set. The tests inject fake providers, require no network, and cover budget admission, wrong model/provider, malformed actions, illegal play, missing credentials, timeout, HTTP 429/500, and retry suppression. Functions are checked against the 60-line limit.
+
+## Execute a new paid smoke test
+
+Do not rerun the completed live workflow. Rerun attempts are blocked to prevent duplicate charges. First account for prior usage, review the exact request profiles and current prices, and confirm the new request count and reservation fit the remaining account budgets. A new reviewed workflow revision is required for another live attempt. Its own-path push trigger runs only that revision; other file commits do not trigger inference. Secrets are injected only into the request step from GitHub Actions.
+
+Never put secrets into config files, receipts, test fixtures, screenshots, or logs. Never print a raw provider error body or reasoning content. The canary contains synthetic game data only. Do not widen model or provider fallback to make a check pass.
+
+## Failure handling
+
+- HTTP 401/403: inspect the corresponding account's credential permissions; do not copy the secret into a diagnostic artifact.
+- HTTP 400: verify request fields against the provider API before a bounded correction. Preserve the original failure.
+- HTTP 429/500 or timeout: HOLD the model; do not automatically retry. A timeout can still incur charges. Reserve its full request allowance until reconciled.
+- Incomplete output: inspect cap and reasoning settings. Treat a higher cap as a new costed test, not proof of model failure at gameplay.
+- Schema, legality, identity, or route mismatch: HOLD; trace the failing seam with fixtures before another paid attempt.
+- Missing or excessive usage: HOLD and reconcile accounting before additional requests.
+
+Record output-first cause, evidence, regression, and disposition in the Reverse RCA Ledger. Keep existing good local gates passing. Provider invoices remain the billing authority; receipt estimates are not invoices.
+
+## Before scored games
+
+Build and verify the game rules and private observations, replay, seat/partner rotation, campaign-wide budget guard, and explicit reasoning/token settings. The smoke profile uses economical reasoning and must not silently become the frontier benchmark profile. Both cohorts share each account's original $10 ceiling, including tests and retries.
