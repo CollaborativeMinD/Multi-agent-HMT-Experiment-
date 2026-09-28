@@ -1,0 +1,47 @@
+import ast,contextlib,io,json,os,tempfile,unittest
+from pathlib import Path
+from unittest.mock import patch
+import runner as r
+
+class RunnerTests(unittest.TestCase):
+ def model(self):return {'account':'openai','model':'gpt-6-astra','standard_text_usd_per_million_tokens':{'input':10,'output':50}}
+ def body(self,choice=0):return {'model':'gpt-6-astra','status':'completed','usage':{'input_tokens':50,'output_tokens':25},'output':[{'type':'message','content':[{'type':'output_text','text':json.dumps({'choice':choice})}]}]}
+ def test_parse_identity_usage_action(self):
+  row={'input_reserve':500};self.assertEqual(r.parse(self.body(),self.model(),2,row),0)
+  self.assertEqual(row['status'],'PASS')
+  for value in [True,-1,2,'0']:
+   with self.subTest(value=value),self.assertRaises(ValueError):r.parse(self.body(value),self.model(),2,{'input_reserve':500})
+  b=self.body();b['model']='wrong'
+  with self.assertRaises(ValueError):r.parse(b,self.model(),2,{'input_reserve':500})
+  b=self.body();b['usage']['input_tokens']=None
+  with self.assertRaises(ValueError):r.parse(b,self.model(),2,{'input_reserve':500})
+ def test_private_boundary(self):
+  with self.assertRaises(ValueError):r.compact({'deckSeed':7})
+  with self.assertRaises(ValueError):r.compact({'you':'p1','players':[{'id':'p2','hand':['AS']}]})
+ def test_budget_before_network(self):
+  v={'legal':[{},{}]};r.spent['openai']=r.LIMIT
+  with patch.object(r,'request',return_value=('https://api.openai.com/v1/responses',{})),patch.object(r,'headers') as h:
+   with self.assertRaises(ValueError):r.call(self.model(),v,1)
+   h.assert_not_called()
+  r.spent['openai']=r.Decimal(0)
+ def test_forced_and_retry_bounds(self):
+  with patch.object(r,'call') as c:
+   self.assertEqual(r.select(self.model(),{'legal':[{'type':'PLAY','card':'AS'}]})[1]['kind'],'FORCED_SINGLE_LEGAL_ACTION');c.assert_not_called()
+  with patch.object(r,'call',return_value=(None,{'http_status':429} )) as c,patch.object(r.time,'sleep') as wait:
+   with self.assertRaises(ValueError):r.select(self.model(),{'legal':[{},{}]})
+   self.assertEqual(c.call_count,2);wait.assert_called_once_with(60)
+ def test_function_length(self):
+  for n in ast.walk(ast.parse(Path(r.__file__).read_text())):
+   if isinstance(n,ast.FunctionDef):self.assertLessEqual(n.end_lineno-n.lineno+1,60,n.name)
+ def test_headless_evidence(self):
+  models=[self.model()]*4
+  with tempfile.TemporaryDirectory() as d,patch.object(r,'OUT',Path(d)),patch.object(r,'select',side_effect=lambda m,v:(v['legal'][-1],{'kind':'TEST_POLICY'})),contextlib.redirect_stdout(io.StringIO()):
+   result=r.game('test',models)
+   self.assertTrue(result['replay_verified'])
+   frames=[json.loads(x) for x in (Path(d)/'test.jsonl').read_text().splitlines()]
+   self.assertGreater(result['actions'],0)
+   for frame in frames:
+    if frame['kind']=='ACTION':
+     v=frame['observation'];self.assertTrue(all(p['hand'] is None for p in v['players'] if p['id']!=v['you']))
+
+if __name__=='__main__':unittest.main()
