@@ -1,0 +1,36 @@
+{
+  "utc": "2026-09-28T23:06:36.931423+00:00",
+  "commit": "38467c938f99a2ab97eb3f47dc07e1c6a70b7c40",
+  "target": 100,
+  "mode": "strict_whiz",
+  "seed": 7,
+  "results": [
+    {
+      "cohort": "frontier",
+      "status": "HOLD",
+      "models": [
+        "gpt-6-astra",
+        "claude-fable-5-1",
+        "gemini-3.8-flash",
+        "qwen/qwen3.8-2.4t-a95b"
+      ],
+      "reason": "MODEL_HOLD:qwen/qwen3.8-2.4t-a95b",
+      "replay_verified": true,
+      "final_hash": "c262f4af96e6a73d21d4e5442e40f88ba7686fa49d770be541b6b9ed273e891a",
+      "actions": 10,
+      "engine_status": "active"
+    }
+  ],
+  "accounting_usd": {
+    "openai": "0.01487",
+    "anthropic": "0.05237",
+    "gemini": "0.00627675",
+    "openrouter": "0.018312"
+  },
+  "per_account_limit": "3.00",
+  "nonclaims": [
+    "single unrotated partnership game per cohort",
+    "legal-action-assisted",
+    "not general intelligence ranking"
+  ]
+}
