@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "roster_version": "2026-09-28.1",
-  "status": "smoke_7_pass_1_hold",
+  "status": "smoke_8_pass_campaign_pending",
   "campaign_enabled": false,
   "models": [
     {
@@ -124,7 +124,8 @@
       "serving_quantization": "unknown",
       "smoke_status": "PASS",
       "smoke_reason": "INFERENCE_SCHEMA_LEGALITY_USAGE_PASS",
-      "verification_scope": "single economical follow-suit canary only"
+      "verification_scope": "single economical follow-suit canary only",
+      "latest_evidence": "../evidence/qwen-retest-20260928.json"
     },
     {
       "cohort": "mainstream",
@@ -137,7 +138,7 @@
         "input": 0.15,
         "output": 0.47
       },
-      "inference_verified": false,
+      "inference_verified": true,
       "provider": {
         "only": [
           "alibaba"
@@ -148,9 +149,10 @@
       "observed_canonical_slug": "qwen/qwen3.8-flash-20260826",
       "weights_license": "qwen-community-1.0",
       "serving_quantization": "unknown",
-      "smoke_status": "HOLD",
-      "smoke_reason": "HTTP_ERROR_429",
-      "verification_scope": "single economical follow-suit canary only"
+      "smoke_status": "PASS",
+      "smoke_reason": "INFERENCE_SCHEMA_LEGALITY_USAGE_PASS",
+      "verification_scope": "single economical follow-suit canary only",
+      "latest_evidence": "../evidence/qwen-retest-20260928.json"
     }
   ],
   "budget": {
@@ -159,8 +161,9 @@
     "aggregate_ceiling": 40,
     "scope": "Both cohorts, smoke tests, retries, and games combined",
     "runner_enforcement": "required_before_campaign",
-    "smoke_estimated_success_cost_usd": "0.00805185",
-    "smoke_unresolved_reserved_usd": "0.00171008"
+    "smoke_estimated_success_cost_usd": "0.00874769",
+    "smoke_unresolved_reserved_usd": "0.00171008",
+    "qwen_retest_provider_reported_cost_usd": "0.00069584"
   },
   "execution_profile": {
     "status": "scored_play_settings_pending",
@@ -181,7 +184,9 @@
     "receipt": "../evidence/inference-smoke-20260928.json",
     "run_url": "https://github.com/CollaborativeMinD/Multi-agent-HMT-Experiment-/actions/runs/36493005982",
     "profile": "../config/smoke-request-profile.json",
-    "passed": 7,
-    "held": 1
+    "passed": 8,
+    "held": 0,
+    "retest_receipt": "../evidence/qwen-retest-20260928.json",
+    "scope": "Eight models have passed at least one economical canary across original run and Qwen retest; not eight simultaneous passes."
   }
 }
