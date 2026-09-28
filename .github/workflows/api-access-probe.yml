@@ -1,0 +1,113 @@
+name: API Access Probe
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: [.github/workflows/api-access-probe.yml]
+permissions: {}
+concurrency:
+  group: api-access-probe
+  cancel-in-progress: false
+jobs:
+  probe:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    steps:
+      - name: Authenticated metadata probe (no inference)
+        shell: bash
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: |
+          python3 - <<'PYTHON'
+          import json
+          import os
+          import sys
+          import time
+          import urllib.error
+          import urllib.request
+          from datetime import datetime, timezone
+          
+          SPECS = (
+              ('openai', 'OPENAI_API_KEY', 'https://api.openai.com/v1/models', 'Authorization', 'Bearer ', 'data'),
+              ('anthropic', 'ANTHROPIC_API_KEY', 'https://api.anthropic.com/v1/models', 'x-api-key', '', 'data'),
+              ('gemini', 'GEMINI_API_KEY', 'https://generativelanguage.googleapis.com/v1beta/models', 'x-goog-api-key', '', 'models'),
+              ('openrouter', 'OPENROUTER_API_KEY', 'https://openrouter.ai/api/v1/key', 'Authorization', 'Bearer ', 'key'),
+          )
+          
+          class NoRedirect(urllib.request.HTTPRedirectHandler):
+              def redirect_request(self, req, fp, code, msg, headers, newurl):
+                  return None
+          
+          def validate(body: object, field: str) -> int:
+              if not isinstance(body, dict):
+                  raise ValueError('SCHEMA_INVALID')
+              data = body.get('data' if field == 'key' else field)
+              if field == 'key':
+                  if not isinstance(data, dict) or not isinstance(data.get('is_free_tier'), bool):
+                      raise ValueError('SCHEMA_INVALID')
+                  return 0
+              if not isinstance(data, list) or not data:
+                  raise ValueError('SCHEMA_INVALID')
+              id_field = 'name' if field == 'models' else 'id'
+              if not all(isinstance(x, dict) and isinstance(x.get(id_field), str) for x in data):
+                  raise ValueError('SCHEMA_INVALID')
+              return len(data)
+          
+          def probe(spec: tuple) -> dict:
+              name, env, url, header, prefix, field = spec
+              result = {'provider': name, 'status': 'FAIL', 'http_status': None,
+                        'reason': 'MISSING_SECRET', 'models_on_first_page': None}
+              secret = os.environ.get(env, '').strip()
+              if not secret:
+                  return result
+              headers = {header: prefix + secret, 'Accept': 'application/json'}
+              if name == 'anthropic':
+                  headers['anthropic-version'] = '2023-06-01'
+              start = time.monotonic()
+              try:
+                  request = urllib.request.Request(url, headers=headers, method='GET')
+                  opener = urllib.request.build_opener(NoRedirect())
+                  with opener.open(request, timeout=20) as response:
+                      result['http_status'] = response.status
+                      raw = response.read(1048577)
+                  if len(raw) > 1048576:
+                      raise ValueError('RESPONSE_TOO_LARGE')
+                  count = validate(json.loads(raw), field)
+                  result.update(status='PASS', reason='AUTHENTICATED_METADATA_ACCESS')
+                  if field != 'key':
+                      result['models_on_first_page'] = count
+              except urllib.error.HTTPError as exc:
+                  result.update(http_status=exc.code, reason='HTTP_ERROR')
+              except (urllib.error.URLError, TimeoutError):
+                  result['reason'] = 'NETWORK_OR_TIMEOUT'
+              except (ValueError, TypeError):
+                  result['reason'] = 'RESPONSE_INVALID'
+              except Exception:
+                  result['reason'] = 'PROBE_INTERNAL_ERROR'
+              result['latency_ms'] = round((time.monotonic() - start) * 1000)
+              return result
+          
+          def main() -> int:
+              results = [probe(spec) for spec in SPECS]
+              receipt = {'utc': datetime.now(timezone.utc).isoformat(),
+                         'commit': os.environ.get('GITHUB_SHA', ''),
+                         'scope': 'metadata_only_no_inference', 'max_requests': 4,
+                         'retries': 0, 'results': results}
+              print('PROBE_RECEIPT=' + json.dumps(receipt, sort_keys=True))
+              lines = ['## API access probe', '', '| Provider | Result | HTTP | Reason |',
+                       '|---|---|---|---|']
+              for row in results:
+                  lines.append(f"| {row['provider']} | {row['status']} | {row['http_status']} | {row['reason']} |")
+              lines += ['', 'Four GET requests maximum; no retries, inference, or raw response logging.',
+                        'A pass proves metadata authentication only. Inference permissions, selected-model',
+                        'availability, and paid quota remain untested. Model counts cover the first page only.']
+              with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as report:
+                  report.write('\n'.join(lines) + '\n')
+              return int(any(row['status'] != 'PASS' for row in results))
+          
+          if __name__ == '__main__':
+              sys.exit(main())
+          PYTHON
