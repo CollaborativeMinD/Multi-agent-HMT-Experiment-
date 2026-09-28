@@ -1,0 +1,272 @@
+name: Qwen Spaced Retest 20260928
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/qwen-spaced-retest-20260928.yml]
+permissions: {}
+concurrency:
+  group: bounded-inference-smoke
+  cancel-in-progress: false
+jobs:
+  smoke:
+    if: github.run_attempt == 1
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Two spaced Qwen canaries
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        shell: bash
+        run: |
+          python3 - <<'PYCODE'
+          """One request per pinned model. No retries, tools, redirects, or raw-body logs."""
+          from __future__ import annotations
+          import hashlib
+          import json
+          import os
+          import signal
+          import time
+          import urllib.error
+          import urllib.request
+          from datetime import datetime, timezone
+          from decimal import Decimal
+          from typing import Any
+          
+          CAP = 1024
+          INPUT_RESERVE = 8192
+          PROMPT = ('Spades follow-suit canary. Hearts were led. Your remaining hand is '
+                    '["2H", "AS"]. You must follow the led suit when able. '
+                    'Return only a JSON play action with action and card fields. No explanation.')
+          SCHEMA = {'type': 'object', 'properties': {
+              'action': {'type': 'string', 'enum': ['play']},
+              'card': {'type': 'string', 'enum': ['2H', 'AS']}},
+              'required': ['action', 'card'], 'additionalProperties': False}
+          SPECS = [('openai', 'gpt-6-astra', '10', '50'),
+                   ('openai', 'gpt-6-sol', '2', '10'),
+                   ('anthropic', 'claude-fable-5-1', '10', '50'),
+                   ('anthropic', 'claude-sonnet-5-5', '2', '10'),
+                   ('gemini', 'gemini-3.8-flash', '.75', '3.75'),
+                   ('gemini', 'gemini-3.5-flash-lite', '.30', '2.50'),
+                   ('openrouter', 'qwen/qwen3.8-2.4t-a95b', '2', '6'),
+                   ('openrouter', 'qwen/qwen3.8-flash', '.15', '.47')]
+          
+          class NoRedirect(urllib.request.HTTPRedirectHandler):
+              def redirect_request(self, req: Any, fp: Any, code: int, msg: str,
+                                   headers: Any, newurl: str) -> None:
+                  return None
+          
+          def canonical(value: Any) -> bytes:
+              return json.dumps(value, sort_keys=True, separators=(',', ':')).encode()
+          
+          def request_spec(provider: str, model: str) -> tuple[str, dict[str, Any]]:
+              message = [{'role': 'user', 'content': PROMPT}]
+              fmt = {'name': 'play_action', 'strict': True, 'schema': SCHEMA}
+              if provider == 'openai':
+                  return 'https://api.openai.com/v1/responses', {
+                      'model': model, 'input': message, 'max_output_tokens': CAP,
+                      'reasoning': {'effort': 'low'}, 'store': False,
+                      'text': {'format': {'type': 'json_schema', **fmt}}}
+              if provider == 'anthropic':
+                  return 'https://api.anthropic.com/v1/messages', {
+                      'model': model, 'messages': message, 'max_tokens': CAP,
+                      'thinking': {'type': 'adaptive'},
+                      'output_config': {'effort': 'low',
+                                        'format': {'type': 'json_schema', 'schema': SCHEMA}}}
+              if provider == 'gemini':
+                  return ('https://generativelanguage.googleapis.com/v1beta/models/'
+                          + model + ':generateContent'), {
+                      'contents': [{'role': 'user', 'parts': [{'text': PROMPT}]}],
+                      'generationConfig': {'maxOutputTokens': CAP,
+                          'thinkingConfig': {'thinkingLevel': 'low'},
+                          'responseMimeType': 'application/json', 'responseJsonSchema': SCHEMA}}
+              reasoning = {'effort': 'low'} if '2.4t' in model else {'max_tokens': 512}
+              return 'https://openrouter.ai/api/v1/chat/completions', {
+                  'model': model, 'messages': message, 'max_tokens': CAP,
+                  'reasoning': reasoning,
+                  'provider': {'only': ['alibaba'], 'allow_fallbacks': False,
+                               'require_parameters': True},
+                  'response_format': {'type': 'json_schema', 'json_schema': fmt}}
+          
+          def token_count(value: Any) -> int:
+              if type(value) is not int or value < 0:
+                  raise ValueError('USAGE_INVALID')
+              return value
+          
+          def extract(provider: str, body: dict[str, Any]) -> dict[str, Any]:
+              if provider == 'openai':
+                  text = ''.join(c.get('text', '') for item in body.get('output', [])
+                                 if item.get('type') == 'message' for c in item.get('content', [])
+                                 if c.get('type') == 'output_text')
+                  u = body.get('usage', {})
+                  return dict(text=text, complete=body.get('status') == 'completed',
+                              model=body.get('model'), input=u.get('input_tokens'),
+                              output=u.get('output_tokens'), reason=body.get('status'))
+              if provider == 'anthropic':
+                  text = ''.join(c.get('text', '') for c in body.get('content', [])
+                                 if c.get('type') == 'text')
+                  u = body.get('usage', {})
+                  return dict(text=text, complete=body.get('stop_reason') == 'end_turn',
+                              model=body.get('model'), input=u.get('input_tokens'),
+                              output=u.get('output_tokens'), reason=body.get('stop_reason'))
+              if provider == 'gemini':
+                  c = body.get('candidates', [{}])[0]
+                  text = ''.join(p.get('text', '') for p in c.get('content', {}).get('parts', [])
+                                 if not p.get('thought', False))
+                  u = body.get('usageMetadata', {})
+                  out = token_count(u.get('candidatesTokenCount', 0)) + token_count(u.get('thoughtsTokenCount', 0))
+                  return dict(text=text, complete=c.get('finishReason') == 'STOP',
+                              model=body.get('modelVersion'), input=u.get('promptTokenCount'),
+                              output=out, reason=c.get('finishReason'))
+              c = body.get('choices', [{}])[0]
+              u = body.get('usage', {})
+              return dict(text=c.get('message', {}).get('content'),
+                          complete=c.get('finish_reason') == 'stop', model=body.get('model'),
+                          route=body.get('provider'), input=u.get('prompt_tokens'),
+                          output=u.get('completion_tokens'), reason=c.get('finish_reason'),
+                          reported_cost=u.get('cost'))
+          
+          def action_check(text: str) -> dict[str, str]:
+              def pairs(items: list[tuple[str, Any]]) -> dict[str, Any]:
+                  result: dict[str, Any] = {}
+                  for key, value in items:
+                      if key in result:
+                          raise ValueError('DUPLICATE_JSON_KEY')
+                      result[key] = value
+                  return result
+              value = json.loads(text, object_pairs_hook=pairs)
+              if type(value) is not dict or set(value) != {'action', 'card'}:
+                  raise ValueError('ACTION_SCHEMA_INVALID')
+              if value['action'] != 'play' or value['card'] not in ('2H', 'AS'):
+                  raise ValueError('ACTION_SCHEMA_INVALID')
+              if value['card'] != '2H':
+                  raise ValueError('ILLEGAL_ACTION')
+              return value
+          
+          def validate_result(provider: str, model: str, body: dict[str, Any],
+                              row: dict[str, Any], rates: tuple[str, str]) -> None:
+              r = extract(provider, body)
+              ni, no = token_count(r['input']), token_count(r['output'])
+              row.update(input_tokens=ni, output_tokens_including_reasoning=no,
+                         estimated_cost_usd=str((ni * Decimal(rates[0]) + no * Decimal(rates[1])) / 1000000))
+              if ni > INPUT_RESERVE or no > CAP:
+                  raise ValueError('TOKEN_RESERVATION_EXCEEDED')
+              if not r['complete']:
+                  raise ValueError('INCOMPLETE_OR_REFUSAL')
+              returned = r['model']
+              if not isinstance(returned, str) or not (returned == model or returned.startswith(model + '-')):
+                  raise ValueError('MODEL_ID_MISMATCH')
+              row['returned_model'] = returned
+              if provider == 'openrouter':
+                  if r.get('route') != 'Alibaba':
+                      raise ValueError('PROVIDER_ROUTE_MISMATCH')
+                  row['returned_provider'] = 'Alibaba'
+                  cost = r.get('reported_cost')
+                  if isinstance(cost, (int, float)) and not isinstance(cost, bool) and 0 <= cost <= 1:
+                      row['provider_reported_cost_usd'] = cost
+              row['action'] = action_check(r['text'])
+              row.update(status='PASS', reason='INFERENCE_SCHEMA_LEGALITY_USAGE_PASS')
+          
+          def timeout_handler(signum: int, frame: Any) -> None:
+              raise TimeoutError('deadline')
+          
+          def probe(spec: tuple[str, str, str, str]) -> dict[str, Any]:
+              provider, model, inp, out = spec
+              url, payload = request_spec(provider, model)
+              encoded = canonical(payload)
+              reserve = (INPUT_RESERVE * Decimal(inp) + CAP * Decimal(out)) / 1000000
+              row: dict[str, Any] = dict(provider=provider, model=model, status='HOLD',
+                  reason='NOT_ATTEMPTED', http_status=None, reserved_usd=str(reserve),
+                  request_sha256=hashlib.sha256(encoded).hexdigest(), request_sent=False)
+              secret = os.environ.get(provider.upper() + '_API_KEY', '').strip()
+              if not secret:
+                  return dict(row, reason='MISSING_SECRET')
+              headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+              if provider == 'anthropic':
+                  headers.update({'x-api-key': secret, 'anthropic-version': '2023-06-01'})
+              elif provider == 'gemini':
+                  headers['x-goog-api-key'] = secret
+              else:
+                  headers['Authorization'] = 'Bearer ' + secret
+              start = time.monotonic()
+              try:
+                  signal.signal(signal.SIGALRM, timeout_handler)
+                  signal.alarm(90)
+                  row['started_utc'] = datetime.now(timezone.utc).isoformat()
+                  row['request_sent'] = True
+                  req = urllib.request.Request(url, data=encoded, headers=headers, method='POST')
+                  with urllib.request.build_opener(NoRedirect()).open(req, timeout=60) as response:
+                      row['http_status'] = response.status
+                      raw = response.read(1048577)
+                  if len(raw) > 1048576:
+                      raise ValueError('RESPONSE_TOO_LARGE')
+                  validate_result(provider, model, json.loads(raw), row, (inp, out))
+              except urllib.error.HTTPError as exc:
+                  row.update(http_status=exc.code, reason='HTTP_ERROR_' + str(exc.code))
+                  hint = exc.headers.get('Retry-After', '') if exc.headers else ''
+                  if hint.isascii() and hint.isdigit() and len(hint) <= 8:
+                      row['retry_after_seconds'] = int(hint)
+              except (urllib.error.URLError, TimeoutError):
+                  row['reason'] = 'NETWORK_OR_TIMEOUT_COST_UNCERTAIN'
+              except ValueError as exc:
+                  allowed = {'TOKEN_RESERVATION_EXCEEDED', 'INCOMPLETE_OR_REFUSAL',
+                             'MODEL_ID_MISMATCH', 'PROVIDER_ROUTE_MISMATCH', 'USAGE_INVALID',
+                             'ACTION_SCHEMA_INVALID', 'ILLEGAL_ACTION', 'DUPLICATE_JSON_KEY', 'RESPONSE_TOO_LARGE'}
+                  row['reason'] = str(exc) if str(exc) in allowed else 'MALFORMED_RESPONSE'
+              except Exception:
+                  row['reason'] = 'RESPONSE_OR_PROBE_ERROR'
+              finally:
+                  signal.alarm(0)
+              row['finished_utc'] = datetime.now(timezone.utc).isoformat()
+              row['latency_ms'] = round((time.monotonic() - start) * 1000)
+              return row
+          
+          def preflight() -> dict[str, str]:
+              totals: dict[str, Decimal] = {}
+              if len(SPECS) != 2 or len({s[1] for s in SPECS}) != 2:
+                  raise ValueError('ROSTER_INVALID')
+              for provider, model, inp, out in SPECS:
+                  _, payload = request_spec(provider, model)
+                  if len(canonical(payload)) > 2048:
+                      raise ValueError('INPUT_BYTES_EXCEEDED')
+                  cost = (INPUT_RESERVE * Decimal(inp) + CAP * Decimal(out)) / 1000000
+                  totals[provider] = totals.get(provider, Decimal(0)) + cost
+              if any(cost > Decimal('.25') for cost in totals.values()):
+                  raise ValueError('SMOKE_BUDGET_EXCEEDED')
+              return {p: str(cost) for p, cost in totals.items()}
+          
+          def main() -> int:
+              totals = preflight()
+              # A rerun must be a new, reviewed test, not an accidental duplicate charge.
+              if os.environ.get('GITHUB_RUN_ATTEMPT', '1') != '1':
+                  print('HOLD: RERUN_REQUIRES_NEW_REVIEWED_WORKFLOW')
+                  return 1
+              rows = []
+              for spec in SPECS:
+                  if rows:
+                      time.sleep(30)
+                  row = probe(spec)
+                  rows.append(row)
+                  print('SMOKE_ROW=' + json.dumps(row, sort_keys=True), flush=True)
+                  if row['reason'] == 'TOKEN_RESERVATION_EXCEEDED':
+                      break
+              receipt = dict(utc=datetime.now(timezone.utc).isoformat(),
+                  commit=os.environ.get('GITHUB_SHA', ''), max_requests=2, retries=0, gap_seconds=30,
+                  scope='one_follow_suit_canary_per_model_not_playing_strength',
+                  reserved_usd_by_account=totals, output_token_cap=CAP,
+                  input_token_reserve=INPUT_RESERVE, prompt_sha256=hashlib.sha256(PROMPT.encode()).hexdigest(),
+                  schema_sha256=hashlib.sha256(canonical(SCHEMA)).hexdigest(), results=rows)
+              print('QWEN_RETEST_RECEIPT=' + json.dumps(receipt, sort_keys=True), flush=True)
+              lines = ['## Bounded inference smoke test', '', '| Model | Status | Reason |', '|---|---|---|']
+              lines += [f"| {r['model']} | {r['status']} | {r['reason']} |" for r in rows]
+              lines += ['', 'No retries or tools. 1,024 generated tokens maximum per request.',
+                        'Two requests maximum, 30-second completion-to-start gap. Reservations are conservative pricing estimates, not invoices.',
+                        'This canary does not establish gameplay quality or campaign readiness.']
+              with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as report:
+                  report.write('\n'.join(lines) + '\n')
+              return int(len(rows) != 2 or any(r['status'] != 'PASS' for r in rows))
+          
+          SPECS = [spec for spec in SPECS if spec[0] == 'openrouter']
+          
+          if __name__ == '__main__':
+              raise SystemExit(main())
+          PYCODE
