@@ -1,4 +1,4 @@
-name: Strict Whiz 100 Baseline
+name: Strict Whiz 100 Baseline Continuation
 on:
   push:
     branches: [main]
