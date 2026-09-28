@@ -1,0 +1,154 @@
+{
+  "schema_version": 1,
+  "roster_version": "2026-09-28.1",
+  "status": "identity_pinned_registry_verified_inference_pending",
+  "campaign_enabled": false,
+  "models": [
+    {
+      "cohort": "frontier",
+      "account": "openai",
+      "lab": "OpenAI",
+      "model": "gpt-6-astra",
+      "secret_env": "OPENAI_API_KEY",
+      "pin_kind": "published_model_id",
+      "standard_text_usd_per_million_tokens": {
+        "input": 10,
+        "output": 50
+      },
+      "inference_verified": false
+    },
+    {
+      "cohort": "mainstream",
+      "account": "openai",
+      "lab": "OpenAI",
+      "model": "gpt-6-sol",
+      "secret_env": "OPENAI_API_KEY",
+      "pin_kind": "published_model_id",
+      "standard_text_usd_per_million_tokens": {
+        "input": 2,
+        "output": 10
+      },
+      "inference_verified": false
+    },
+    {
+      "cohort": "frontier",
+      "account": "anthropic",
+      "lab": "Anthropic",
+      "model": "claude-fable-5-1",
+      "secret_env": "ANTHROPIC_API_KEY",
+      "pin_kind": "fixed_snapshot",
+      "standard_text_usd_per_million_tokens": {
+        "input": 10,
+        "output": 50
+      },
+      "inference_verified": false
+    },
+    {
+      "cohort": "mainstream",
+      "account": "anthropic",
+      "lab": "Anthropic",
+      "model": "claude-sonnet-5-5",
+      "secret_env": "ANTHROPIC_API_KEY",
+      "pin_kind": "fixed_snapshot",
+      "standard_text_usd_per_million_tokens": {
+        "input": 2,
+        "output": 10
+      },
+      "inference_verified": false
+    },
+    {
+      "cohort": "frontier",
+      "account": "gemini",
+      "lab": "Google",
+      "model": "gemini-3.8-flash",
+      "secret_env": "GEMINI_API_KEY",
+      "pin_kind": "stable_model_id",
+      "standard_text_usd_per_million_tokens": {
+        "input": 0.75,
+        "output": 3.75
+      },
+      "inference_verified": false
+    },
+    {
+      "cohort": "mainstream",
+      "account": "gemini",
+      "lab": "Google",
+      "model": "gemini-3.5-flash-lite",
+      "secret_env": "GEMINI_API_KEY",
+      "pin_kind": "stable_model_id",
+      "standard_text_usd_per_million_tokens": {
+        "input": 0.3,
+        "output": 2.5
+      },
+      "inference_verified": false
+    },
+    {
+      "cohort": "frontier",
+      "account": "openrouter",
+      "lab": "Qwen",
+      "model": "qwen/qwen3.8-2.4t-a95b",
+      "secret_env": "OPENROUTER_API_KEY",
+      "pin_kind": "catalog_model_and_provider",
+      "standard_text_usd_per_million_tokens": {
+        "input": 2,
+        "output": 6
+      },
+      "inference_verified": false,
+      "provider": {
+        "only": [
+          "alibaba"
+        ],
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "observed_canonical_slug": "qwen/qwen3.8-2.4t-a95b-20260812",
+      "weights_license": "qwen3.8-max",
+      "serving_quantization": "unknown"
+    },
+    {
+      "cohort": "mainstream",
+      "account": "openrouter",
+      "lab": "Qwen",
+      "model": "qwen/qwen3.8-flash",
+      "secret_env": "OPENROUTER_API_KEY",
+      "pin_kind": "catalog_model_and_provider",
+      "standard_text_usd_per_million_tokens": {
+        "input": 0.15,
+        "output": 0.47
+      },
+      "inference_verified": false,
+      "provider": {
+        "only": [
+          "alibaba"
+        ],
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "observed_canonical_slug": "qwen/qwen3.8-flash-20260826",
+      "weights_license": "qwen-community-1.0",
+      "serving_quantization": "unknown"
+    }
+  ],
+  "budget": {
+    "currency": "USD",
+    "per_account_ceiling": 10,
+    "aggregate_ceiling": 40,
+    "scope": "Both cohorts, smoke tests, retries, and games combined",
+    "runner_enforcement": "required_before_campaign"
+  },
+  "execution_profile": {
+    "status": "pending_bounded_inference_smoke_test",
+    "generation_parameters": null,
+    "rule": "Freeze reasoning effort, token caps, temperature policy, timeout, and retry policy before scored games; no silent substitution."
+  },
+  "verification": {
+    "receipt": "../evidence/model-pins-20260928.json",
+    "run_url": "https://github.com/CollaborativeMinD/Multi-agent-HMT-Experiment-/actions/runs/36492155237",
+    "scope": "Registry identity only. OpenRouter endpoint metadata is public. Paid generation remains untested."
+  },
+  "pricing": {
+    "checked_on": "2026-09-28",
+    "gemini_3_8_intro_price_valid_through": "2026-12-31",
+    "rule": "Refresh rates before campaign, account for reasoning tokens and cache charges; reserve worst-case request cost before dispatch."
+  }
+}
