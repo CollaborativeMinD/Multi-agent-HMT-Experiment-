@@ -1,0 +1,136 @@
+{
+  "commit": "77588b55dbfe64b7be5b3e4c57db8e38f2037bd3",
+  "max_requests": 8,
+  "results": [
+    {
+      "created": 1787853604,
+      "http_status": 200,
+      "model": "gpt-6-astra",
+      "provider": "openai",
+      "reason": "MODEL_METADATA_MATCH",
+      "returned_id": "gpt-6-astra",
+      "status": "PASS",
+      "version": null
+    },
+    {
+      "created": 1789405937,
+      "http_status": 200,
+      "model": "gpt-6-sol",
+      "provider": "openai",
+      "reason": "MODEL_METADATA_MATCH",
+      "returned_id": "gpt-6-sol",
+      "status": "PASS",
+      "version": null
+    },
+    {
+      "created": "2026-08-28T00:00:00Z",
+      "http_status": 200,
+      "model": "claude-fable-5-1",
+      "provider": "anthropic",
+      "reason": "MODEL_METADATA_MATCH",
+      "returned_id": "claude-fable-5-1",
+      "status": "PASS",
+      "version": null
+    },
+    {
+      "created": "2026-09-28T00:00:00Z",
+      "http_status": 200,
+      "model": "claude-sonnet-5-5",
+      "provider": "anthropic",
+      "reason": "MODEL_METADATA_MATCH",
+      "returned_id": "claude-sonnet-5-5",
+      "status": "PASS",
+      "version": null
+    },
+    {
+      "created": null,
+      "http_status": 200,
+      "model": "gemini-3.8-flash",
+      "provider": "gemini",
+      "reason": "MODEL_METADATA_MATCH",
+      "returned_id": "models/gemini-3.8-flash",
+      "status": "PASS",
+      "version": "3.0"
+    },
+    {
+      "created": null,
+      "http_status": 200,
+      "model": "gemini-3.5-flash-lite",
+      "provider": "gemini",
+      "reason": "MODEL_METADATA_MATCH",
+      "returned_id": "models/gemini-3.5-flash-lite",
+      "status": "PASS",
+      "version": "3.5-flash-lite-07-2026"
+    },
+    {
+      "http_status": 200,
+      "model": "qwen/qwen3.8-2.4t-a95b",
+      "pricing": {
+        "completion": "0.000006",
+        "prompt": "0.000002"
+      },
+      "provider": "openrouter",
+      "quantization": "unknown",
+      "reason": "MODEL_METADATA_MATCH",
+      "returned_id": "qwen/qwen3.8-2.4t-a95b",
+      "route": "alibaba",
+      "route_name": "Alibaba | qwen/qwen3.8-2.4t-a95b-20260812",
+      "status": "PASS",
+      "supported_parameters": [
+        "reasoning",
+        "include_reasoning",
+        "max_tokens",
+        "temperature",
+        "top_p",
+        "seed",
+        "presence_penalty",
+        "response_format",
+        "top_k",
+        "frequency_penalty",
+        "stop",
+        "tools",
+        "tool_choice",
+        "logprobs",
+        "top_logprobs",
+        "structured_outputs",
+        "reasoning_effort"
+      ]
+    },
+    {
+      "http_status": 200,
+      "model": "qwen/qwen3.8-flash",
+      "pricing": {
+        "completion": "0.00000047",
+        "prompt": "0.00000015"
+      },
+      "provider": "openrouter",
+      "quantization": "unknown",
+      "reason": "MODEL_METADATA_MATCH",
+      "returned_id": "qwen/qwen3.8-flash",
+      "route": "alibaba",
+      "route_name": "Alibaba | qwen/qwen3.8-flash-20260826",
+      "status": "PASS",
+      "supported_parameters": [
+        "reasoning",
+        "include_reasoning",
+        "max_tokens",
+        "temperature",
+        "top_p",
+        "seed",
+        "presence_penalty",
+        "response_format",
+        "tools",
+        "structured_outputs",
+        "top_k",
+        "frequency_penalty",
+        "stop",
+        "logprobs",
+        "top_logprobs",
+        "tool_choice"
+      ]
+    }
+  ],
+  "retries": 0,
+  "scope": "model_registry_only_no_inference",
+  "utc": "2026-09-28T22:24:12.160821+00:00"
+}
