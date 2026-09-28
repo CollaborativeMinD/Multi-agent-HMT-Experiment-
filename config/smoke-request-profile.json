@@ -1,0 +1,401 @@
+{
+  "scope": "smoke_only_not_scored_play",
+  "requests": [
+    {
+      "provider": "openai",
+      "model": "gpt-6-astra",
+      "endpoint": "https://api.openai.com/v1/responses",
+      "body": {
+        "model": "gpt-6-astra",
+        "input": [
+          {
+            "role": "user",
+            "content": "Spades follow-suit canary. Hearts were led. Your remaining hand is [\"2H\", \"AS\"]. You must follow the led suit when able. Return only a JSON play action with action and card fields. No explanation."
+          }
+        ],
+        "max_output_tokens": 1024,
+        "reasoning": {
+          "effort": "low"
+        },
+        "store": false,
+        "text": {
+          "format": {
+            "type": "json_schema",
+            "name": "play_action",
+            "strict": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "action": {
+                  "type": "string",
+                  "enum": [
+                    "play"
+                  ]
+                },
+                "card": {
+                  "type": "string",
+                  "enum": [
+                    "2H",
+                    "AS"
+                  ]
+                }
+              },
+              "required": [
+                "action",
+                "card"
+              ],
+              "additionalProperties": false
+            }
+          }
+        }
+      }
+    },
+    {
+      "provider": "openai",
+      "model": "gpt-6-sol",
+      "endpoint": "https://api.openai.com/v1/responses",
+      "body": {
+        "model": "gpt-6-sol",
+        "input": [
+          {
+            "role": "user",
+            "content": "Spades follow-suit canary. Hearts were led. Your remaining hand is [\"2H\", \"AS\"]. You must follow the led suit when able. Return only a JSON play action with action and card fields. No explanation."
+          }
+        ],
+        "max_output_tokens": 1024,
+        "reasoning": {
+          "effort": "low"
+        },
+        "store": false,
+        "text": {
+          "format": {
+            "type": "json_schema",
+            "name": "play_action",
+            "strict": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "action": {
+                  "type": "string",
+                  "enum": [
+                    "play"
+                  ]
+                },
+                "card": {
+                  "type": "string",
+                  "enum": [
+                    "2H",
+                    "AS"
+                  ]
+                }
+              },
+              "required": [
+                "action",
+                "card"
+              ],
+              "additionalProperties": false
+            }
+          }
+        }
+      }
+    },
+    {
+      "provider": "anthropic",
+      "model": "claude-fable-5-1",
+      "endpoint": "https://api.anthropic.com/v1/messages",
+      "body": {
+        "model": "claude-fable-5-1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Spades follow-suit canary. Hearts were led. Your remaining hand is [\"2H\", \"AS\"]. You must follow the led suit when able. Return only a JSON play action with action and card fields. No explanation."
+          }
+        ],
+        "max_tokens": 1024,
+        "thinking": {
+          "type": "adaptive"
+        },
+        "output_config": {
+          "effort": "low",
+          "format": {
+            "type": "json_schema",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "action": {
+                  "type": "string",
+                  "enum": [
+                    "play"
+                  ]
+                },
+                "card": {
+                  "type": "string",
+                  "enum": [
+                    "2H",
+                    "AS"
+                  ]
+                }
+              },
+              "required": [
+                "action",
+                "card"
+              ],
+              "additionalProperties": false
+            }
+          }
+        }
+      }
+    },
+    {
+      "provider": "anthropic",
+      "model": "claude-sonnet-5-5",
+      "endpoint": "https://api.anthropic.com/v1/messages",
+      "body": {
+        "model": "claude-sonnet-5-5",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Spades follow-suit canary. Hearts were led. Your remaining hand is [\"2H\", \"AS\"]. You must follow the led suit when able. Return only a JSON play action with action and card fields. No explanation."
+          }
+        ],
+        "max_tokens": 1024,
+        "thinking": {
+          "type": "adaptive"
+        },
+        "output_config": {
+          "effort": "low",
+          "format": {
+            "type": "json_schema",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "action": {
+                  "type": "string",
+                  "enum": [
+                    "play"
+                  ]
+                },
+                "card": {
+                  "type": "string",
+                  "enum": [
+                    "2H",
+                    "AS"
+                  ]
+                }
+              },
+              "required": [
+                "action",
+                "card"
+              ],
+              "additionalProperties": false
+            }
+          }
+        }
+      }
+    },
+    {
+      "provider": "gemini",
+      "model": "gemini-3.8-flash",
+      "endpoint": "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent",
+      "body": {
+        "contents": [
+          {
+            "role": "user",
+            "parts": [
+              {
+                "text": "Spades follow-suit canary. Hearts were led. Your remaining hand is [\"2H\", \"AS\"]. You must follow the led suit when able. Return only a JSON play action with action and card fields. No explanation."
+              }
+            ]
+          }
+        ],
+        "generationConfig": {
+          "maxOutputTokens": 1024,
+          "thinkingConfig": {
+            "thinkingLevel": "low"
+          },
+          "responseMimeType": "application/json",
+          "responseJsonSchema": {
+            "type": "object",
+            "properties": {
+              "action": {
+                "type": "string",
+                "enum": [
+                  "play"
+                ]
+              },
+              "card": {
+                "type": "string",
+                "enum": [
+                  "2H",
+                  "AS"
+                ]
+              }
+            },
+            "required": [
+              "action",
+              "card"
+            ],
+            "additionalProperties": false
+          }
+        }
+      }
+    },
+    {
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "endpoint": "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent",
+      "body": {
+        "contents": [
+          {
+            "role": "user",
+            "parts": [
+              {
+                "text": "Spades follow-suit canary. Hearts were led. Your remaining hand is [\"2H\", \"AS\"]. You must follow the led suit when able. Return only a JSON play action with action and card fields. No explanation."
+              }
+            ]
+          }
+        ],
+        "generationConfig": {
+          "maxOutputTokens": 1024,
+          "thinkingConfig": {
+            "thinkingLevel": "low"
+          },
+          "responseMimeType": "application/json",
+          "responseJsonSchema": {
+            "type": "object",
+            "properties": {
+              "action": {
+                "type": "string",
+                "enum": [
+                  "play"
+                ]
+              },
+              "card": {
+                "type": "string",
+                "enum": [
+                  "2H",
+                  "AS"
+                ]
+              }
+            },
+            "required": [
+              "action",
+              "card"
+            ],
+            "additionalProperties": false
+          }
+        }
+      }
+    },
+    {
+      "provider": "openrouter",
+      "model": "qwen/qwen3.8-2.4t-a95b",
+      "endpoint": "https://openrouter.ai/api/v1/chat/completions",
+      "body": {
+        "model": "qwen/qwen3.8-2.4t-a95b",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Spades follow-suit canary. Hearts were led. Your remaining hand is [\"2H\", \"AS\"]. You must follow the led suit when able. Return only a JSON play action with action and card fields. No explanation."
+          }
+        ],
+        "max_tokens": 1024,
+        "reasoning": {
+          "effort": "low"
+        },
+        "provider": {
+          "only": [
+            "alibaba"
+          ],
+          "allow_fallbacks": false,
+          "require_parameters": true
+        },
+        "response_format": {
+          "type": "json_schema",
+          "json_schema": {
+            "name": "play_action",
+            "strict": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "action": {
+                  "type": "string",
+                  "enum": [
+                    "play"
+                  ]
+                },
+                "card": {
+                  "type": "string",
+                  "enum": [
+                    "2H",
+                    "AS"
+                  ]
+                }
+              },
+              "required": [
+                "action",
+                "card"
+              ],
+              "additionalProperties": false
+            }
+          }
+        }
+      }
+    },
+    {
+      "provider": "openrouter",
+      "model": "qwen/qwen3.8-flash",
+      "endpoint": "https://openrouter.ai/api/v1/chat/completions",
+      "body": {
+        "model": "qwen/qwen3.8-flash",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Spades follow-suit canary. Hearts were led. Your remaining hand is [\"2H\", \"AS\"]. You must follow the led suit when able. Return only a JSON play action with action and card fields. No explanation."
+          }
+        ],
+        "max_tokens": 1024,
+        "reasoning": {
+          "max_tokens": 512
+        },
+        "provider": {
+          "only": [
+            "alibaba"
+          ],
+          "allow_fallbacks": false,
+          "require_parameters": true
+        },
+        "response_format": {
+          "type": "json_schema",
+          "json_schema": {
+            "name": "play_action",
+            "strict": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "action": {
+                  "type": "string",
+                  "enum": [
+                    "play"
+                  ]
+                },
+                "card": {
+                  "type": "string",
+                  "enum": [
+                    "2H",
+                    "AS"
+                  ]
+                }
+              },
+              "required": [
+                "action",
+                "card"
+              ],
+              "additionalProperties": false
+            }
+          }
+        }
+      }
+    }
+  ]
+}
