@@ -1,0 +1,62 @@
+name: API Credential Preflight
+
+on:
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  check-credentials:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+
+    steps:
+      - name: Verify experiment secrets are available
+        shell: bash
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: |
+          python3 - <<'PY'
+          import os
+          import sys
+
+          names = (
+              "OPENAI_API_KEY",
+              "ANTHROPIC_API_KEY",
+              "GEMINI_API_KEY",
+              "OPENROUTER_API_KEY",
+          )
+          placeholders = set(names) | {
+              "OPEN_API_KEY",
+              "YOUR_API_KEY",
+              "REPLACE_ME",
+          }
+          failed = []
+
+          for name in names:
+              value = os.environ.get(name, "").strip()
+              if not value or value.upper() in placeholders:
+                  print(f"::error::{name} is missing or contains a placeholder.")
+                  failed.append(name)
+              else:
+                  print(f"PASS: {name} is present. Value withheld.")
+
+          summary = [
+              "## Credential preflight",
+              "",
+              f"Result: {'FAIL' if failed else 'PASS'}",
+              f"Credentials present: {len(names) - len(failed)}/{len(names)}",
+              "",
+              "No secret values were printed or saved.",
+              "No provider API requests were made.",
+              "Authentication, model access, and billing remain untested.",
+          ]
+
+          with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as report:
+              report.write("\n".join(summary) + "\n")
+
+          sys.exit(1 if failed else 0)
+          PY
