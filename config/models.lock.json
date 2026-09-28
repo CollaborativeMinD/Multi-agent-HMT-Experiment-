@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "roster_version": "2026-09-28.1",
-  "status": "identity_pinned_registry_verified_inference_pending",
+  "status": "smoke_7_pass_1_hold",
   "campaign_enabled": false,
   "models": [
     {
@@ -15,7 +15,10 @@
         "input": 10,
         "output": 50
       },
-      "inference_verified": false
+      "inference_verified": true,
+      "smoke_status": "PASS",
+      "smoke_reason": "INFERENCE_SCHEMA_LEGALITY_USAGE_PASS",
+      "verification_scope": "single economical follow-suit canary only"
     },
     {
       "cohort": "mainstream",
@@ -28,7 +31,10 @@
         "input": 2,
         "output": 10
       },
-      "inference_verified": false
+      "inference_verified": true,
+      "smoke_status": "PASS",
+      "smoke_reason": "INFERENCE_SCHEMA_LEGALITY_USAGE_PASS",
+      "verification_scope": "single economical follow-suit canary only"
     },
     {
       "cohort": "frontier",
@@ -41,7 +47,10 @@
         "input": 10,
         "output": 50
       },
-      "inference_verified": false
+      "inference_verified": true,
+      "smoke_status": "PASS",
+      "smoke_reason": "INFERENCE_SCHEMA_LEGALITY_USAGE_PASS",
+      "verification_scope": "single economical follow-suit canary only"
     },
     {
       "cohort": "mainstream",
@@ -54,7 +63,10 @@
         "input": 2,
         "output": 10
       },
-      "inference_verified": false
+      "inference_verified": true,
+      "smoke_status": "PASS",
+      "smoke_reason": "INFERENCE_SCHEMA_LEGALITY_USAGE_PASS",
+      "verification_scope": "single economical follow-suit canary only"
     },
     {
       "cohort": "frontier",
@@ -67,7 +79,10 @@
         "input": 0.75,
         "output": 3.75
       },
-      "inference_verified": false
+      "inference_verified": true,
+      "smoke_status": "PASS",
+      "smoke_reason": "INFERENCE_SCHEMA_LEGALITY_USAGE_PASS",
+      "verification_scope": "single economical follow-suit canary only"
     },
     {
       "cohort": "mainstream",
@@ -80,7 +95,10 @@
         "input": 0.3,
         "output": 2.5
       },
-      "inference_verified": false
+      "inference_verified": true,
+      "smoke_status": "PASS",
+      "smoke_reason": "INFERENCE_SCHEMA_LEGALITY_USAGE_PASS",
+      "verification_scope": "single economical follow-suit canary only"
     },
     {
       "cohort": "frontier",
@@ -93,7 +111,7 @@
         "input": 2,
         "output": 6
       },
-      "inference_verified": false,
+      "inference_verified": true,
       "provider": {
         "only": [
           "alibaba"
@@ -103,7 +121,10 @@
       },
       "observed_canonical_slug": "qwen/qwen3.8-2.4t-a95b-20260812",
       "weights_license": "qwen3.8-max",
-      "serving_quantization": "unknown"
+      "serving_quantization": "unknown",
+      "smoke_status": "PASS",
+      "smoke_reason": "INFERENCE_SCHEMA_LEGALITY_USAGE_PASS",
+      "verification_scope": "single economical follow-suit canary only"
     },
     {
       "cohort": "mainstream",
@@ -126,7 +147,10 @@
       },
       "observed_canonical_slug": "qwen/qwen3.8-flash-20260826",
       "weights_license": "qwen-community-1.0",
-      "serving_quantization": "unknown"
+      "serving_quantization": "unknown",
+      "smoke_status": "HOLD",
+      "smoke_reason": "HTTP_ERROR_429",
+      "verification_scope": "single economical follow-suit canary only"
     }
   ],
   "budget": {
@@ -134,10 +158,12 @@
     "per_account_ceiling": 10,
     "aggregate_ceiling": 40,
     "scope": "Both cohorts, smoke tests, retries, and games combined",
-    "runner_enforcement": "required_before_campaign"
+    "runner_enforcement": "required_before_campaign",
+    "smoke_estimated_success_cost_usd": "0.00805185",
+    "smoke_unresolved_reserved_usd": "0.00171008"
   },
   "execution_profile": {
-    "status": "pending_bounded_inference_smoke_test",
+    "status": "scored_play_settings_pending",
     "generation_parameters": null,
     "rule": "Freeze reasoning effort, token caps, temperature policy, timeout, and retry policy before scored games; no silent substitution."
   },
@@ -150,5 +176,12 @@
     "checked_on": "2026-09-28",
     "gemini_3_8_intro_price_valid_through": "2026-12-31",
     "rule": "Refresh rates before campaign, account for reasoning tokens and cache charges; reserve worst-case request cost before dispatch."
+  },
+  "smoke_verification": {
+    "receipt": "../evidence/inference-smoke-20260928.json",
+    "run_url": "https://github.com/CollaborativeMinD/Multi-agent-HMT-Experiment-/actions/runs/36493005982",
+    "profile": "../config/smoke-request-profile.json",
+    "passed": 7,
+    "held": 1
   }
 }
