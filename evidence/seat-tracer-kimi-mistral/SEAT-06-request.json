@@ -1,0 +1,48 @@
+{
+  "model": "mistralai/mistral-medium-3-5",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Return exactly the JSON object {\"choice\":1}."
+    }
+  ],
+  "max_tokens": 8192,
+  "reasoning": {
+    "effort": "high"
+  },
+  "provider": {
+    "only": [
+      "mistral"
+    ],
+    "allow_fallbacks": false,
+    "require_parameters": true
+  },
+  "response_format": {
+    "type": "json_schema",
+    "json_schema": {
+      "name": "play_action",
+      "strict": true,
+      "schema": {
+        "type": "object",
+        "properties": {
+          "choice": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2
+            ]
+          }
+        },
+        "required": [
+          "choice"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "stream": true,
+  "debug": {
+    "echo_upstream_body": true
+  }
+}

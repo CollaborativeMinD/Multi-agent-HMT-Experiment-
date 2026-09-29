@@ -322,5 +322,58 @@
     "stream_sha256": "f4664ef497c927c042a5dc9b1c0034196cbfb6516e259cfa487949f6db57795c",
     "latency_ms": 4984,
     "completed_utc": "2026-09-29T22:11:30.335073+00:00"
+  },
+  {
+    "id": "SEAT-06",
+    "model": "mistralai/mistral-medium-3-5",
+    "case": "canary",
+    "case_id": "CANARY",
+    "provider_pin": "mistral",
+    "expected_provider": "Mistral",
+    "reasoning": {
+      "effort": "high"
+    },
+    "started_utc": "2026-09-29T22:12:01.516886+00:00",
+    "output_cap": 8192,
+    "input_reserve": 2584,
+    "input_price": "0.0000015",
+    "output_price": "0.0000075",
+    "reserved_usd": "0.2496360",
+    "accounted_usd": "0.0008520",
+    "request_sha256": "d3b4fa7d258b37d654b50f914ce71f0f194e021c13773d6c6b6d4cd49ff09cfd",
+    "status": "HOLD",
+    "http_status": 200,
+    "input_tokens": 13,
+    "total_output_tokens": 111,
+    "reasoning_tokens": 117,
+    "returned_model": "mistralai/mistral-medium-3-5",
+    "returned_provider": "Mistral",
+    "estimated_cost_usd": "0.0008520",
+    "provider_reported_cost_usd": 0.000852,
+    "reason": "USAGE_PARTITION_INVALID",
+    "generation_id": "gen-1790719921-gobPN9oHiZPa32HyYuHU",
+    "upstream": [
+      {
+        "model": "mistral-medium-3-5",
+        "stream": true,
+        "max_tokens": 8192,
+        "reasoning_effort": "high",
+        "field_names": [
+          "max_tokens",
+          "messages",
+          "model",
+          "prompt_cache_key",
+          "reasoning_effort",
+          "response_format",
+          "safe_prompt",
+          "stream"
+        ],
+        "messages_sha256": "a75556d3e3f6eed845c9d5986bfb3c47147d147de23ace45bc1c4df1440d8ec9",
+        "response_format_sha256": "9d8e71634fe08b558649eec74adcbaed352756c8de710e5e68f2b87fa44a5f71"
+      }
+    ],
+    "stream_sha256": "378e30a91383bdb7b2067503343124e6371362bef0f70292568d0ac50973b8f4",
+    "latency_ms": 1049,
+    "completed_utc": "2026-09-29T22:12:02.566126+00:00"
   }
 ]
