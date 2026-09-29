@@ -1,10 +1,10 @@
 # Runbook
 
-## Current pilot status: HOLD after the 8,192-token test
+## Current pilot status: authorized 240-second continuation
 
 Read [the latest result](evidence/whiz8192-results-20260929.md) and [cumulative gates](evidence/whiz8192-gates.sql). Run 36504424064 stopped at frontier action 100 when Qwen reached the unchanged 120-second deadline. There was no retry. Mainstream has not started; neither game is complete. Known estimated cost is $1.60005550, plus a retained $0.06768 timeout reservation. No inference is running.
 
-The user explicitly authorized this limited scored pilot and directed reevaluation on the next issue. Broader unrestricted campaigns remain disabled. Preserve the 100-action checkpoint; do not restart or silently replace a player. The proposed 240-second deadline test has not been executed.
+The user explicitly authorized this limited scored pilot and directed reevaluation on the next issue. Broader unrestricted campaigns remain disabled. Preserve the 100-action checkpoint; do not restart or silently replace a player. The user has now authorized a 240-second total deadline and 230-second socket timeout, keeping 8,192 tokens. The new single-use whiz240-continuation workflow resumes 100 actions and carries $1.66773550 including the prior timeout reservation. Stop at the first new issue; no retries.
 
 ### Verify the current game evidence offline
 
@@ -15,7 +15,7 @@ The user explicitly authorized this limited scored pilot and directed reevaluati
 5. Run runner gates: `PYTHONPATH=scripts:baseline python -m unittest discover -s baseline -p test_runner.py -v`.
 6. After extracting the run artifact, verify the new checkpoint with `python baseline/analyze.py PATH_TO_EVIDENCE`, then render with `python baseline/build_replay.py PATH_TO_EVIDENCE`.
 
-These commands require no model keys. The checked-in resume8192 package is the 92-action starting checkpoint; the new 100-action terminal checkpoint is in the run's evidence artifact and delivered evidence bundle. Never confuse them.
+These commands require no model keys. The active prepare_checkpoint.py materializes resume240: the verified 100-action starting checkpoint. Earlier checkpoint packages remain historical evidence.
 
 ## Scope
 
