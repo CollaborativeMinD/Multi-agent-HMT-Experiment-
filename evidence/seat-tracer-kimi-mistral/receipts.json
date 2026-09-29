@@ -261,5 +261,66 @@
     "stream_sha256": "bc8de10d57d7c26c66c90794902fc00c1adc35c0ba98aff87ad791c0be0e5a25",
     "latency_ms": 8227,
     "completed_utc": "2026-09-29T22:10:54.099472+00:00"
+  },
+  {
+    "id": "SEAT-05",
+    "model": "moonshotai/kimi-k3",
+    "case": "pressure",
+    "case_id": "PRESSURE",
+    "provider_pin": "moonshotai/mxfp4",
+    "expected_provider": "Moonshot AI",
+    "reasoning": {
+      "effort": "low"
+    },
+    "started_utc": "2026-09-29T22:11:25.350056+00:00",
+    "output_cap": 64,
+    "input_reserve": 2675,
+    "input_price": "0.000003",
+    "output_price": "0.000015",
+    "reserved_usd": "0.377625",
+    "accounted_usd": "0.001623",
+    "request_sha256": "108c4d913b16bc2b2e2daa5009bc8a360f2c943fa93e0d0ca456b341642dee06",
+    "status": "PASS",
+    "http_status": 200,
+    "input_tokens": 221,
+    "total_output_tokens": 64,
+    "reasoning_tokens": 61,
+    "returned_model": "moonshotai/kimi-k3",
+    "returned_provider": "Moonshot AI",
+    "estimated_cost_usd": "0.001623",
+    "provider_reported_cost_usd": 0.001623,
+    "finish_reason": "length",
+    "result": "EXPECTED_BOUNDED_TRUNCATION",
+    "generation_id": "gen-1790719885-VmPKmEM5gjRn0s7Iuzlv",
+    "upstream": [
+      {
+        "model": "kimi-k3",
+        "stream": true,
+        "max_completion_tokens": 64,
+        "reasoning_effort": "low",
+        "thinking": {
+          "type": "enabled",
+          "field_names": [
+            "type"
+          ]
+        },
+        "field_names": [
+          "max_completion_tokens",
+          "messages",
+          "model",
+          "prompt_cache_key",
+          "reasoning_effort",
+          "response_format",
+          "stream",
+          "stream_options",
+          "thinking"
+        ],
+        "messages_sha256": "5ad8bba187c353a16236b9af28365868e5d6fc1570c471ea3045530a87441940",
+        "response_format_sha256": "9d8e71634fe08b558649eec74adcbaed352756c8de710e5e68f2b87fa44a5f71"
+      }
+    ],
+    "stream_sha256": "f4664ef497c927c042a5dc9b1c0034196cbfb6516e259cfa487949f6db57795c",
+    "latency_ms": 4984,
+    "completed_utc": "2026-09-29T22:11:30.335073+00:00"
   }
 ]
