@@ -1,0 +1,101 @@
+{
+  "target": 100,
+  "seed": 707,
+  "max_hands": 6,
+  "models": [
+    {
+      "cohort": "frontier",
+      "account": "openai",
+      "lab": "OpenAI",
+      "model": "gpt-6-astra",
+      "secret_env": "OPENAI_API_KEY",
+      "pin_kind": "published_model_id",
+      "standard_text_usd_per_million_tokens": {
+        "input": 10,
+        "output": 50
+      },
+      "inference_verified": true,
+      "smoke_status": "PASS",
+      "smoke_reason": "INFERENCE_SCHEMA_LEGALITY_USAGE_PASS",
+      "verification_scope": "single economical follow-suit canary only"
+    },
+    {
+      "cohort": "frontier",
+      "account": "anthropic",
+      "lab": "Anthropic",
+      "model": "claude-fable-5-1",
+      "secret_env": "ANTHROPIC_API_KEY",
+      "pin_kind": "fixed_snapshot",
+      "standard_text_usd_per_million_tokens": {
+        "input": 10,
+        "output": 50
+      },
+      "inference_verified": true,
+      "smoke_status": "PASS",
+      "smoke_reason": "INFERENCE_SCHEMA_LEGALITY_USAGE_PASS",
+      "verification_scope": "single economical follow-suit canary only"
+    },
+    {
+      "cohort": "frontier",
+      "account": "gemini",
+      "lab": "Google",
+      "model": "gemini-3.8-flash",
+      "secret_env": "GEMINI_API_KEY",
+      "pin_kind": "stable_model_id",
+      "standard_text_usd_per_million_tokens": {
+        "input": 0.75,
+        "output": 3.75
+      },
+      "inference_verified": true,
+      "smoke_status": "PASS",
+      "smoke_reason": "INFERENCE_SCHEMA_LEGALITY_USAGE_PASS",
+      "verification_scope": "single economical follow-suit canary only"
+    },
+    {
+      "cohort": "frontier",
+      "account": "openrouter",
+      "lab": "Qwen",
+      "model": "deepseek/deepseek-v4.1-flash",
+      "secret_env": "OPENROUTER_API_KEY",
+      "pin_kind": "catalog_model_and_provider",
+      "standard_text_usd_per_million_tokens": {
+        "input": "0.0649000000",
+        "output": "0.7000000"
+      },
+      "inference_verified": true,
+      "provider": {
+        "only": [
+          "wafer"
+        ],
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "observed_canonical_slug": "qwen/qwen3.8-2.4t-a95b-20260812",
+      "weights_license": "qwen3.8-max",
+      "serving_quantization": "unknown",
+      "smoke_status": "PASS",
+      "smoke_reason": "INFERENCE_SCHEMA_LEGALITY_USAGE_PASS",
+      "verification_scope": "single economical follow-suit canary only",
+      "latest_evidence": "../evidence/qwen-retest-20260928.json",
+      "native_prices": {
+        "prompt": "0.0000000649",
+        "completion": "0.0000007",
+        "input_cache_read": "0.000000045",
+        "discount": 0
+      }
+    }
+  ],
+  "reasoning_flash": {
+    "enabled": false
+  },
+  "output_cap": 8192,
+  "deadline_seconds": 240,
+  "opening_accounting_usd": {
+    "openai": "1.400164",
+    "anthropic": "3.082180",
+    "gemini": "0.56851520",
+    "openrouter": "1.1097821190"
+  },
+  "user_authorized_gameplay_despite_metadata_hold": true,
+  "free_play": false
+}

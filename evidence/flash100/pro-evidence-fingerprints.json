@@ -1,0 +1,11 @@
+{
+  "evidence/pro100/inflight.json": "c13215edef90dfb47d73988472655360c19362b1ce20fa8bc89ad45051e89bc8",
+  "evidence/pro100/plan.json": "370d05d61dc20b82db76b9034827890918bc299e7590c8a8e03897fb9e550314",
+  "evidence/pro100/gates.sqlite": "6a212016d53871cde5288e8397da7d479fc6be0963cd012132135a0d4a325e40",
+  "evidence/pro100/deepseek-v4-pro-0813-endpoint.json": "93a78843bb083c637197124b54efa80228ec3372422742cc69b2508d7d3a22be",
+  "evidence/pro100/summary.json": "4fe7a242ce9c7ac81c8288db4ae21a278770540e8a4e7123c0280252082aff21",
+  "evidence/pro100/gates.sql": "58e63d29db57485d77b9a008ce136383c34d16879448e1d6d122d17434bc4780",
+  "evidence/pro100/frontier-pro/calls.jsonl": "b8d4eaea9ac909b4c7694dcce49c59e863b9bf9bc8533c4f234fa8de8f23f5f2",
+  "evidence/pro100/frontier-pro/Whiz_100_Baseline_Replay.html": "f3aae5b707fd647684fc0016320ba660092fb6264c381df2cfb1b63a8b393b8a",
+  "evidence/pro100/frontier-pro/frontier.jsonl": "360692d81987a2d4862e323da16d5310a94422c42e39007c6570946b1eb52a6d"
+}
