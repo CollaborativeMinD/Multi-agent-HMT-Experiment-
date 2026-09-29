@@ -1,5 +1,5 @@
 {
-  "status": "IN_PROGRESS",
+  "status": "HOLD",
   "plan_sha256": "02143e8b495219e56ada30e030ab11254484b1fcef6c0df85e30c4a29cd7fdaf",
   "games": [
     {
@@ -7,17 +7,17 @@
       "cohort": "frontier",
       "number": 1,
       "seed": 101,
-      "status": "IN_PROGRESS",
+      "status": "HOLD",
       "hands": 1,
-      "actions": 56,
+      "actions": 102,
       "scores": [
         142,
         -84
       ],
       "winners": [],
-      "final_hash": "f84177587bc3e6cc01fab34ba7cb165681cbbc3ba0b549ac0260348dc08f324f",
+      "final_hash": "c56589adfbeb3abba88924ba2096b88b30f48ea4eadfcdf6f8df2a42bc8fc84f",
       "replay_verified": true,
-      "reason": null
+      "reason": "MODEL_HOLD:qwen/qwen3.8-2.4t-a95b"
     },
     {
       "id": "mainstream-g01",
@@ -37,14 +37,14 @@
       "reason": null
     }
   ],
-  "next_cohort": "frontier",
+  "next_cohort": "mainstream",
   "source_commit": "56f5cd21d9632113f2863753a1deca4099195d70",
   "run_id": "36512137292",
   "accounting_usd": {
-    "openai": "0.804794",
-    "anthropic": "1.727160",
-    "gemini": "0.30490370",
-    "openrouter": "0.53998661"
+    "openai": "0.953194",
+    "anthropic": "2.154230",
+    "gemini": "0.38181395",
+    "openrouter": "0.69183661"
   },
   "series_wins": {
     "frontier": [
@@ -56,7 +56,7 @@
       0
     ]
   },
-  "updated_utc": "2026-09-29T02:29:14.522459+00:00",
+  "updated_utc": "2026-09-29T02:43:28.592596+00:00",
   "recovery_attempted": true,
   "recovery_source_run": 36510344003,
   "recovery_commit": "4cfdbe7e6098108eea57c4cf2d885b5176e0c388"
