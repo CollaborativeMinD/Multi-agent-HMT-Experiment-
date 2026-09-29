@@ -1,0 +1,147 @@
+{
+  "game": {
+    "id": "frontier-pro",
+    "cohort": "frontier",
+    "seed": 707,
+    "status": "IN_PROGRESS",
+    "hands": 1,
+    "actions": 56,
+    "scores": [
+      71,
+      -138
+    ],
+    "winners": [],
+    "final_hash": "bb788030ca4c6e98c08e5e3168aff5990d7e12d2c4c6c8efb1743900fdd2b6d2",
+    "replay_verified": true,
+    "reason": null
+  },
+  "verification": {
+    "replay": "PASS",
+    "private_projections": "PASS",
+    "all_frame_hashes": "PASS",
+    "actions": 56,
+    "final_hash": "bb788030ca4c6e98c08e5e3168aff5990d7e12d2c4c6c8efb1743900fdd2b6d2"
+  },
+  "hands": [
+    {
+      "hand": 1,
+      "bids": [
+        5,
+        4,
+        2,
+        0
+      ],
+      "tricks": [
+        4,
+        3,
+        4,
+        2
+      ],
+      "nil_results": [
+        null,
+        null,
+        null,
+        "failed"
+      ],
+      "teams": [
+        {
+          "contract": 7,
+          "contract_tricks": 8,
+          "made": true,
+          "nil_points": 0,
+          "bags_earned": 1,
+          "bag_penalty": 0,
+          "bags": 1,
+          "score": 71
+        },
+        {
+          "contract": 4,
+          "contract_tricks": 3,
+          "made": false,
+          "nil_points": -100,
+          "bags_earned": 2,
+          "bag_penalty": 0,
+          "bags": 2,
+          "score": -138
+        }
+      ]
+    }
+  ],
+  "metrics": [
+    {
+      "model": "claude-fable-5-1",
+      "attempts": 11,
+      "accepted": 11,
+      "diagnostic_attempts": 0,
+      "holds": 0,
+      "http_429": 0,
+      "latency_median_ms": 8728,
+      "latency_max_ms": 27074,
+      "cooldown_seconds": 0,
+      "input_tokens": 27589,
+      "output_tokens": 5386,
+      "known_estimated_cost_usd": "0.54519",
+      "unknown_usage_reserve_usd": "0"
+    },
+    {
+      "model": "gemini-3.8-flash",
+      "attempts": 12,
+      "accepted": 12,
+      "diagnostic_attempts": 0,
+      "holds": 0,
+      "http_429": 0,
+      "latency_median_ms": 7270.5,
+      "latency_max_ms": 20518,
+      "cooldown_seconds": 0,
+      "input_tokens": 16807,
+      "output_tokens": 20082,
+      "known_estimated_cost_usd": "0.08791275",
+      "unknown_usage_reserve_usd": "0"
+    },
+    {
+      "model": "deepseek/deepseek-v4-pro-0813",
+      "attempts": 12,
+      "accepted": 12,
+      "diagnostic_attempts": 0,
+      "holds": 0,
+      "http_429": 0,
+      "latency_median_ms": 830.5,
+      "latency_max_ms": 6451,
+      "cooldown_seconds": 108.715,
+      "input_tokens": 16960,
+      "output_tokens": 84,
+      "known_estimated_cost_usd": "0.0069787920",
+      "unknown_usage_reserve_usd": "0"
+    },
+    {
+      "model": "gpt-6-astra",
+      "attempts": 11,
+      "accepted": 11,
+      "diagnostic_attempts": 0,
+      "holds": 0,
+      "http_429": 0,
+      "latency_median_ms": 5551,
+      "latency_max_ms": 17579,
+      "cooldown_seconds": 0,
+      "input_tokens": 16936,
+      "output_tokens": 2093,
+      "known_estimated_cost_usd": "0.27401",
+      "unknown_usage_reserve_usd": "0"
+    }
+  ],
+  "accounting_usd": {
+    "openai": "4.013474",
+    "anthropic": "8.820370",
+    "gemini": "1.32916070",
+    "openrouter": "1.1574300916"
+  },
+  "opening_accounting_usd": {
+    "openai": "3.739464",
+    "anthropic": "8.275180",
+    "gemini": "1.24124795",
+    "openrouter": "1.1504512996"
+  },
+  "original_series_unchanged": true,
+  "run_id": "36629669938",
+  "source_commit": "ad585d12488bdb415e0464bf7b453998c7b08cee"
+}

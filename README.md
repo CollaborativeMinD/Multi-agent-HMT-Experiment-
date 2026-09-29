@@ -147,3 +147,24 @@ All six offline comparison checks passed, including matching deals and unchanged
 Pro completed six hands: OpenAI + Google 107, Anthropic + Pro -730. Pro failed all five nil bids. Flash changed its opening bid to 2 and its team made the first-hand contract; after two hands both teams were -8. Flash v2 stopped in hand 3 on Anthropic HTTP 529, with 126 admitted actions. It is incomplete, not a loss. [Pro v2](evidence/nil-v2-pro/summary.json), [Flash v2](evidence/nil-v2-flash/summary.json).
 
 The user authorized a new strategy-guided condition for both candidates. The exact [added paragraph](trials/strategy-v3-prompt.txt) goes to all four players. Engine rules and inference profiles are unchanged. The runs preserve earlier evidence and cumulative spend. Status: LAUNCHING. Anthropic cumulative ceiling is now $20 after the confirmed $10 top-up; other account ceilings remain $10. Per-hand status will appear below. [Protocol](docs/STRATEGY_V3.md).
+
+
+<!-- STRATEGY3:BEGIN -->
+## Strategy-guided v3 trials
+
+Explicit partnership guidance; strict 100-point games, seed 707, candidate thinking disabled.
+All four players receive the same guidance. One trial per condition does not establish causality.
+
+| Candidate | Status | Hands | N/S | E/W | Evidence |
+|---|---|---:|---:|---:|---|
+| pro | IN_PROGRESS | 1 | 71 | -138 | [Summary](evidence/strategy-v3-pro/summary.json) |
+| flash | NOT_STARTED | 0 | 0 | 0 | Pending |
+
+Latest cumulative accounting, including retained unknown-usage reservations:
+- openai: $4.013474
+- anthropic: $8.820370
+- gemini: $1.32916070
+- openrouter: $1.1574300916
+
+Per-account guards are frozen in config/strategy-v3-budget.json, less $0.02 probe buffers. No retries or Free Play.
+<!-- STRATEGY3:END -->
