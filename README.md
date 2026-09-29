@@ -89,3 +89,16 @@ No game moves applied. Both series remain on HOLD. Provider: Wafer; retries: zer
 Diagnostic accounted cost: $0.17678838. Separate from frozen series accounting. [Receipts](evidence/deepseek-diagnostic/receipts.json). Truncation tests the boundary, not a usable game action. One probe per condition cannot establish reliability.
 
 **Reviewed verdict:** neither configuration qualifies as a replacement yet. Pro exceeded both tested pressure ceilings. Flash respected the reported total caps but truncated the game response. Some reasoning counters exceeded reported totals, so detailed usage consistency remains unresolved. [Full diagnostic review](evidence/deepseek-diagnostic/REVIEW.md). No game actions applied.
+
+
+## Flash supported low-effort tracer
+
+Same Wafer route, held observation, and 8192 game cap. Prior medium effort is not advertised in the live model catalog. Exact reasoning budget not advertised; this tracer uses supported low. No game moves applied.
+
+| Probe | Case | Response | Total/cap | Reasoning | Seconds | Admission |
+|---|---|---|---:|---:|---:|---|
+| FLASH-LOW-01 | boundary | TRUNCATED_AS_BOUNDED | 64/64 | 69 | 1.06 | HOLD |
+| FLASH-LOW-02 | game | PASS | 7096/8192 | 7090 | 95.29 | PASS |
+| FLASH-LOW-03 | game | TRUNCATED_AS_BOUNDED | 8192/8192 | 8194 | 109.64 | HOLD |
+
+Cost accounted: $0.0109330942. OpenRouter cumulative including both diagnostic batches: $0.8795580842. [Receipts](evidence/flash-low-tracer/receipts.json). Three probes cannot establish general reliability or move quality. Original series remain on HOLD.

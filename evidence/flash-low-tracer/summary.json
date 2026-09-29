@@ -1,0 +1,14 @@
+{
+  "utc": "2026-09-29T04:09:53.440534+00:00",
+  "run_id": "36520025970",
+  "source_commit": "ae92158145185763add51f73084cb748532ed27d",
+  "calls": 3,
+  "accounted_usd": "0.0109330942",
+  "openrouter_cumulative_accounted_usd": "0.8795580842",
+  "game_evidence_unchanged": true,
+  "game_actions_applied": 0,
+  "retries": 0,
+  "provider": "Wafer",
+  "reasoning_effort": "low",
+  "game_probes_admitted": 1
+}
