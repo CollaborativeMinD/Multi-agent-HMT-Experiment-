@@ -1,0 +1,11 @@
+# Router seam RCA
+
+Scope: parameter translation, reported provider accounting, and reasoning demand. Stage one GET-reconciles nine existing generation IDs without inference. Stage two makes three new streaming diagnostic calls, maximum $0.25 estimated admission under the existing account guard. Original games never advance.
+
+Sequence on pinned Wafer, no fallback/retries: (1) reproduce DeepSeek Pro boundary request, max_tokens64, medium (intentional reproduction, not an endorsed supported effort); (2) Flash held game state, max_tokens8192, supported low; (3) same Flash request with reasoning.enabled=false. All streaming requests opt into debug.echo_upstream_body. Deadline240s, socket230s, 30s spacing. Streaming differs from previous clients; the two Flash conditions share streaming mode. None of these comparisons establishes statistical reliability or strategic quality.
+
+Debug controls are allowlisted; messages and schema are hashed, not duplicated. No raw reasoning or headers published. SSE errors, absent DONE, bounds, usage, identities, and schema are checked. Unknown billing retains reservation. A post-response guard cannot enforce upstream spending. Inspect per-call upstream controls and generation IDs at evidence/router-wire-tracer. Root source docs: https://openrouter.ai/docs/api_reference/errors-and-debugging and https://openrouter.ai/docs/api_reference/overview .
+
+Read-only metadata lives at evidence/router-rca. Native versus normalized counts are compared separately. OpenRouter's stored native values are not an independent provider invoice or capture. Request echo is OpenRouter's report of forwarding, not direct visibility into provider processing. Stop causal claims at that boundary.
+
+Runbook: own-path workflow executes once; do not rerun completed paid calls. Results publish per call; final cumulative SQL/SQLite retains prior gates. Add new diagnostic cost from summary.json to prior account accounting before further inference. Models/roster/settings remain frozen for original series; Free Play is not authorized. Unit tests include SSE aggregation, missing completion marker, stream errors, debug allowlisting, and function lengths, plus all prior diagnostic/runner/smoke gates.
