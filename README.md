@@ -116,3 +116,11 @@ Wire tracer accounted cost: $0.1094308348. OpenRouter cumulative accounted inclu
 The predeclared additive prediction reproduced: thinking-low Pro with a 128-token cap reported 24,704 tokens, exactly 24,576 + 128. Its upstream echo preserved the cap. The same boundary with thinking disabled returned 7 tokens in 0.782s; the held game returned a legal choice in 6 tokens and 0.637s. Both disabled responses passed, but this does not qualify a frontier replacement or establish strategic quality. The responsible internal layer remains unproven. [Full review](evidence/pro-final-tracer/REVIEW.md).
 
 Three calls, no retries, zero applied moves, unchanged game evidence. Batch cost: $0.1046598. OpenRouter cumulative accounted: $1.0936487190. Thinking-enabled Pro and both series remain HOLD.
+
+## Pro thinking-off qualification
+
+**12/12 inference checks passed; full qualification remains HOLD.** Four known-answer checks, six game-observation calls across four replay-verified states, and two deliberate one-token cutoffs passed. All responses reported zero reasoning tokens. Ordinary outputs used 6–7 tokens; both cutoffs stopped at 1.
+
+Identical game requests chose all three legal options, with latencies of 100.739s, 0.693s, and 0.799s. Strategic quality and decision consistency are not established. Nine stored generation records matched; the remaining three returned 404 twice, including a reviewed delayed lookup. Missing metadata is not a token mismatch. [Full qualification review](docs/PRO_OFF_REVIEW.md).
+
+Batch accounted cost: $0.0045826. OpenRouter cumulative accounted: $1.0982313190. No game moves, retries of inference, roster changes, or Free Play.
