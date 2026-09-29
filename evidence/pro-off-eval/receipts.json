@@ -837,5 +837,80 @@
       "case": true
     },
     "pressure_only": true
+  },
+  {
+    "id": "PRO-OFF-12",
+    "model": "deepseek/deepseek-v4-pro-0813",
+    "case": "boundary",
+    "kind": "pressure",
+    "started_utc": "2026-09-29T05:44:56.597359+00:00",
+    "output_cap": 1,
+    "input_reserve": 2580,
+    "output_reserve": 32769,
+    "input_price": "0.0000004",
+    "output_price": "0.0000042",
+    "reserved_usd": "0.1386618",
+    "accounted_usd": "0.0000098",
+    "status": "TRUNCATED_AS_BOUNDED",
+    "reasoning": {
+      "enabled": false
+    },
+    "request_sha256": "d5632bbb9ecd407d0e7b7fd8219c38443426c8d0dbf8ddbebb68afa0bb27f0fe",
+    "http_status": 200,
+    "generation_id": "gen-1790660696-tSqKJZvn18Zbw5Bkr5Qx",
+    "upstream": [
+      {
+        "model": "DeepSeek-V4-Pro",
+        "stream": true,
+        "temperature": 1,
+        "top_p": 1,
+        "max_tokens": 1,
+        "thinking": {
+          "type": "disabled",
+          "field_names": [
+            "type"
+          ]
+        },
+        "field_names": [
+          "max_tokens",
+          "messages",
+          "model",
+          "response_format",
+          "stream",
+          "stream_options",
+          "temperature",
+          "thinking",
+          "top_p"
+        ],
+        "messages_sha256": "a75556d3e3f6eed845c9d5986bfb3c47147d147de23ace45bc1c4df1440d8ec9",
+        "response_format_sha256": "9d8e71634fe08b558649eec74adcbaed352756c8de710e5e68f2b87fa44a5f71"
+      }
+    ],
+    "stream_sha256": "ebc528b6390ce496c1543be812a06cfbdaac21c2608314285fe26b76a22c3375",
+    "visible_content_characters": 2,
+    "returned_model": "deepseek/deepseek-v4-pro-0813",
+    "returned_provider": "Wafer",
+    "response_sha256": "ecff33cbb976803023ecf615cde6cc7d47d450280cac72911090f70ca47232d3",
+    "input_tokens": 14,
+    "total_output_tokens": 1,
+    "reasoning_tokens": 0,
+    "visible_tokens": 1,
+    "estimated_cost_usd": "0.0000098",
+    "provider_reported_cost_usd": "9.8e-06",
+    "finish_reason": "length",
+    "token_adherence": "PASS",
+    "schema_status": "NOT_ASSESSED",
+    "latency_ms": 1309,
+    "completed_utc": "2026-09-29T05:44:57.907318+00:00",
+    "usage_partition_status": "PASS",
+    "case_contract_status": "PASS",
+    "admission_status": "PASS",
+    "checks": {
+      "disabled_echo": true,
+      "zero_reasoning": true,
+      "partition": true,
+      "case": true
+    },
+    "pressure_only": true
   }
 ]
