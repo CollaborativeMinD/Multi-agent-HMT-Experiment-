@@ -1,0 +1,22 @@
+{
+  "authorization": "User 2026-09-28: Pro cohort 1 seat 4 field trial; Flash cohort 2 seat 4 selected",
+  "frontier": {
+    "seat": "p4",
+    "model": "deepseek/deepseek-v4-pro-0813",
+    "reasoning": {
+      "enabled": false
+    },
+    "scope": "One isolated strict 100-point game"
+  },
+  "mainstream": {
+    "seat": "p4",
+    "model": "deepseek/deepseek-v4.1-flash",
+    "reasoning": {
+      "enabled": false
+    },
+    "scope": "Selected by user; no cohort 2 game in this invocation"
+  },
+  "provider": "wafer",
+  "prior_evidence_preserved": true,
+  "free_play": false
+}
