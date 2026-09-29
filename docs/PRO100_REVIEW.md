@@ -44,3 +44,7 @@ The prior three unavailable diagnostic generation records remain a historical me
 - [Call receipts](../evidence/pro100/frontier-pro/calls.jsonl)
 - [Cumulative gates](../evidence/pro100/gates.sql)
 - [User seat selections](../config/seat-selections.json)
+
+## Subsequent matched-trial interpretation note
+
+The Flash comparison identified a shared prompt assumption: "Nil +/-100" does not explicitly state the zero-trick success condition. The observed Pro actions and scores remain valid, but attributing them solely to model capability or disabled reasoning would exceed the evidence. See [matched comparison](PRO_FLASH_100_COMPARISON.md) for the controlled observation and backend sampling limitation.
