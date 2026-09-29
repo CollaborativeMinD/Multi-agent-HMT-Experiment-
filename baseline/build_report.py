@@ -9,7 +9,7 @@ def table(headers,rows):
 def build(folder):
     summary=json.loads((folder/'summary.json').read_text());analysis=json.loads((folder/'analysis.json').read_text())
     complete=sum(g['status']=='COMPLETE' for g in analysis['games']);cost=sum(map(Decimal,summary['accounting_usd'].values()))
-    lines=['# Strict Whiz 100: first pilot','',f'**BLUF:** {complete}/2 cohort games completed. Total accounted pilot cost: ${cost:.6f}, including the original held request. This is a descriptive, amended pilot, not a model ranking.','']
+    lines=['# Strict Whiz 100: first pilot','',f'**BLUF:** {complete}/2 cohort games completed. Total accounted pilot cost: ${cost:.6f}, including earlier held requests and the isolated diagnostic. This is a descriptive, amended pilot, not a model ranking.','']
     results=[]
     for g in analysis['games']:
         final=g['completed_hands'][-1]['teams'] if g['completed_hands'] else None
@@ -26,16 +26,17 @@ def build(folder):
     lines+=['## API behavior and cost','']
     records=[]
     for m in analysis['model_metrics']:
-        records.append([m['model'],m['attempts'],m['accepted'],m['holds'],m['http_429'],round(m['latency_median_ms']/1000,3),f"${Decimal(m['known_estimated_cost_usd']):.6f}",f"${Decimal(m['unknown_usage_reserve_usd']):.6f}"])
-    lines+=table(['Model','Attempts','Accepted','Held','429','Median seconds','Known estimate','Unknown reserve'],records)
-    lines+=['','Latency excludes deliberate cooldown. Costs use locked standard token prices and are estimates, not provider invoices. Accounted totals retain full reservations where usage is unavailable. Forced single-legal-action transitions make no API request.','', '## Amendment and limits','',
+        records.append([m['model'],m['attempts'],m['accepted'],m['holds'],m['diagnostic_attempts'],m['http_429'],round(m['latency_median_ms']/1000,3),f"${Decimal(m['known_estimated_cost_usd']):.6f}",f"${Decimal(m['unknown_usage_reserve_usd']):.6f}"])
+    lines+=table(['Model','Attempts','Accepted','Held','Diagnostics','429','Median seconds','Known estimate','Unknown reserve'],records)
+    lines+=['','Attempts and accepted responses include separately labeled diagnostics; only gameplay decisions in the action logs were applied. Latency excludes deliberate cooldown. Costs use locked standard token prices and are estimates, not provider invoices. Accounted totals retain full reservations where usage is unavailable. Forced single-legal-action transitions make no API request.','', '## Amendment and limits','',
       'The initial run stopped after ten accepted frontier actions because Qwen reported 1,291 output tokens against a 1,024-token reservation. The original generic error omitted finish reason, so the provider-level cause remains unresolved. The rejected response was never applied.',
       '', 'Continuation verified and reused the ten accepted actions, carried forward all spend, and raised the subsequent requested output limit and reservation to 4,096 for all models. Medium effort remained unchanged; Qwen Flash retained its 512-token reasoning budget. The frontier game therefore has a mixed-budget prefix. No model was substituted, and no strategic choice was supplied by a heuristic.',
       '', 'Legal-action menus assist the models. Zero illegal executed moves would not establish independent rule knowledge. Fixed seats, fixed partners, one seed, and one game per cohort cannot separate individual ability from cards and partner effects. No free-play or table-talk evaluation was run.',
       '', '## Reproduce the checks','', 'From the repository root, after the documented engine install and patch:', '', '```bash','python baseline/analyze.py PATH_TO_EXTRACTED_EVIDENCE','python baseline/build_replay.py PATH_TO_EXTRACTED_EVIDENCE','```','',
-      'The replay is offline and makes no model calls. The evidence package also includes accelerated MP4 replays, the cumulative SQLite gate ledger, the original interrupted artifact, the frozen protocol, and file hashes.', '', '## Run references','',
+      'The replay is offline and makes no model calls. The evidence package also includes the cumulative SQLite gate ledger, the original interrupted artifact, the frozen protocol, and file hashes.', '', '## Authorized 8,192-token continuation','', 'The user authorized doubling the current gameplay allowance from 4,096 to 8,192 for all eight models and stopping on the next issue. Continuation starts from action92, carries the diagnostic cost forward, and performs no automatic retries. Model IDs, routing, reasoning settings, and timeouts are unchanged. A successful game under the larger allowance would not prove that the provider enforces requested token caps.', '', '## Run references','',
       '- [Original held run](https://github.com/CollaborativeMinD/Multi-agent-HMT-Experiment-/actions/runs/36496016934)',
-      '- [Continuation](https://github.com/CollaborativeMinD/Multi-agent-HMT-Experiment-/actions/runs/36496680649)',
+      '- [4,096-token continuation](https://github.com/CollaborativeMinD/Multi-agent-HMT-Experiment-/actions/runs/36496680649)',
+      '- [8,192-token continuation](https://github.com/CollaborativeMinD/Multi-agent-HMT-Experiment-/actions/runs/36504424064)',
       f"- Continuation commit: `{summary['commit']}`",f"- Per-account pilot cap: ${summary['per_account_limit']}"]
     (folder/'BASELINE_RESULTS.md').write_text('\n'.join(lines)+'\n')
 
