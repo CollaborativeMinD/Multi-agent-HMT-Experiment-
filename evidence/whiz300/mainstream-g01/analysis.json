@@ -4,24 +4,24 @@
     "cohort": "mainstream",
     "number": 1,
     "seed": 101,
-    "status": "HOLD",
+    "status": "IN_PROGRESS",
     "hands": 0,
-    "actions": 2,
+    "actions": 3,
     "scores": [
       0,
       0
     ],
     "winners": [],
-    "final_hash": "87e9708f1c74d5105da73266f70a1af607223a1c1852af10777bb55218421914",
+    "final_hash": "d9cffe5037e2178d3829c65a8821e2f519b29807400f45db8ce7874b562eff87",
     "replay_verified": true,
-    "reason": "MODEL_HOLD:qwen/qwen3.8-flash"
+    "reason": null
   },
   "verification": {
     "replay": "PASS",
     "private_projections": "PASS",
     "all_frame_hashes": "PASS",
-    "actions": 2,
-    "final_hash": "87e9708f1c74d5105da73266f70a1af607223a1c1852af10777bb55218421914"
+    "actions": 3,
+    "final_hash": "d9cffe5037e2178d3829c65a8821e2f519b29807400f45db8ce7874b562eff87"
   },
   "completed_hands": [],
   "metrics": [
@@ -57,17 +57,17 @@
     },
     {
       "model": "qwen/qwen3.8-flash",
-      "attempts": 1,
-      "accepted": 0,
+      "attempts": 2,
+      "accepted": 1,
       "diagnostic_attempts": 0,
       "holds": 1,
       "http_429": 1,
-      "latency_median_ms": 4145,
-      "latency_max_ms": 4145,
+      "latency_median_ms": 7002.0,
+      "latency_max_ms": 9859,
       "cooldown_seconds": 0,
-      "input_tokens": 0,
-      "output_tokens": 0,
-      "known_estimated_cost_usd": "0",
+      "input_tokens": 530,
+      "output_tokens": 521,
+      "known_estimated_cost_usd": "0.00032437",
       "unknown_usage_reserve_usd": "0.00448054"
     }
   ]
