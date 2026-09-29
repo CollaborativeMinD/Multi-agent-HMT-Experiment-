@@ -67,3 +67,7 @@ API keys belong in GitHub Actions secrets, never repository files. The original 
 ## Attribution
 
 Game engine: `@game-hub/game-spades@0.1.1` and `@game-hub/kernel@1.5.0`, with explicit target-score and failed-nil bag patches. [Third-party BSD-3-Clause notice](baseline/THIRD_PARTY_LICENSE.txt). See the source, tests, and cumulative gate records for the exact extensions.
+
+## Reviewed recovery after the first 429
+
+The first series run published frontier hand 1 at 142 to −84, then held on Qwen Flash's opening mainstream bid. The provider gap was 35.7255 seconds, above the configured 30 seconds. The exact upstream limit remained unknown. A single agent-reviewed recovery at the saved bid uses a further 60-second cooldown and bounded rate-limit metadata capture. It preserves the original failed receipt and reservation, and resumes the series only on a valid response. Another failure holds. This is separate from automatic retries, which remain disabled. [Recovery protocol](series/PROTOCOL.md#reviewed-recovery-after-first-429).
