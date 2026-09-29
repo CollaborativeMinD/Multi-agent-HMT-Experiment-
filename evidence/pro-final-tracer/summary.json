@@ -1,0 +1,14 @@
+{
+  "utc": "2026-09-29T04:50:09.067782+00:00",
+  "run_id": "36523068821",
+  "source_commit": "52f78240676cdba210e17b1f4d11728efc509ae5",
+  "calls": 3,
+  "accounted_usd": "0.1046598",
+  "openrouter_cumulative_accounted_usd": "1.0936487190",
+  "game_evidence_unchanged": true,
+  "game_actions_applied": 0,
+  "retries": 0,
+  "admission_budget_usd": ".30",
+  "hypothesis": "Thinking-enabled boundary reports 24576 + requested max_tokens; attribution remains unproven",
+  "predicted_boundary_total": 24704
+}
