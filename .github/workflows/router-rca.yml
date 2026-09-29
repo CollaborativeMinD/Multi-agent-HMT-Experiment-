@@ -1,0 +1,39 @@
+name: Router RCA metadata reconciliation
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/router-rca.yml]
+permissions:
+  contents: write
+concurrency:
+  group: whiz-paid-baseline
+  cancel-in-progress: false
+jobs:
+  reconcile:
+    if: github.run_attempt == 1
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify metadata allowlist
+        run: PYTHONPATH=diagnostics python3 -m unittest discover -s diagnostics -p test_reconcile.py -v
+      - name: GET existing generation records, no inference
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: python3 diagnostics/reconcile.py
+      - name: Publish read-only findings
+        if: always()
+        run: |
+          git config user.name "Whiz Evidence Runner"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [ -d evidence/router-rca ]; then
+            git add evidence/router-rca
+            git diff --cached --quiet || git commit -m "Publish generation metadata reconciliation"
+            git push origin HEAD:main
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: router-rca-metadata
+          path: evidence/router-rca/
+          if-no-files-found: warn
