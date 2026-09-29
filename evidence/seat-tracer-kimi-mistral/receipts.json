@@ -60,5 +60,72 @@
     "stream_sha256": "75a383293fbb60abd69a6f4f8f109b283175b398d14d7dc9e27bf41b9eb23d91",
     "latency_ms": 2749,
     "completed_utc": "2026-09-29T22:08:55.534024+00:00"
+  },
+  {
+    "id": "SEAT-02",
+    "model": "moonshotai/kimi-k3",
+    "case": "game",
+    "case_id": "8D",
+    "provider_pin": "moonshotai/mxfp4",
+    "expected_provider": "Moonshot AI",
+    "reasoning": {
+      "effort": "low"
+    },
+    "started_utc": "2026-09-29T22:09:26.729056+00:00",
+    "output_cap": 8192,
+    "input_reserve": 5457,
+    "input_price": "0.000003",
+    "output_price": "0.000015",
+    "reserved_usd": "0.507891",
+    "accounted_usd": "0.004413",
+    "request_sha256": "d58fba1630791f1ef22a3f4fdc36246144abbbf0d222b8d766abaa8f7710f852",
+    "status": "PASS",
+    "http_status": 200,
+    "input_tokens": 906,
+    "total_output_tokens": 113,
+    "reasoning_tokens": 93,
+    "returned_model": "moonshotai/kimi-k3",
+    "returned_provider": "Moonshot AI",
+    "estimated_cost_usd": "0.004413",
+    "provider_reported_cost_usd": 0.004413,
+    "finish_reason": "stop",
+    "choice": 0,
+    "selected_action": {
+      "type": "PLAY",
+      "card": "8D"
+    },
+    "nil_preservation": "PASS",
+    "result": "VALID_RESPONSE",
+    "generation_id": "gen-1790719766-1euBlaoPf2hLLpcUOECS",
+    "upstream": [
+      {
+        "model": "kimi-k3",
+        "stream": true,
+        "max_completion_tokens": 8192,
+        "reasoning_effort": "low",
+        "thinking": {
+          "type": "enabled",
+          "field_names": [
+            "type"
+          ]
+        },
+        "field_names": [
+          "max_completion_tokens",
+          "messages",
+          "model",
+          "prompt_cache_key",
+          "reasoning_effort",
+          "response_format",
+          "stream",
+          "stream_options",
+          "thinking"
+        ],
+        "messages_sha256": "9b0ac990e9bdf6b8294d9ea255724cb716e4f7734007cc37c6e9ac4fe5f66480",
+        "response_format_sha256": "9d8e71634fe08b558649eec74adcbaed352756c8de710e5e68f2b87fa44a5f71"
+      }
+    ],
+    "stream_sha256": "e222e16211c177e95ec966bc96b51c60747a40852f2d53bbbca5d1593cdd5772",
+    "latency_ms": 6343,
+    "completed_utc": "2026-09-29T22:09:33.072789+00:00"
   }
 ]
