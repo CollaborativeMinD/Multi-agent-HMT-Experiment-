@@ -1,0 +1,115 @@
+{
+  "target": 100,
+  "seed": 707,
+  "max_hands": 6,
+  "max_actions": 336,
+  "models": [
+    {
+      "cohort": "frontier",
+      "account": "openai",
+      "lab": "OpenAI",
+      "model": "gpt-6-astra",
+      "secret_env": "OPENAI_API_KEY",
+      "pin_kind": "published_model_id",
+      "standard_text_usd_per_million_tokens": {
+        "input": 10,
+        "output": 50
+      },
+      "inference_verified": true,
+      "smoke_status": "PASS",
+      "smoke_reason": "INFERENCE_SCHEMA_LEGALITY_USAGE_PASS",
+      "verification_scope": "single economical follow-suit canary only"
+    },
+    {
+      "cohort": "frontier",
+      "account": "anthropic",
+      "lab": "Anthropic",
+      "model": "claude-fable-5-1",
+      "secret_env": "ANTHROPIC_API_KEY",
+      "pin_kind": "fixed_snapshot",
+      "standard_text_usd_per_million_tokens": {
+        "input": 10,
+        "output": 50
+      },
+      "inference_verified": true,
+      "smoke_status": "PASS",
+      "smoke_reason": "INFERENCE_SCHEMA_LEGALITY_USAGE_PASS",
+      "verification_scope": "single economical follow-suit canary only"
+    },
+    {
+      "cohort": "frontier",
+      "account": "gemini",
+      "lab": "Google",
+      "model": "gemini-3.8-flash",
+      "secret_env": "GEMINI_API_KEY",
+      "pin_kind": "stable_model_id",
+      "standard_text_usd_per_million_tokens": {
+        "input": 0.75,
+        "output": 3.75
+      },
+      "inference_verified": true,
+      "smoke_status": "PASS",
+      "smoke_reason": "INFERENCE_SCHEMA_LEGALITY_USAGE_PASS",
+      "verification_scope": "single economical follow-suit canary only"
+    },
+    {
+      "cohort": "frontier",
+      "account": "openrouter",
+      "lab": "Qwen",
+      "model": "moonshotai/kimi-k3",
+      "secret_env": "OPENROUTER_API_KEY",
+      "pin_kind": "catalog_model_and_provider",
+      "standard_text_usd_per_million_tokens": {
+        "input": "3.000000",
+        "output": "15.000000"
+      },
+      "inference_verified": true,
+      "provider": {
+        "only": [
+          "moonshotai/mxfp4"
+        ],
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "observed_canonical_slug": "qwen/qwen3.8-2.4t-a95b-20260812",
+      "weights_license": "qwen3.8-max",
+      "serving_quantization": "unknown",
+      "smoke_status": "PASS",
+      "smoke_reason": "INFERENCE_SCHEMA_LEGALITY_USAGE_PASS",
+      "verification_scope": "single economical follow-suit canary only",
+      "latest_evidence": "../evidence/qwen-retest-20260928.json",
+      "native_prices": {
+        "prompt": "0.000003",
+        "completion": "0.000015",
+        "input_cache_read": "0.0000003",
+        "discount": 0
+      }
+    }
+  ],
+  "reasoning_candidate": {
+    "effort": "low"
+  },
+  "output_cap": 8192,
+  "deadline_seconds": 240,
+  "opening_accounting_usd": {
+    "openai": "5.265904",
+    "anthropic": "11.142030",
+    "gemini": "1.69025270",
+    "openrouter": "1.1915020684"
+  },
+  "prompt_version": "strategy-guided-v3",
+  "prompt_sha256": "df03eb24cb0bff46d2d045e95902843c6f4ba705244d63c2569112266ddef467",
+  "budget": {
+    "cumulative_ceilings_usd": {
+      "openai": "10.00",
+      "anthropic": "20.00",
+      "gemini": "10.00",
+      "openrouter": "10.00"
+    },
+    "authorization": "2026-09-29: user confirmed Anthropic credits increased from approximately $2 to $12, an additional $10. Cumulative Anthropic ceiling $20; other accounts remain $10. Preserve prior spend, unknown-usage reservations, and $0.02/account probe buffers."
+  },
+  "free_play": false,
+  "user_authorized_gameplay_despite_metadata_hold": true,
+  "no_retries": true,
+  "permanent_seat_assignment": false
+}
