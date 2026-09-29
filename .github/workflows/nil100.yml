@@ -1,0 +1,52 @@
+name: Nil explicit v2 Pro and Flash games
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/nil100.yml]
+permissions:
+  contents: write
+concurrency:
+  group: whiz-paid-baseline
+  cancel-in-progress: false
+jobs:
+  games:
+    if: github.run_attempt == 1
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - name: Offline prompt delta and regression gates
+        run: |
+          npm ci --ignore-scripts --prefix baseline
+          python3 baseline/patch_engine.py
+          python3 baseline/prepare_checkpoint.py
+          node baseline/test_engine.mjs
+          PYTHONPATH=scripts:baseline python3 -m unittest discover -s baseline -p test_runner.py -v
+          PYTHONPATH=scripts python3 -m unittest discover -s tests -p test_smoke.py -v
+          PYTHONPATH=scripts:baseline:diagnostics python3 -m unittest discover -s diagnostics -p 'test_*.py' -v
+          PYTHONPATH=scripts:baseline:diagnostics:trials python3 -m unittest discover -s trials -p 'test_*100.py' -v
+          git config user.name "Whiz Evidence Runner"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - name: Pro then Flash, nil-explicit rules
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: |
+          python3 trials/nil100.py pro
+          python3 trials/nil100.py flash
+      - name: Publish retained evidence
+        if: always()
+        run: |
+          for folder in evidence/nil-v2-pro evidence/nil-v2-flash; do
+            if [ -d "$folder" ]; then git add "$folder"; fi
+          done
+          git diff --cached --quiet || git commit -m "Publish nil explicit trial evidence"
+          git push origin HEAD:main
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nil-explicit-v2
+          path: evidence/nil-v2-*/
+          if-no-files-found: warn
