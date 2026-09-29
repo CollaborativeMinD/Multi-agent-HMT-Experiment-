@@ -1,0 +1,64 @@
+[
+  {
+    "id": "SEAT-01",
+    "model": "moonshotai/kimi-k3",
+    "case": "canary",
+    "case_id": "CANARY",
+    "provider_pin": "moonshotai/mxfp4",
+    "expected_provider": "Moonshot AI",
+    "reasoning": {
+      "effort": "low"
+    },
+    "started_utc": "2026-09-29T22:08:52.784707+00:00",
+    "output_cap": 8192,
+    "input_reserve": 2582,
+    "input_price": "0.000003",
+    "output_price": "0.000015",
+    "reserved_usd": "0.499266",
+    "accounted_usd": "0.001236",
+    "request_sha256": "7be524c5dc5beed04ef17b728c61ff2978c7c042154b6f3fd440027f4fd3a8fd",
+    "status": "PASS",
+    "http_status": 200,
+    "input_tokens": 187,
+    "total_output_tokens": 45,
+    "reasoning_tokens": 25,
+    "returned_model": "moonshotai/kimi-k3",
+    "returned_provider": "Moonshot AI",
+    "estimated_cost_usd": "0.001236",
+    "provider_reported_cost_usd": 0.001236,
+    "finish_reason": "stop",
+    "choice": 1,
+    "result": "VALID_RESPONSE",
+    "generation_id": "gen-1790719732-TdDMJwGwyS36C4euhqdV",
+    "upstream": [
+      {
+        "model": "kimi-k3",
+        "stream": true,
+        "max_completion_tokens": 8192,
+        "reasoning_effort": "low",
+        "thinking": {
+          "type": "enabled",
+          "field_names": [
+            "type"
+          ]
+        },
+        "field_names": [
+          "max_completion_tokens",
+          "messages",
+          "model",
+          "prompt_cache_key",
+          "reasoning_effort",
+          "response_format",
+          "stream",
+          "stream_options",
+          "thinking"
+        ],
+        "messages_sha256": "a75556d3e3f6eed845c9d5986bfb3c47147d147de23ace45bc1c4df1440d8ec9",
+        "response_format_sha256": "9d8e71634fe08b558649eec74adcbaed352756c8de710e5e68f2b87fa44a5f71"
+      }
+    ],
+    "stream_sha256": "75a383293fbb60abd69a6f4f8f109b283175b398d14d7dc9e27bf41b9eb23d91",
+    "latency_ms": 2749,
+    "completed_utc": "2026-09-29T22:08:55.534024+00:00"
+  }
+]
