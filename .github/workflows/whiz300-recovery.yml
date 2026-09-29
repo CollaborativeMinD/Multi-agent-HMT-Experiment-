@@ -1,0 +1,66 @@
+name: Strict Whiz 300 reviewed recovery
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/whiz300-recovery.yml]
+permissions:
+  contents: write
+concurrency:
+  group: whiz-paid-baseline
+  cancel-in-progress: false
+jobs:
+  series:
+    if: github.run_attempt == 1
+    runs-on: ubuntu-24.04
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Verify strict rules, checkpoints, budget, and series gates
+        run: |
+          npm ci --ignore-scripts --prefix baseline
+          python3 baseline/patch_engine.py
+          python3 baseline/prepare_checkpoint.py
+          node baseline/test_engine.mjs
+          node series/tracer.mjs
+          PYTHONPATH=scripts:baseline python3 -m unittest discover -s baseline -p test_runner.py -v
+          PYTHONPATH=scripts python3 -m unittest discover -s tests -p test_smoke.py -v
+          PYTHONPATH=scripts:baseline:series python3 -m unittest discover -s series -p test_series.py -v
+          PYTHONPATH=scripts:baseline:series python3 -m unittest discover -s series -p test_recovery.py -v
+          python3 - <<'PYLEGDER'
+          import sqlite3
+          from pathlib import Path
+          path=Path('evidence/whiz300/gate_ledger.sqlite')
+          path.unlink(missing_ok=True)
+          db=sqlite3.connect(path)
+          db.executescript(Path('series/recovery-gates.sql').read_text())
+          assert db.execute('PRAGMA integrity_check').fetchone()[0]=='ok'
+          db.close()
+          PYLEGDER
+          git config user.name "Whiz Evidence Runner"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - name: Run authorized strict series and publish each verified hand
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: |
+          set +e
+          python3 series/recover_flash.py
+          recovery_code=$?
+          set -e
+          python3 series/report.py
+          git add README.md evidence/whiz300
+          git commit -m "Publish reviewed Flash recovery result"
+          git push origin HEAD:main
+          if [ "$recovery_code" -ne 0 ]; then exit "$recovery_code"; fi
+          bash series/run_series.sh
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: whiz300-recovery-evidence
+          path: evidence/whiz300/
+          if-no-files-found: warn
+          retention-days: 30
