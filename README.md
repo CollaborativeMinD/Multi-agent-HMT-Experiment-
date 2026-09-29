@@ -16,7 +16,31 @@ All 224 baseline actions and four hand scores were verified. The baseline involv
 <!-- WHIZ300:BEGIN -->
 ## Strict 300-point best-of-five
 
-Status: **PREPARING**. Both cohorts start at 0–0. No paid series request has started yet. Free Play is **not authorized**.
+Status: **IN_PROGRESS**. Updated 2026-09-29T01:57:55.418691+00:00.
+
+First partnership to three game wins takes its cohort series. Free Play is **not authorized**.
+
+| Cohort | OpenAI + Google wins | Anthropic + Qwen wins |
+|---|---:|---:|
+| frontier | 0 | 0 |
+| mainstream | 0 | 0 |
+
+| Game | Status | Hands | N/S score | E/W score | Replay |
+|---|---|---:|---:|---:|---|
+
+Replay links open repository files. Download the HTML and open it locally for playback.
+
+| Account | Cumulative accounted USD |
+|---|---:|
+| openai | 0.610648 |
+| anthropic | 0.938752 |
+| gemini | 0.17274110 |
+| openrouter | 0.41923340 |
+
+Accounting includes prior pilot usage and its unresolved $0.06768 timeout reservation. Each account retains a separate $0.02 probe buffer under its original $10 ceiling. Provider invoices are authoritative.
+
+[Live Actions run](https://github.com/CollaborativeMinD/Multi-agent-HMT-Experiment-/actions/runs/36510344003) · [Machine-readable status](evidence/whiz300/series.json) · [Cumulative gates](evidence/whiz300/gates.sql)
+
 <!-- WHIZ300:END -->
 
 ## Players and protocol

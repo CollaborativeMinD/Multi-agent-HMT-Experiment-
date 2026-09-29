@@ -1,0 +1,25 @@
+{
+  "status": "IN_PROGRESS",
+  "plan_sha256": "02143e8b495219e56ada30e030ab11254484b1fcef6c0df85e30c4a29cd7fdaf",
+  "games": [],
+  "next_cohort": "frontier",
+  "source_commit": "56f5cd21d9632113f2863753a1deca4099195d70",
+  "run_id": "36510344003",
+  "accounting_usd": {
+    "openai": "0.610648",
+    "anthropic": "0.938752",
+    "gemini": "0.17274110",
+    "openrouter": "0.41923340"
+  },
+  "series_wins": {
+    "frontier": [
+      0,
+      0
+    ],
+    "mainstream": [
+      0,
+      0
+    ]
+  },
+  "updated_utc": "2026-09-29T01:57:55.418691+00:00"
+}
