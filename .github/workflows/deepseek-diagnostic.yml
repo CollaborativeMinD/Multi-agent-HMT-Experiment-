@@ -19,6 +19,7 @@ jobs:
         run: |
           npm ci --ignore-scripts --prefix baseline
           python3 baseline/patch_engine.py
+          python3 baseline/prepare_checkpoint.py
           node baseline/test_engine.mjs
           PYTHONPATH=scripts:baseline python3 -m unittest discover -s baseline -p test_runner.py -v
           PYTHONPATH=scripts python3 -m unittest discover -s tests -p test_smoke.py -v
