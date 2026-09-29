@@ -1,8 +1,26 @@
 # Runbook
 
+## Active authorized campaign: strict 300-point best-of-five
+
+The user authorized one first-to-three-wins series per cohort, games to 300. Free Play remains prohibited. Read series/PROTOCOL.md, series/plan.json, and the README live section. Seeds and partnerships are fixed in the plan. The workflow publishes each independently verified hand and stops both cohorts on the first issue. No automatic retries or reruns.
+
+Budget: use the original $10/account ceiling, with $9.98 cumulative request admission and $0.02/account reserved for prior probes. Opening accounting is $2.14137450, including the unresolved $0.06768 timeout reserve. The pilot-only $3 bound is superseded for this explicitly authorized series.
+
+### Series operation and recovery
+
+1. Run the baseline installation and tests below, then `node series/tracer.mjs` and `PYTHONPATH=scripts:baseline:series python -m unittest discover -s series -p test_series.py -v`.
+2. The single-use whiz300-series workflow first publishes initial README/status with no model calls, proving publication access before spending.
+3. Each invocation of `python series/campaign.py` advances at most one hand. It replays every prior action, reconciles usage, and enforces remaining budget before requests. Do not run it casually with keys available.
+4. `python series/report.py` operates offline: verify every state/private projection and hand score, write replay HTML and gate ledger, then project the status into the README markers. A reporting failure prevents the next hand.
+5. Inspect `evidence/whiz300/series.json`, per-game calls.jsonl, cohort JSONL, analysis.json, replay.html, and gates.sql. Download HTML files for playback. SQLite is exported cumulatively.
+6. On HOLD, preserve the current checkout or Actions artifact, inspect the last call and state hashes, reconcile unknown usage, and follow Reverse RCA. Do not remove HOLD or retry automatically. Never reset spend or replay paid actions. A later authorized recovery must restore the exact persisted state and ledger.
+7. Stop after three wins per cohort. Maximum five games per cohort, twenty hands per game, two hundred hand invocations. No new hand after 330 workflow minutes; six-hour hard workflow timeout. A bound is HOLD, never a winner.
+
+The original baseline below is complete and separate from these series wins. No Free Play or additional campaign follows automatically.
+
 ## Current pilot status: COMPLETE
 
-Both authorized strict games finished in run 36506341980: frontier 134 to -175; mainstream 132 to -130. Each has two completed hands and 112 actions. Read evidence/whiz240-results-20260929.md and evidence/whiz240-gates.sql. All 94 new API calls passed. No request exceeded 120 seconds; the 240-second deadline is not proven necessary. No inference is running and no deeper or Free Play campaign is enabled.
+Both authorized strict games finished in run 36506341980: frontier 134 to -175; mainstream 132 to -130. Each has two completed hands and 112 actions. Read evidence/whiz240-results-20260929.md and evidence/whiz240-gates.sql. All 94 new API calls passed. No request exceeded 120 seconds; the 240-second deadline is not proven necessary. That baseline run is complete; the newly authorized strict 300-point campaign is described above. Free Play remains disabled.
 
 Cumulative known estimated pilot usage is $2.07369450, plus the prior unresolved $0.06768 timeout reservation, totaling $2.14137450. Preserve all earlier failures. Do not rerun the paid workflow. The active resume240 package remains the 100-action starting checkpoint, not the complete-game evidence.
 
