@@ -41,3 +41,8 @@ Each hand verifies replay, private views, scores, and historical evidence hashes
 ## Authorized Kimi/Mistral seat tracers
 
 Read docs/SEAT_TRACER.md. The user authorizes up to ten isolated calls, $2 batch admission under the existing cumulative OpenRouter guard, with no retries, fallback, game moves, or seat changes. Run all offline workflow gates first. Inspect evidence/seat-tracer-kimi-mistral. This supersedes earlier restrictions only for these bounded probes.
+
+
+## Authorized Kimi cohort-1 field evaluation
+
+The user authorizes one strict 100-point game with Kimi K3 in p4, partnered with Anthropic. Read trials/kimi100.py and inspect evidence/kimi100/plan.json, summary.json, gates.sql, and frontier-pro/Whiz_100_Baseline_Replay.html. Reuse seed 707, v3 guidance for all players, the other three models, 8192 total output tokens, 240-second deadlines, six-hand/336-action limit, and no retries. Pin moonshotai/mxfp4 with low reasoning, as tested. Carry all account totals from strategy-v3-flash and subsequent OpenRouter tracer usage. Preserve historical evidence and metadata HOLDs; the user authorizes this field trial despite those HOLDs. No permanent seat assignment or Free Play. Run all prior offline gates plus test_kimi100.py before the single-use own-path workflow launch. Publish and independently verify each completed hand before proceeding; execution HOLD stops play. Never rerun the paid workflow.
