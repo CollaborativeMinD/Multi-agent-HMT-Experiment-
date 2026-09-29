@@ -14,8 +14,10 @@ LIMIT=Decimal('3.00')
 spent={p:Decimal('0') for p in ['openai','anthropic','gemini','openrouter']}
 last_finished:dict[str,float]={}
 MODEL_FILE=ROOT.parent/'config/models.lock.json'
-RESUME=ROOT/'resume8192'
-SOURCE_RUN=36496680649
+RESUME=ROOT/'resume240'
+SOURCE_RUN=36504424064
+REQUEST_DEADLINE=240
+SOCKET_TIMEOUT=230
 RULES=('Play strict Whiz Spades to win your partnership game to 100. Four seats; partner opposite. '
        'Bid nil (0) or exactly your spade count. Nil +/-100; no blind nil or table talk. '
        'Positive contracts: at least the team bid, +10/bid trick if made, -10/bid trick if set. '
@@ -97,13 +99,13 @@ def call(m:dict[str,Any],v:dict[str,Any],attempt:int)->tuple[int|None,dict[str,A
     if cool:time.sleep(cool)
     spent[provider]+=reserve
     row=dict(model=m['model'],provider=provider,hand=v['handNumber'],turn=v['turn'],seat=v['you'],attempt=attempt,
-             reserved_usd=str(reserve),input_reserve=input_reserve,output_cap=smoke.CAP,status='HOLD',http_status=None,
+             reserved_usd=str(reserve),input_reserve=input_reserve,output_cap=smoke.CAP,request_deadline_seconds=REQUEST_DEADLINE,socket_timeout_seconds=SOCKET_TIMEOUT,status='HOLD',http_status=None,
              cooldown_seconds=round(cool,3),request_sha256=hashlib.sha256(url.encode()+b'\n'+encoded).hexdigest())
     started=time.monotonic();choice=None
     try:
-        signal.signal(signal.SIGALRM,smoke.timeout_handler);signal.alarm(120)
+        signal.signal(signal.SIGALRM,smoke.timeout_handler);signal.alarm(REQUEST_DEADLINE)
         req=urllib.request.Request(url,data=encoded,headers=h,method='POST')
-        with urllib.request.build_opener(smoke.NoRedirect()).open(req,timeout=110) as response:
+        with urllib.request.build_opener(smoke.NoRedirect()).open(req,timeout=SOCKET_TIMEOUT) as response:
             row['http_status']=response.status;raw=response.read(1048577)
         if len(raw)>1048576:raise ValueError('RESPONSE_TOO_LARGE')
         choice=parse(json.loads(raw),m,len(v['legal']),row)
@@ -143,7 +145,7 @@ def restore(proc:subprocess.Popen,cohort:str,models:list,frame:dict)->tuple[dict
             if frame['hash']!=row['hash']:raise ValueError('RESUME_STATE_MISMATCH')
             count+=1
         if row['kind'] in ['INITIAL','ACTION','RESUME']:emit(cohort,row)
-    emit(cohort,{'kind':'RESUME','source_run':SOURCE_RUN,'actions':count,'output_cap':smoke.CAP})
+    emit(cohort,{'kind':'RESUME','source_run':SOURCE_RUN,'actions':count,'output_cap':smoke.CAP,'request_deadline_seconds':REQUEST_DEADLINE})
     return frame,count
 
 
@@ -186,7 +188,7 @@ def main()->int:
         result=game(cohort,models);results.append({k:v for k,v in result.items() if k!='log'})
         if result['status']!='COMPLETE':break
     report=dict(utc=datetime.now(timezone.utc).isoformat(),commit=os.environ.get('GITHUB_SHA'),
-                target=100,mode='strict_whiz',seed=7,results=results,output_cap=smoke.CAP,
+                target=100,mode='strict_whiz',seed=7,results=results,output_cap=smoke.CAP,request_deadline_seconds=REQUEST_DEADLINE,socket_timeout_seconds=SOCKET_TIMEOUT,
                 resumed_from_run=SOURCE_RUN if prior.exists() else None,
                 accounting_usd={p:str(v) for p,v in spent.items()},per_account_limit=str(LIMIT),
                 nonclaims=['single unrotated partnership game per cohort','legal-action-assisted','not general intelligence ranking'])
