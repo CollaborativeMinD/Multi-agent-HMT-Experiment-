@@ -1,0 +1,48 @@
+{
+  "model": "deepseek/deepseek-v4-pro-0813",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Strict Whiz permits nil or your spade count. You hold exactly four spades. Which non-nil bid is permitted? Options: 0=3, 1=5, 2=4. Return only the choice JSON."
+    }
+  ],
+  "max_tokens": 512,
+  "reasoning": {
+    "enabled": false
+  },
+  "provider": {
+    "only": [
+      "wafer"
+    ],
+    "allow_fallbacks": false,
+    "require_parameters": true
+  },
+  "response_format": {
+    "type": "json_schema",
+    "json_schema": {
+      "name": "play_action",
+      "strict": true,
+      "schema": {
+        "type": "object",
+        "properties": {
+          "choice": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2
+            ]
+          }
+        },
+        "required": [
+          "choice"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "stream": true,
+  "debug": {
+    "echo_upstream_body": true
+  }
+}
