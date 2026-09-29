@@ -1,0 +1,32 @@
+name: Verify Pro Flash comparison, no inference
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/compare100.yml]
+permissions:
+  contents: write
+concurrency:
+  group: whiz-paid-baseline
+  cancel-in-progress: false
+jobs:
+  verify:
+    if: github.run_attempt == 1
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify both games and comparison controls
+        run: |
+          npm ci --ignore-scripts --prefix baseline
+          python3 baseline/patch_engine.py
+          python3 trials/compare100.py
+          cd evidence/flash100
+          sha256sum -c SHA256SUMS.txt
+      - name: Publish comparison evidence
+        if: always()
+        run: |
+          git config user.name "Whiz Evidence Runner"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add evidence/flash100
+          git diff --cached --quiet || git commit -m "Seal Pro Flash comparison evidence"
+          git push origin HEAD:main
