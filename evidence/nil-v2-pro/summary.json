@@ -4,14 +4,14 @@
     "cohort": "frontier",
     "seed": 707,
     "status": "IN_PROGRESS",
-    "hands": 4,
-    "actions": 224,
+    "hands": 5,
+    "actions": 280,
     "scores": [
-      -14,
-      -429
+      47,
+      -555
     ],
     "winners": [],
-    "final_hash": "e0f36c35c95892f84a3d7096ad8bcd44577e04417308e740838f067c1025cced",
+    "final_hash": "53bd807689da22a8e0d0c7a7537f778a9fe56a86f70a0c400a73c50fdb2fc992",
     "replay_verified": true,
     "reason": null
   },
@@ -19,8 +19,8 @@
     "replay": "PASS",
     "private_projections": "PASS",
     "all_frame_hashes": "PASS",
-    "actions": 224,
-    "final_hash": "e0f36c35c95892f84a3d7096ad8bcd44577e04417308e740838f067c1025cced"
+    "actions": 280,
+    "final_hash": "53bd807689da22a8e0d0c7a7537f778a9fe56a86f70a0c400a73c50fdb2fc992"
   },
   "hands": [
     {
@@ -194,75 +194,118 @@
           "score": -429
         }
       ]
+    },
+    {
+      "hand": 5,
+      "bids": [
+        3,
+        3,
+        3,
+        0
+      ],
+      "tricks": [
+        4,
+        2,
+        3,
+        4
+      ],
+      "nil_results": [
+        null,
+        null,
+        null,
+        "failed"
+      ],
+      "teams": [
+        {
+          "contract": 6,
+          "contract_tricks": 7,
+          "made": true,
+          "nil_points": 0,
+          "bags_earned": 1,
+          "bag_penalty": 0,
+          "bags": 7,
+          "score": 47
+        },
+        {
+          "contract": 3,
+          "contract_tricks": 2,
+          "made": false,
+          "nil_points": -100,
+          "bags_earned": 4,
+          "bag_penalty": 0,
+          "bags": 5,
+          "score": -555
+        }
+      ]
     }
   ],
   "metrics": [
     {
       "model": "claude-fable-5-1",
-      "attempts": 43,
-      "accepted": 43,
+      "attempts": 54,
+      "accepted": 54,
       "diagnostic_attempts": 0,
       "holds": 0,
       "http_429": 0,
-      "latency_median_ms": 8193,
+      "latency_median_ms": 8320.0,
       "latency_max_ms": 44734,
       "cooldown_seconds": 0,
-      "input_tokens": 98690,
-      "output_tokens": 23085,
-      "known_estimated_cost_usd": "2.14115",
+      "input_tokens": 124386,
+      "output_tokens": 29070,
+      "known_estimated_cost_usd": "2.69736",
       "unknown_usage_reserve_usd": "0"
     },
     {
       "model": "gemini-3.8-flash",
-      "attempts": 42,
-      "accepted": 42,
+      "attempts": 53,
+      "accepted": 53,
       "diagnostic_attempts": 0,
       "holds": 0,
       "http_429": 0,
-      "latency_median_ms": 8779.0,
+      "latency_median_ms": 8442,
       "latency_max_ms": 16924,
       "cooldown_seconds": 0,
-      "input_tokens": 51899,
-      "output_tokens": 59842,
-      "known_estimated_cost_usd": "0.26333175",
+      "input_tokens": 66615,
+      "output_tokens": 72884,
+      "known_estimated_cost_usd": "0.32327625",
       "unknown_usage_reserve_usd": "0"
     },
     {
       "model": "deepseek/deepseek-v4-pro-0813",
-      "attempts": 46,
-      "accepted": 46,
+      "attempts": 56,
+      "accepted": 56,
       "diagnostic_attempts": 0,
       "holds": 0,
       "http_429": 0,
-      "latency_median_ms": 811.0,
+      "latency_median_ms": 806.0,
       "latency_max_ms": 19705,
-      "cooldown_seconds": 464.214,
-      "input_tokens": 60729,
-      "output_tokens": 319,
-      "known_estimated_cost_usd": "0.0250951921",
+      "cooldown_seconds": 556.547,
+      "input_tokens": 73913,
+      "output_tokens": 389,
+      "known_estimated_cost_usd": "0.0305458537",
       "unknown_usage_reserve_usd": "0"
     },
     {
       "model": "gpt-6-astra",
-      "attempts": 43,
-      "accepted": 43,
+      "attempts": 54,
+      "accepted": 54,
       "diagnostic_attempts": 0,
       "holds": 0,
       "http_429": 0,
-      "latency_median_ms": 5544,
+      "latency_median_ms": 6980.0,
       "latency_max_ms": 16744,
       "cooldown_seconds": 0,
-      "input_tokens": 56929,
-      "output_tokens": 6533,
-      "known_estimated_cost_usd": "0.89594",
+      "input_tokens": 71107,
+      "output_tokens": 8713,
+      "known_estimated_cost_usd": "1.14672",
       "unknown_usage_reserve_usd": "0"
     }
   ],
   "accounting_usd": {
-    "openai": "2.732094",
-    "anthropic": "6.058660",
-    "gemini": "0.97576670",
-    "openrouter": "1.1369182596"
+    "openai": "2.982874",
+    "anthropic": "6.614870",
+    "gemini": "1.03571120",
+    "openrouter": "1.1423689212"
   },
   "opening_accounting_usd": {
     "openai": "1.836154",
