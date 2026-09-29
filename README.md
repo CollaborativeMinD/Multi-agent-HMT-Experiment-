@@ -158,13 +158,13 @@ All four players receive the same guidance. One trial per condition does not est
 | Candidate | Status | Hands | N/S | E/W | Evidence |
 |---|---|---:|---:|---:|---|
 | pro | COMPLETE | 2 | 135 | -276 | [Summary](evidence/strategy-v3-pro/summary.json) |
-| flash | IN_PROGRESS | 3 | 54 | -76 | [Summary](evidence/strategy-v3-flash/summary.json) |
+| flash | COMPLETE | 4 | 107 | -214 | [Summary](evidence/strategy-v3-flash/summary.json) |
 
 Latest cumulative accounting, including retained unknown-usage reservations:
-- openai: $4.962724
-- anthropic: $10.785550
-- gemini: $1.57853345
-- openrouter: $1.1681913484
+- openai: $5.265904
+- anthropic: $11.142030
+- gemini: $1.69025270
+- openrouter: $1.1697940684
 
 Per-account guards are frozen in config/strategy-v3-budget.json, less $0.02 probe buffers. No retries or Free Play.
 <!-- STRATEGY3:END -->
