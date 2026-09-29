@@ -1,15 +1,33 @@
 {
   "status": "IN_PROGRESS",
   "plan_sha256": "02143e8b495219e56ada30e030ab11254484b1fcef6c0df85e30c4a29cd7fdaf",
-  "games": [],
-  "next_cohort": "frontier",
+  "games": [
+    {
+      "id": "frontier-g01",
+      "cohort": "frontier",
+      "number": 1,
+      "seed": 101,
+      "status": "IN_PROGRESS",
+      "hands": 1,
+      "actions": 56,
+      "scores": [
+        142,
+        -84
+      ],
+      "winners": [],
+      "final_hash": "f84177587bc3e6cc01fab34ba7cb165681cbbc3ba0b549ac0260348dc08f324f",
+      "replay_verified": true,
+      "reason": null
+    }
+  ],
+  "next_cohort": "mainstream",
   "source_commit": "56f5cd21d9632113f2863753a1deca4099195d70",
   "run_id": "36510344003",
   "accounting_usd": {
-    "openai": "0.610648",
-    "anthropic": "0.938752",
-    "gemini": "0.17274110",
-    "openrouter": "0.41923340"
+    "openai": "0.770728",
+    "anthropic": "1.613752",
+    "gemini": "0.28216160",
+    "openrouter": "0.53057540"
   },
   "series_wins": {
     "frontier": [
@@ -21,5 +39,5 @@
       0
     ]
   },
-  "updated_utc": "2026-09-29T01:57:55.418691+00:00"
+  "updated_utc": "2026-09-29T02:10:44.539454+00:00"
 }
