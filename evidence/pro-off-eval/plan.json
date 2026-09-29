@@ -1,0 +1,3334 @@
+{
+  "specs": [
+    {
+      "kind": "known",
+      "cap": 32,
+      "prompt": "What is 17 times 19? Options: 0=323, 1=313, 2=333. Return only the choice JSON.",
+      "expected": 0
+    },
+    {
+      "kind": "known",
+      "cap": 32,
+      "prompt": "What is 17 times 19? Options: 0=333, 1=313, 2=323. Return only the choice JSON.",
+      "expected": 2
+    },
+    {
+      "kind": "known",
+      "cap": 128,
+      "prompt": "Spades are trump. Hearts led. You hold 2H, AS, KC. Which must you play to follow suit? Options: 0=AS, 1=2H, 2=KC. Return only the choice JSON.",
+      "expected": 1
+    },
+    {
+      "kind": "known",
+      "cap": 512,
+      "prompt": "Strict Whiz permits nil or your spade count. You hold exactly four spades. Which non-nil bid is permitted? Options: 0=3, 1=5, 2=4. Return only the choice JSON.",
+      "expected": 2
+    },
+    {
+      "kind": "game",
+      "cap": 8192,
+      "view": {
+        "hash": "c56589adfbeb3abba88924ba2096b88b30f48ea4eadfcdf6f8df2a42bc8fc84f",
+        "view": {
+          "you": "p4",
+          "partner": "p2",
+          "players": [
+            {
+              "id": "p1",
+              "name": "North",
+              "color": "red",
+              "bid": 2,
+              "blindNil": false,
+              "tricksWon": 2,
+              "hand": null,
+              "handCount": 3
+            },
+            {
+              "id": "p2",
+              "name": "East",
+              "color": "blue",
+              "bid": 5,
+              "blindNil": false,
+              "tricksWon": 3,
+              "hand": null,
+              "handCount": 2
+            },
+            {
+              "id": "p3",
+              "name": "South",
+              "color": "green",
+              "bid": 4,
+              "blindNil": false,
+              "tricksWon": 4,
+              "hand": null,
+              "handCount": 2
+            },
+            {
+              "id": "p4",
+              "name": "West",
+              "color": "yellow",
+              "bid": 0,
+              "blindNil": false,
+              "tricksWon": 1,
+              "hand": [
+                "7C",
+                "9H",
+                "TD"
+              ],
+              "handCount": 3
+            }
+          ],
+          "phase": "playing",
+          "handNumber": 2,
+          "trickNumber": 10,
+          "scores": [
+            142,
+            -84
+          ],
+          "bags": [
+            2,
+            6
+          ],
+          "spadesBroken": true,
+          "plays": [
+            {
+              "playerId": "p2",
+              "card": "JS"
+            },
+            {
+              "playerId": "p3",
+              "card": "9S"
+            }
+          ],
+          "lastTrick": {
+            "trickNumber": 9,
+            "winnerId": "p2",
+            "plays": [
+              {
+                "playerId": "p2",
+                "card": "KS"
+              },
+              {
+                "playerId": "p3",
+                "card": "3S"
+              },
+              {
+                "playerId": "p4",
+                "card": "8S"
+              },
+              {
+                "playerId": "p1",
+                "card": "QS"
+              }
+            ]
+          },
+          "history": [
+            {
+              "seq": 72,
+              "type": "BID",
+              "playerId": "p3",
+              "payload": {
+                "bid": 4,
+                "nil": false
+              }
+            },
+            {
+              "seq": 73,
+              "type": "BID",
+              "playerId": "p4",
+              "payload": {
+                "bid": 0,
+                "nil": true
+              }
+            },
+            {
+              "seq": 74,
+              "type": "BID",
+              "playerId": "p1",
+              "payload": {
+                "bid": 2,
+                "nil": false
+              }
+            },
+            {
+              "seq": 75,
+              "type": "BID",
+              "playerId": "p2",
+              "payload": {
+                "bid": 5,
+                "nil": false
+              }
+            },
+            {
+              "seq": 76,
+              "type": "PLAY",
+              "playerId": "p3",
+              "payload": {
+                "card": "3D"
+              }
+            },
+            {
+              "seq": 77,
+              "type": "PLAY",
+              "playerId": "p4",
+              "payload": {
+                "card": "KD"
+              }
+            },
+            {
+              "seq": 78,
+              "type": "PLAY",
+              "playerId": "p1",
+              "payload": {
+                "card": "4D"
+              }
+            },
+            {
+              "seq": 79,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "JD"
+              }
+            },
+            {
+              "seq": 80,
+              "type": "TRICK",
+              "playerId": "p4",
+              "payload": {
+                "winnerId": "p4",
+                "trickNumber": 0,
+                "cards": [
+                  "3D",
+                  "KD",
+                  "4D",
+                  "JD"
+                ]
+              }
+            },
+            {
+              "seq": 81,
+              "type": "PLAY",
+              "playerId": "p4",
+              "payload": {
+                "card": "2D"
+              }
+            },
+            {
+              "seq": 82,
+              "type": "PLAY",
+              "playerId": "p1",
+              "payload": {
+                "card": "QD"
+              }
+            },
+            {
+              "seq": 83,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "2S"
+              }
+            },
+            {
+              "seq": 84,
+              "type": "PLAY",
+              "playerId": "p3",
+              "payload": {
+                "card": "5D"
+              }
+            },
+            {
+              "seq": 85,
+              "type": "TRICK",
+              "playerId": "p2",
+              "payload": {
+                "winnerId": "p2",
+                "trickNumber": 1,
+                "cards": [
+                  "2D",
+                  "QD",
+                  "2S",
+                  "5D"
+                ]
+              }
+            },
+            {
+              "seq": 86,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "3H"
+              }
+            },
+            {
+              "seq": 87,
+              "type": "PLAY",
+              "playerId": "p3",
+              "payload": {
+                "card": "5H"
+              }
+            },
+            {
+              "seq": 88,
+              "type": "PLAY",
+              "playerId": "p4",
+              "payload": {
+                "card": "2H"
+              }
+            },
+            {
+              "seq": 89,
+              "type": "PLAY",
+              "playerId": "p1",
+              "payload": {
+                "card": "TH"
+              }
+            },
+            {
+              "seq": 90,
+              "type": "TRICK",
+              "playerId": "p1",
+              "payload": {
+                "winnerId": "p1",
+                "trickNumber": 2,
+                "cards": [
+                  "3H",
+                  "5H",
+                  "2H",
+                  "TH"
+                ]
+              }
+            },
+            {
+              "seq": 91,
+              "type": "PLAY",
+              "playerId": "p1",
+              "payload": {
+                "card": "KH"
+              }
+            },
+            {
+              "seq": 92,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "7H"
+              }
+            },
+            {
+              "seq": 93,
+              "type": "PLAY",
+              "playerId": "p3",
+              "payload": {
+                "card": "JH"
+              }
+            },
+            {
+              "seq": 94,
+              "type": "PLAY",
+              "playerId": "p4",
+              "payload": {
+                "card": "6H"
+              }
+            },
+            {
+              "seq": 95,
+              "type": "TRICK",
+              "playerId": "p1",
+              "payload": {
+                "winnerId": "p1",
+                "trickNumber": 3,
+                "cards": [
+                  "KH",
+                  "7H",
+                  "JH",
+                  "6H"
+                ]
+              }
+            },
+            {
+              "seq": 96,
+              "type": "PLAY",
+              "playerId": "p1",
+              "payload": {
+                "card": "2C"
+              }
+            },
+            {
+              "seq": 97,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "QC"
+              }
+            },
+            {
+              "seq": 98,
+              "type": "PLAY",
+              "playerId": "p3",
+              "payload": {
+                "card": "AC"
+              }
+            },
+            {
+              "seq": 99,
+              "type": "PLAY",
+              "playerId": "p4",
+              "payload": {
+                "card": "9C"
+              }
+            },
+            {
+              "seq": 100,
+              "type": "TRICK",
+              "playerId": "p3",
+              "payload": {
+                "winnerId": "p3",
+                "trickNumber": 4,
+                "cards": [
+                  "2C",
+                  "QC",
+                  "AC",
+                  "9C"
+                ]
+              }
+            },
+            {
+              "seq": 101,
+              "type": "PLAY",
+              "playerId": "p3",
+              "payload": {
+                "card": "AS"
+              }
+            },
+            {
+              "seq": 102,
+              "type": "PLAY",
+              "playerId": "p4",
+              "payload": {
+                "card": "7S"
+              }
+            },
+            {
+              "seq": 103,
+              "type": "PLAY",
+              "playerId": "p1",
+              "payload": {
+                "card": "4S"
+              }
+            },
+            {
+              "seq": 104,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "5S"
+              }
+            },
+            {
+              "seq": 105,
+              "type": "TRICK",
+              "playerId": "p3",
+              "payload": {
+                "winnerId": "p3",
+                "trickNumber": 5,
+                "cards": [
+                  "AS",
+                  "7S",
+                  "4S",
+                  "5S"
+                ]
+              }
+            },
+            {
+              "seq": 106,
+              "type": "PLAY",
+              "playerId": "p3",
+              "payload": {
+                "card": "AH"
+              }
+            },
+            {
+              "seq": 107,
+              "type": "PLAY",
+              "playerId": "p4",
+              "payload": {
+                "card": "8H"
+              }
+            },
+            {
+              "seq": 108,
+              "type": "PLAY",
+              "playerId": "p1",
+              "payload": {
+                "card": "QH"
+              }
+            },
+            {
+              "seq": 109,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "4H"
+              }
+            },
+            {
+              "seq": 110,
+              "type": "TRICK",
+              "playerId": "p3",
+              "payload": {
+                "winnerId": "p3",
+                "trickNumber": 6,
+                "cards": [
+                  "AH",
+                  "8H",
+                  "QH",
+                  "4H"
+                ]
+              }
+            },
+            {
+              "seq": 111,
+              "type": "PLAY",
+              "playerId": "p3",
+              "payload": {
+                "card": "JC"
+              }
+            },
+            {
+              "seq": 112,
+              "type": "PLAY",
+              "playerId": "p4",
+              "payload": {
+                "card": "6C"
+              }
+            },
+            {
+              "seq": 113,
+              "type": "PLAY",
+              "playerId": "p1",
+              "payload": {
+                "card": "5C"
+              }
+            },
+            {
+              "seq": 114,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "3C"
+              }
+            },
+            {
+              "seq": 115,
+              "type": "TRICK",
+              "playerId": "p3",
+              "payload": {
+                "winnerId": "p3",
+                "trickNumber": 7,
+                "cards": [
+                  "JC",
+                  "6C",
+                  "5C",
+                  "3C"
+                ]
+              }
+            },
+            {
+              "seq": 116,
+              "type": "PLAY",
+              "playerId": "p3",
+              "payload": {
+                "card": "8D"
+              }
+            },
+            {
+              "seq": 117,
+              "type": "PLAY",
+              "playerId": "p4",
+              "payload": {
+                "card": "9D"
+              }
+            },
+            {
+              "seq": 118,
+              "type": "PLAY",
+              "playerId": "p1",
+              "payload": {
+                "card": "7D"
+              }
+            },
+            {
+              "seq": 119,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "6S"
+              }
+            },
+            {
+              "seq": 120,
+              "type": "TRICK",
+              "playerId": "p2",
+              "payload": {
+                "winnerId": "p2",
+                "trickNumber": 8,
+                "cards": [
+                  "8D",
+                  "9D",
+                  "7D",
+                  "6S"
+                ]
+              }
+            },
+            {
+              "seq": 121,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "KS"
+              }
+            },
+            {
+              "seq": 122,
+              "type": "PLAY",
+              "playerId": "p3",
+              "payload": {
+                "card": "3S"
+              }
+            },
+            {
+              "seq": 123,
+              "type": "PLAY",
+              "playerId": "p4",
+              "payload": {
+                "card": "8S"
+              }
+            },
+            {
+              "seq": 124,
+              "type": "PLAY",
+              "playerId": "p1",
+              "payload": {
+                "card": "QS"
+              }
+            },
+            {
+              "seq": 125,
+              "type": "TRICK",
+              "playerId": "p2",
+              "payload": {
+                "winnerId": "p2",
+                "trickNumber": 9,
+                "cards": [
+                  "KS",
+                  "3S",
+                  "8S",
+                  "QS"
+                ]
+              }
+            },
+            {
+              "seq": 126,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "JS"
+              }
+            },
+            {
+              "seq": 127,
+              "type": "PLAY",
+              "playerId": "p3",
+              "payload": {
+                "card": "9S"
+              }
+            }
+          ],
+          "legal": [
+            {
+              "type": "PLAY",
+              "card": "7C"
+            },
+            {
+              "type": "PLAY",
+              "card": "9H"
+            },
+            {
+              "type": "PLAY",
+              "card": "TD"
+            }
+          ]
+        }
+      },
+      "repeat": 0
+    },
+    {
+      "kind": "game",
+      "cap": 8192,
+      "view": {
+        "hash": "c56589adfbeb3abba88924ba2096b88b30f48ea4eadfcdf6f8df2a42bc8fc84f",
+        "view": {
+          "you": "p4",
+          "partner": "p2",
+          "players": [
+            {
+              "id": "p1",
+              "name": "North",
+              "color": "red",
+              "bid": 2,
+              "blindNil": false,
+              "tricksWon": 2,
+              "hand": null,
+              "handCount": 3
+            },
+            {
+              "id": "p2",
+              "name": "East",
+              "color": "blue",
+              "bid": 5,
+              "blindNil": false,
+              "tricksWon": 3,
+              "hand": null,
+              "handCount": 2
+            },
+            {
+              "id": "p3",
+              "name": "South",
+              "color": "green",
+              "bid": 4,
+              "blindNil": false,
+              "tricksWon": 4,
+              "hand": null,
+              "handCount": 2
+            },
+            {
+              "id": "p4",
+              "name": "West",
+              "color": "yellow",
+              "bid": 0,
+              "blindNil": false,
+              "tricksWon": 1,
+              "hand": [
+                "7C",
+                "9H",
+                "TD"
+              ],
+              "handCount": 3
+            }
+          ],
+          "phase": "playing",
+          "handNumber": 2,
+          "trickNumber": 10,
+          "scores": [
+            142,
+            -84
+          ],
+          "bags": [
+            2,
+            6
+          ],
+          "spadesBroken": true,
+          "plays": [
+            {
+              "playerId": "p2",
+              "card": "JS"
+            },
+            {
+              "playerId": "p3",
+              "card": "9S"
+            }
+          ],
+          "lastTrick": {
+            "trickNumber": 9,
+            "winnerId": "p2",
+            "plays": [
+              {
+                "playerId": "p2",
+                "card": "KS"
+              },
+              {
+                "playerId": "p3",
+                "card": "3S"
+              },
+              {
+                "playerId": "p4",
+                "card": "8S"
+              },
+              {
+                "playerId": "p1",
+                "card": "QS"
+              }
+            ]
+          },
+          "history": [
+            {
+              "seq": 72,
+              "type": "BID",
+              "playerId": "p3",
+              "payload": {
+                "bid": 4,
+                "nil": false
+              }
+            },
+            {
+              "seq": 73,
+              "type": "BID",
+              "playerId": "p4",
+              "payload": {
+                "bid": 0,
+                "nil": true
+              }
+            },
+            {
+              "seq": 74,
+              "type": "BID",
+              "playerId": "p1",
+              "payload": {
+                "bid": 2,
+                "nil": false
+              }
+            },
+            {
+              "seq": 75,
+              "type": "BID",
+              "playerId": "p2",
+              "payload": {
+                "bid": 5,
+                "nil": false
+              }
+            },
+            {
+              "seq": 76,
+              "type": "PLAY",
+              "playerId": "p3",
+              "payload": {
+                "card": "3D"
+              }
+            },
+            {
+              "seq": 77,
+              "type": "PLAY",
+              "playerId": "p4",
+              "payload": {
+                "card": "KD"
+              }
+            },
+            {
+              "seq": 78,
+              "type": "PLAY",
+              "playerId": "p1",
+              "payload": {
+                "card": "4D"
+              }
+            },
+            {
+              "seq": 79,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "JD"
+              }
+            },
+            {
+              "seq": 80,
+              "type": "TRICK",
+              "playerId": "p4",
+              "payload": {
+                "winnerId": "p4",
+                "trickNumber": 0,
+                "cards": [
+                  "3D",
+                  "KD",
+                  "4D",
+                  "JD"
+                ]
+              }
+            },
+            {
+              "seq": 81,
+              "type": "PLAY",
+              "playerId": "p4",
+              "payload": {
+                "card": "2D"
+              }
+            },
+            {
+              "seq": 82,
+              "type": "PLAY",
+              "playerId": "p1",
+              "payload": {
+                "card": "QD"
+              }
+            },
+            {
+              "seq": 83,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "2S"
+              }
+            },
+            {
+              "seq": 84,
+              "type": "PLAY",
+              "playerId": "p3",
+              "payload": {
+                "card": "5D"
+              }
+            },
+            {
+              "seq": 85,
+              "type": "TRICK",
+              "playerId": "p2",
+              "payload": {
+                "winnerId": "p2",
+                "trickNumber": 1,
+                "cards": [
+                  "2D",
+                  "QD",
+                  "2S",
+                  "5D"
+                ]
+              }
+            },
+            {
+              "seq": 86,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "3H"
+              }
+            },
+            {
+              "seq": 87,
+              "type": "PLAY",
+              "playerId": "p3",
+              "payload": {
+                "card": "5H"
+              }
+            },
+            {
+              "seq": 88,
+              "type": "PLAY",
+              "playerId": "p4",
+              "payload": {
+                "card": "2H"
+              }
+            },
+            {
+              "seq": 89,
+              "type": "PLAY",
+              "playerId": "p1",
+              "payload": {
+                "card": "TH"
+              }
+            },
+            {
+              "seq": 90,
+              "type": "TRICK",
+              "playerId": "p1",
+              "payload": {
+                "winnerId": "p1",
+                "trickNumber": 2,
+                "cards": [
+                  "3H",
+                  "5H",
+                  "2H",
+                  "TH"
+                ]
+              }
+            },
+            {
+              "seq": 91,
+              "type": "PLAY",
+              "playerId": "p1",
+              "payload": {
+                "card": "KH"
+              }
+            },
+            {
+              "seq": 92,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "7H"
+              }
+            },
+            {
+              "seq": 93,
+              "type": "PLAY",
+              "playerId": "p3",
+              "payload": {
+                "card": "JH"
+              }
+            },
+            {
+              "seq": 94,
+              "type": "PLAY",
+              "playerId": "p4",
+              "payload": {
+                "card": "6H"
+              }
+            },
+            {
+              "seq": 95,
+              "type": "TRICK",
+              "playerId": "p1",
+              "payload": {
+                "winnerId": "p1",
+                "trickNumber": 3,
+                "cards": [
+                  "KH",
+                  "7H",
+                  "JH",
+                  "6H"
+                ]
+              }
+            },
+            {
+              "seq": 96,
+              "type": "PLAY",
+              "playerId": "p1",
+              "payload": {
+                "card": "2C"
+              }
+            },
+            {
+              "seq": 97,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "QC"
+              }
+            },
+            {
+              "seq": 98,
+              "type": "PLAY",
+              "playerId": "p3",
+              "payload": {
+                "card": "AC"
+              }
+            },
+            {
+              "seq": 99,
+              "type": "PLAY",
+              "playerId": "p4",
+              "payload": {
+                "card": "9C"
+              }
+            },
+            {
+              "seq": 100,
+              "type": "TRICK",
+              "playerId": "p3",
+              "payload": {
+                "winnerId": "p3",
+                "trickNumber": 4,
+                "cards": [
+                  "2C",
+                  "QC",
+                  "AC",
+                  "9C"
+                ]
+              }
+            },
+            {
+              "seq": 101,
+              "type": "PLAY",
+              "playerId": "p3",
+              "payload": {
+                "card": "AS"
+              }
+            },
+            {
+              "seq": 102,
+              "type": "PLAY",
+              "playerId": "p4",
+              "payload": {
+                "card": "7S"
+              }
+            },
+            {
+              "seq": 103,
+              "type": "PLAY",
+              "playerId": "p1",
+              "payload": {
+                "card": "4S"
+              }
+            },
+            {
+              "seq": 104,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "5S"
+              }
+            },
+            {
+              "seq": 105,
+              "type": "TRICK",
+              "playerId": "p3",
+              "payload": {
+                "winnerId": "p3",
+                "trickNumber": 5,
+                "cards": [
+                  "AS",
+                  "7S",
+                  "4S",
+                  "5S"
+                ]
+              }
+            },
+            {
+              "seq": 106,
+              "type": "PLAY",
+              "playerId": "p3",
+              "payload": {
+                "card": "AH"
+              }
+            },
+            {
+              "seq": 107,
+              "type": "PLAY",
+              "playerId": "p4",
+              "payload": {
+                "card": "8H"
+              }
+            },
+            {
+              "seq": 108,
+              "type": "PLAY",
+              "playerId": "p1",
+              "payload": {
+                "card": "QH"
+              }
+            },
+            {
+              "seq": 109,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "4H"
+              }
+            },
+            {
+              "seq": 110,
+              "type": "TRICK",
+              "playerId": "p3",
+              "payload": {
+                "winnerId": "p3",
+                "trickNumber": 6,
+                "cards": [
+                  "AH",
+                  "8H",
+                  "QH",
+                  "4H"
+                ]
+              }
+            },
+            {
+              "seq": 111,
+              "type": "PLAY",
+              "playerId": "p3",
+              "payload": {
+                "card": "JC"
+              }
+            },
+            {
+              "seq": 112,
+              "type": "PLAY",
+              "playerId": "p4",
+              "payload": {
+                "card": "6C"
+              }
+            },
+            {
+              "seq": 113,
+              "type": "PLAY",
+              "playerId": "p1",
+              "payload": {
+                "card": "5C"
+              }
+            },
+            {
+              "seq": 114,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "3C"
+              }
+            },
+            {
+              "seq": 115,
+              "type": "TRICK",
+              "playerId": "p3",
+              "payload": {
+                "winnerId": "p3",
+                "trickNumber": 7,
+                "cards": [
+                  "JC",
+                  "6C",
+                  "5C",
+                  "3C"
+                ]
+              }
+            },
+            {
+              "seq": 116,
+              "type": "PLAY",
+              "playerId": "p3",
+              "payload": {
+                "card": "8D"
+              }
+            },
+            {
+              "seq": 117,
+              "type": "PLAY",
+              "playerId": "p4",
+              "payload": {
+                "card": "9D"
+              }
+            },
+            {
+              "seq": 118,
+              "type": "PLAY",
+              "playerId": "p1",
+              "payload": {
+                "card": "7D"
+              }
+            },
+            {
+              "seq": 119,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "6S"
+              }
+            },
+            {
+              "seq": 120,
+              "type": "TRICK",
+              "playerId": "p2",
+              "payload": {
+                "winnerId": "p2",
+                "trickNumber": 8,
+                "cards": [
+                  "8D",
+                  "9D",
+                  "7D",
+                  "6S"
+                ]
+              }
+            },
+            {
+              "seq": 121,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "KS"
+              }
+            },
+            {
+              "seq": 122,
+              "type": "PLAY",
+              "playerId": "p3",
+              "payload": {
+                "card": "3S"
+              }
+            },
+            {
+              "seq": 123,
+              "type": "PLAY",
+              "playerId": "p4",
+              "payload": {
+                "card": "8S"
+              }
+            },
+            {
+              "seq": 124,
+              "type": "PLAY",
+              "playerId": "p1",
+              "payload": {
+                "card": "QS"
+              }
+            },
+            {
+              "seq": 125,
+              "type": "TRICK",
+              "playerId": "p2",
+              "payload": {
+                "winnerId": "p2",
+                "trickNumber": 9,
+                "cards": [
+                  "KS",
+                  "3S",
+                  "8S",
+                  "QS"
+                ]
+              }
+            },
+            {
+              "seq": 126,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "JS"
+              }
+            },
+            {
+              "seq": 127,
+              "type": "PLAY",
+              "playerId": "p3",
+              "payload": {
+                "card": "9S"
+              }
+            }
+          ],
+          "legal": [
+            {
+              "type": "PLAY",
+              "card": "7C"
+            },
+            {
+              "type": "PLAY",
+              "card": "9H"
+            },
+            {
+              "type": "PLAY",
+              "card": "TD"
+            }
+          ]
+        }
+      },
+      "repeat": 1
+    },
+    {
+      "kind": "game",
+      "cap": 8192,
+      "view": {
+        "hash": "c56589adfbeb3abba88924ba2096b88b30f48ea4eadfcdf6f8df2a42bc8fc84f",
+        "view": {
+          "you": "p4",
+          "partner": "p2",
+          "players": [
+            {
+              "id": "p1",
+              "name": "North",
+              "color": "red",
+              "bid": 2,
+              "blindNil": false,
+              "tricksWon": 2,
+              "hand": null,
+              "handCount": 3
+            },
+            {
+              "id": "p2",
+              "name": "East",
+              "color": "blue",
+              "bid": 5,
+              "blindNil": false,
+              "tricksWon": 3,
+              "hand": null,
+              "handCount": 2
+            },
+            {
+              "id": "p3",
+              "name": "South",
+              "color": "green",
+              "bid": 4,
+              "blindNil": false,
+              "tricksWon": 4,
+              "hand": null,
+              "handCount": 2
+            },
+            {
+              "id": "p4",
+              "name": "West",
+              "color": "yellow",
+              "bid": 0,
+              "blindNil": false,
+              "tricksWon": 1,
+              "hand": [
+                "7C",
+                "9H",
+                "TD"
+              ],
+              "handCount": 3
+            }
+          ],
+          "phase": "playing",
+          "handNumber": 2,
+          "trickNumber": 10,
+          "scores": [
+            142,
+            -84
+          ],
+          "bags": [
+            2,
+            6
+          ],
+          "spadesBroken": true,
+          "plays": [
+            {
+              "playerId": "p2",
+              "card": "JS"
+            },
+            {
+              "playerId": "p3",
+              "card": "9S"
+            }
+          ],
+          "lastTrick": {
+            "trickNumber": 9,
+            "winnerId": "p2",
+            "plays": [
+              {
+                "playerId": "p2",
+                "card": "KS"
+              },
+              {
+                "playerId": "p3",
+                "card": "3S"
+              },
+              {
+                "playerId": "p4",
+                "card": "8S"
+              },
+              {
+                "playerId": "p1",
+                "card": "QS"
+              }
+            ]
+          },
+          "history": [
+            {
+              "seq": 72,
+              "type": "BID",
+              "playerId": "p3",
+              "payload": {
+                "bid": 4,
+                "nil": false
+              }
+            },
+            {
+              "seq": 73,
+              "type": "BID",
+              "playerId": "p4",
+              "payload": {
+                "bid": 0,
+                "nil": true
+              }
+            },
+            {
+              "seq": 74,
+              "type": "BID",
+              "playerId": "p1",
+              "payload": {
+                "bid": 2,
+                "nil": false
+              }
+            },
+            {
+              "seq": 75,
+              "type": "BID",
+              "playerId": "p2",
+              "payload": {
+                "bid": 5,
+                "nil": false
+              }
+            },
+            {
+              "seq": 76,
+              "type": "PLAY",
+              "playerId": "p3",
+              "payload": {
+                "card": "3D"
+              }
+            },
+            {
+              "seq": 77,
+              "type": "PLAY",
+              "playerId": "p4",
+              "payload": {
+                "card": "KD"
+              }
+            },
+            {
+              "seq": 78,
+              "type": "PLAY",
+              "playerId": "p1",
+              "payload": {
+                "card": "4D"
+              }
+            },
+            {
+              "seq": 79,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "JD"
+              }
+            },
+            {
+              "seq": 80,
+              "type": "TRICK",
+              "playerId": "p4",
+              "payload": {
+                "winnerId": "p4",
+                "trickNumber": 0,
+                "cards": [
+                  "3D",
+                  "KD",
+                  "4D",
+                  "JD"
+                ]
+              }
+            },
+            {
+              "seq": 81,
+              "type": "PLAY",
+              "playerId": "p4",
+              "payload": {
+                "card": "2D"
+              }
+            },
+            {
+              "seq": 82,
+              "type": "PLAY",
+              "playerId": "p1",
+              "payload": {
+                "card": "QD"
+              }
+            },
+            {
+              "seq": 83,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "2S"
+              }
+            },
+            {
+              "seq": 84,
+              "type": "PLAY",
+              "playerId": "p3",
+              "payload": {
+                "card": "5D"
+              }
+            },
+            {
+              "seq": 85,
+              "type": "TRICK",
+              "playerId": "p2",
+              "payload": {
+                "winnerId": "p2",
+                "trickNumber": 1,
+                "cards": [
+                  "2D",
+                  "QD",
+                  "2S",
+                  "5D"
+                ]
+              }
+            },
+            {
+              "seq": 86,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "3H"
+              }
+            },
+            {
+              "seq": 87,
+              "type": "PLAY",
+              "playerId": "p3",
+              "payload": {
+                "card": "5H"
+              }
+            },
+            {
+              "seq": 88,
+              "type": "PLAY",
+              "playerId": "p4",
+              "payload": {
+                "card": "2H"
+              }
+            },
+            {
+              "seq": 89,
+              "type": "PLAY",
+              "playerId": "p1",
+              "payload": {
+                "card": "TH"
+              }
+            },
+            {
+              "seq": 90,
+              "type": "TRICK",
+              "playerId": "p1",
+              "payload": {
+                "winnerId": "p1",
+                "trickNumber": 2,
+                "cards": [
+                  "3H",
+                  "5H",
+                  "2H",
+                  "TH"
+                ]
+              }
+            },
+            {
+              "seq": 91,
+              "type": "PLAY",
+              "playerId": "p1",
+              "payload": {
+                "card": "KH"
+              }
+            },
+            {
+              "seq": 92,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "7H"
+              }
+            },
+            {
+              "seq": 93,
+              "type": "PLAY",
+              "playerId": "p3",
+              "payload": {
+                "card": "JH"
+              }
+            },
+            {
+              "seq": 94,
+              "type": "PLAY",
+              "playerId": "p4",
+              "payload": {
+                "card": "6H"
+              }
+            },
+            {
+              "seq": 95,
+              "type": "TRICK",
+              "playerId": "p1",
+              "payload": {
+                "winnerId": "p1",
+                "trickNumber": 3,
+                "cards": [
+                  "KH",
+                  "7H",
+                  "JH",
+                  "6H"
+                ]
+              }
+            },
+            {
+              "seq": 96,
+              "type": "PLAY",
+              "playerId": "p1",
+              "payload": {
+                "card": "2C"
+              }
+            },
+            {
+              "seq": 97,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "QC"
+              }
+            },
+            {
+              "seq": 98,
+              "type": "PLAY",
+              "playerId": "p3",
+              "payload": {
+                "card": "AC"
+              }
+            },
+            {
+              "seq": 99,
+              "type": "PLAY",
+              "playerId": "p4",
+              "payload": {
+                "card": "9C"
+              }
+            },
+            {
+              "seq": 100,
+              "type": "TRICK",
+              "playerId": "p3",
+              "payload": {
+                "winnerId": "p3",
+                "trickNumber": 4,
+                "cards": [
+                  "2C",
+                  "QC",
+                  "AC",
+                  "9C"
+                ]
+              }
+            },
+            {
+              "seq": 101,
+              "type": "PLAY",
+              "playerId": "p3",
+              "payload": {
+                "card": "AS"
+              }
+            },
+            {
+              "seq": 102,
+              "type": "PLAY",
+              "playerId": "p4",
+              "payload": {
+                "card": "7S"
+              }
+            },
+            {
+              "seq": 103,
+              "type": "PLAY",
+              "playerId": "p1",
+              "payload": {
+                "card": "4S"
+              }
+            },
+            {
+              "seq": 104,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "5S"
+              }
+            },
+            {
+              "seq": 105,
+              "type": "TRICK",
+              "playerId": "p3",
+              "payload": {
+                "winnerId": "p3",
+                "trickNumber": 5,
+                "cards": [
+                  "AS",
+                  "7S",
+                  "4S",
+                  "5S"
+                ]
+              }
+            },
+            {
+              "seq": 106,
+              "type": "PLAY",
+              "playerId": "p3",
+              "payload": {
+                "card": "AH"
+              }
+            },
+            {
+              "seq": 107,
+              "type": "PLAY",
+              "playerId": "p4",
+              "payload": {
+                "card": "8H"
+              }
+            },
+            {
+              "seq": 108,
+              "type": "PLAY",
+              "playerId": "p1",
+              "payload": {
+                "card": "QH"
+              }
+            },
+            {
+              "seq": 109,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "4H"
+              }
+            },
+            {
+              "seq": 110,
+              "type": "TRICK",
+              "playerId": "p3",
+              "payload": {
+                "winnerId": "p3",
+                "trickNumber": 6,
+                "cards": [
+                  "AH",
+                  "8H",
+                  "QH",
+                  "4H"
+                ]
+              }
+            },
+            {
+              "seq": 111,
+              "type": "PLAY",
+              "playerId": "p3",
+              "payload": {
+                "card": "JC"
+              }
+            },
+            {
+              "seq": 112,
+              "type": "PLAY",
+              "playerId": "p4",
+              "payload": {
+                "card": "6C"
+              }
+            },
+            {
+              "seq": 113,
+              "type": "PLAY",
+              "playerId": "p1",
+              "payload": {
+                "card": "5C"
+              }
+            },
+            {
+              "seq": 114,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "3C"
+              }
+            },
+            {
+              "seq": 115,
+              "type": "TRICK",
+              "playerId": "p3",
+              "payload": {
+                "winnerId": "p3",
+                "trickNumber": 7,
+                "cards": [
+                  "JC",
+                  "6C",
+                  "5C",
+                  "3C"
+                ]
+              }
+            },
+            {
+              "seq": 116,
+              "type": "PLAY",
+              "playerId": "p3",
+              "payload": {
+                "card": "8D"
+              }
+            },
+            {
+              "seq": 117,
+              "type": "PLAY",
+              "playerId": "p4",
+              "payload": {
+                "card": "9D"
+              }
+            },
+            {
+              "seq": 118,
+              "type": "PLAY",
+              "playerId": "p1",
+              "payload": {
+                "card": "7D"
+              }
+            },
+            {
+              "seq": 119,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "6S"
+              }
+            },
+            {
+              "seq": 120,
+              "type": "TRICK",
+              "playerId": "p2",
+              "payload": {
+                "winnerId": "p2",
+                "trickNumber": 8,
+                "cards": [
+                  "8D",
+                  "9D",
+                  "7D",
+                  "6S"
+                ]
+              }
+            },
+            {
+              "seq": 121,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "KS"
+              }
+            },
+            {
+              "seq": 122,
+              "type": "PLAY",
+              "playerId": "p3",
+              "payload": {
+                "card": "3S"
+              }
+            },
+            {
+              "seq": 123,
+              "type": "PLAY",
+              "playerId": "p4",
+              "payload": {
+                "card": "8S"
+              }
+            },
+            {
+              "seq": 124,
+              "type": "PLAY",
+              "playerId": "p1",
+              "payload": {
+                "card": "QS"
+              }
+            },
+            {
+              "seq": 125,
+              "type": "TRICK",
+              "playerId": "p2",
+              "payload": {
+                "winnerId": "p2",
+                "trickNumber": 9,
+                "cards": [
+                  "KS",
+                  "3S",
+                  "8S",
+                  "QS"
+                ]
+              }
+            },
+            {
+              "seq": 126,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "JS"
+              }
+            },
+            {
+              "seq": 127,
+              "type": "PLAY",
+              "playerId": "p3",
+              "payload": {
+                "card": "9S"
+              }
+            }
+          ],
+          "legal": [
+            {
+              "type": "PLAY",
+              "card": "7C"
+            },
+            {
+              "type": "PLAY",
+              "card": "9H"
+            },
+            {
+              "type": "PLAY",
+              "card": "TD"
+            }
+          ]
+        }
+      },
+      "repeat": 2
+    },
+    {
+      "kind": "game",
+      "cap": 8192,
+      "view": {
+        "hash": "9f7596beb1070186d420feca54563c184526276d7ff841364e2908efc3fa6647",
+        "view": {
+          "you": "p2",
+          "partner": "p4",
+          "players": [
+            {
+              "id": "p1",
+              "name": "North",
+              "color": "red",
+              "bid": null,
+              "blindNil": false,
+              "tricksWon": 0,
+              "hand": null,
+              "handCount": 13
+            },
+            {
+              "id": "p2",
+              "name": "East",
+              "color": "blue",
+              "bid": null,
+              "blindNil": false,
+              "tricksWon": 0,
+              "hand": [
+                "2H",
+                "4C",
+                "4D",
+                "5H",
+                "6D",
+                "7D",
+                "8C",
+                "AD",
+                "JC",
+                "KC",
+                "KD",
+                "KH",
+                "KS"
+              ],
+              "handCount": 13
+            },
+            {
+              "id": "p3",
+              "name": "South",
+              "color": "green",
+              "bid": null,
+              "blindNil": false,
+              "tricksWon": 0,
+              "hand": null,
+              "handCount": 13
+            },
+            {
+              "id": "p4",
+              "name": "West",
+              "color": "yellow",
+              "bid": null,
+              "blindNil": false,
+              "tricksWon": 0,
+              "hand": null,
+              "handCount": 13
+            }
+          ],
+          "phase": "bidding",
+          "handNumber": 1,
+          "trickNumber": 0,
+          "scores": [
+            0,
+            0
+          ],
+          "bags": [
+            0,
+            0
+          ],
+          "spadesBroken": false,
+          "plays": [],
+          "lastTrick": null,
+          "history": [],
+          "legal": [
+            {
+              "type": "BID",
+              "bid": 0
+            },
+            {
+              "type": "BID",
+              "bid": 1
+            }
+          ]
+        }
+      }
+    },
+    {
+      "kind": "game",
+      "cap": 8192,
+      "view": {
+        "hash": "c3373b7d36989d4c8d00a6a2f172ff59c2edaa726b738bb6bf8ec5e36ea89c56",
+        "view": {
+          "you": "p3",
+          "partner": "p1",
+          "players": [
+            {
+              "id": "p1",
+              "name": "North",
+              "color": "red",
+              "bid": 0,
+              "blindNil": false,
+              "tricksWon": 0,
+              "hand": null,
+              "handCount": 2
+            },
+            {
+              "id": "p2",
+              "name": "East",
+              "color": "blue",
+              "bid": 1,
+              "blindNil": false,
+              "tricksWon": 5,
+              "hand": null,
+              "handCount": 2
+            },
+            {
+              "id": "p3",
+              "name": "South",
+              "color": "green",
+              "bid": 4,
+              "blindNil": false,
+              "tricksWon": 5,
+              "hand": [
+                "6S",
+                "8H"
+              ],
+              "handCount": 2
+            },
+            {
+              "id": "p4",
+              "name": "West",
+              "color": "yellow",
+              "bid": 0,
+              "blindNil": false,
+              "tricksWon": 1,
+              "hand": null,
+              "handCount": 2
+            }
+          ],
+          "phase": "playing",
+          "handNumber": 1,
+          "trickNumber": 11,
+          "scores": [
+            0,
+            0
+          ],
+          "bags": [
+            0,
+            0
+          ],
+          "spadesBroken": true,
+          "plays": [],
+          "lastTrick": {
+            "trickNumber": 10,
+            "winnerId": "p3",
+            "plays": [
+              {
+                "playerId": "p3",
+                "card": "JS"
+              },
+              {
+                "playerId": "p4",
+                "card": "9S"
+              },
+              {
+                "playerId": "p1",
+                "card": "3S"
+              },
+              {
+                "playerId": "p2",
+                "card": "8C"
+              }
+            ]
+          },
+          "history": [
+            {
+              "seq": 1,
+              "type": "BID",
+              "playerId": "p2",
+              "payload": {
+                "bid": 1,
+                "nil": false
+              }
+            },
+            {
+              "seq": 2,
+              "type": "BID",
+              "playerId": "p3",
+              "payload": {
+                "bid": 4,
+                "nil": false
+              }
+            },
+            {
+              "seq": 3,
+              "type": "BID",
+              "playerId": "p4",
+              "payload": {
+                "bid": 0,
+                "nil": true
+              }
+            },
+            {
+              "seq": 4,
+              "type": "BID",
+              "playerId": "p1",
+              "payload": {
+                "bid": 0,
+                "nil": true
+              }
+            },
+            {
+              "seq": 5,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "AD"
+              }
+            },
+            {
+              "seq": 6,
+              "type": "PLAY",
+              "playerId": "p3",
+              "payload": {
+                "card": "8D"
+              }
+            },
+            {
+              "seq": 7,
+              "type": "PLAY",
+              "playerId": "p4",
+              "payload": {
+                "card": "JD"
+              }
+            },
+            {
+              "seq": 8,
+              "type": "PLAY",
+              "playerId": "p1",
+              "payload": {
+                "card": "9D"
+              }
+            },
+            {
+              "seq": 9,
+              "type": "TRICK",
+              "playerId": "p2",
+              "payload": {
+                "winnerId": "p2",
+                "trickNumber": 0,
+                "cards": [
+                  "AD",
+                  "8D",
+                  "JD",
+                  "9D"
+                ]
+              }
+            },
+            {
+              "seq": 10,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "KD"
+              }
+            },
+            {
+              "seq": 11,
+              "type": "PLAY",
+              "playerId": "p3",
+              "payload": {
+                "card": "QD"
+              }
+            },
+            {
+              "seq": 12,
+              "type": "PLAY",
+              "playerId": "p4",
+              "payload": {
+                "card": "QH"
+              }
+            },
+            {
+              "seq": 13,
+              "type": "PLAY",
+              "playerId": "p1",
+              "payload": {
+                "card": "5D"
+              }
+            },
+            {
+              "seq": 14,
+              "type": "TRICK",
+              "playerId": "p2",
+              "payload": {
+                "winnerId": "p2",
+                "trickNumber": 1,
+                "cards": [
+                  "KD",
+                  "QD",
+                  "QH",
+                  "5D"
+                ]
+              }
+            },
+            {
+              "seq": 15,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "4D"
+              }
+            },
+            {
+              "seq": 16,
+              "type": "PLAY",
+              "playerId": "p3",
+              "payload": {
+                "card": "TD"
+              }
+            },
+            {
+              "seq": 17,
+              "type": "PLAY",
+              "playerId": "p4",
+              "payload": {
+                "card": "AH"
+              }
+            },
+            {
+              "seq": 18,
+              "type": "PLAY",
+              "playerId": "p1",
+              "payload": {
+                "card": "3D"
+              }
+            },
+            {
+              "seq": 19,
+              "type": "TRICK",
+              "playerId": "p3",
+              "payload": {
+                "winnerId": "p3",
+                "trickNumber": 2,
+                "cards": [
+                  "4D",
+                  "TD",
+                  "AH",
+                  "3D"
+                ]
+              }
+            },
+            {
+              "seq": 20,
+              "type": "PLAY",
+              "playerId": "p3",
+              "payload": {
+                "card": "5C"
+              }
+            },
+            {
+              "seq": 21,
+              "type": "PLAY",
+              "playerId": "p4",
+              "payload": {
+                "card": "9C"
+              }
+            },
+            {
+              "seq": 22,
+              "type": "PLAY",
+              "playerId": "p1",
+              "payload": {
+                "card": "6C"
+              }
+            },
+            {
+              "seq": 23,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "JC"
+              }
+            },
+            {
+              "seq": 24,
+              "type": "TRICK",
+              "playerId": "p2",
+              "payload": {
+                "winnerId": "p2",
+                "trickNumber": 3,
+                "cards": [
+                  "5C",
+                  "9C",
+                  "6C",
+                  "JC"
+                ]
+              }
+            },
+            {
+              "seq": 25,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "2H"
+              }
+            },
+            {
+              "seq": 26,
+              "type": "PLAY",
+              "playerId": "p3",
+              "payload": {
+                "card": "JH"
+              }
+            },
+            {
+              "seq": 27,
+              "type": "PLAY",
+              "playerId": "p4",
+              "payload": {
+                "card": "9H"
+              }
+            },
+            {
+              "seq": 28,
+              "type": "PLAY",
+              "playerId": "p1",
+              "payload": {
+                "card": "TH"
+              }
+            },
+            {
+              "seq": 29,
+              "type": "TRICK",
+              "playerId": "p3",
+              "payload": {
+                "winnerId": "p3",
+                "trickNumber": 4,
+                "cards": [
+                  "2H",
+                  "JH",
+                  "9H",
+                  "TH"
+                ]
+              }
+            },
+            {
+              "seq": 30,
+              "type": "PLAY",
+              "playerId": "p3",
+              "payload": {
+                "card": "7C"
+              }
+            },
+            {
+              "seq": 31,
+              "type": "PLAY",
+              "playerId": "p4",
+              "payload": {
+                "card": "2C"
+              }
+            },
+            {
+              "seq": 32,
+              "type": "PLAY",
+              "playerId": "p1",
+              "payload": {
+                "card": "3C"
+              }
+            },
+            {
+              "seq": 33,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "KC"
+              }
+            },
+            {
+              "seq": 34,
+              "type": "TRICK",
+              "playerId": "p2",
+              "payload": {
+                "winnerId": "p2",
+                "trickNumber": 5,
+                "cards": [
+                  "7C",
+                  "2C",
+                  "3C",
+                  "KC"
+                ]
+              }
+            },
+            {
+              "seq": 35,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "7D"
+              }
+            },
+            {
+              "seq": 36,
+              "type": "PLAY",
+              "playerId": "p3",
+              "payload": {
+                "card": "4H"
+              }
+            },
+            {
+              "seq": 37,
+              "type": "PLAY",
+              "playerId": "p4",
+              "payload": {
+                "card": "3H"
+              }
+            },
+            {
+              "seq": 38,
+              "type": "PLAY",
+              "playerId": "p1",
+              "payload": {
+                "card": "2D"
+              }
+            },
+            {
+              "seq": 39,
+              "type": "TRICK",
+              "playerId": "p2",
+              "payload": {
+                "winnerId": "p2",
+                "trickNumber": 6,
+                "cards": [
+                  "7D",
+                  "4H",
+                  "3H",
+                  "2D"
+                ]
+              }
+            },
+            {
+              "seq": 40,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "6D"
+              }
+            },
+            {
+              "seq": 41,
+              "type": "PLAY",
+              "playerId": "p3",
+              "payload": {
+                "card": "7H"
+              }
+            },
+            {
+              "seq": 42,
+              "type": "PLAY",
+              "playerId": "p4",
+              "payload": {
+                "card": "7S"
+              }
+            },
+            {
+              "seq": 43,
+              "type": "PLAY",
+              "playerId": "p1",
+              "payload": {
+                "card": "QC"
+              }
+            },
+            {
+              "seq": 44,
+              "type": "TRICK",
+              "playerId": "p4",
+              "payload": {
+                "winnerId": "p4",
+                "trickNumber": 7,
+                "cards": [
+                  "6D",
+                  "7H",
+                  "7S",
+                  "QC"
+                ]
+              }
+            },
+            {
+              "seq": 45,
+              "type": "PLAY",
+              "playerId": "p4",
+              "payload": {
+                "card": "2S"
+              }
+            },
+            {
+              "seq": 46,
+              "type": "PLAY",
+              "playerId": "p1",
+              "payload": {
+                "card": "TS"
+              }
+            },
+            {
+              "seq": 47,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "KS"
+              }
+            },
+            {
+              "seq": 48,
+              "type": "PLAY",
+              "playerId": "p3",
+              "payload": {
+                "card": "AS"
+              }
+            },
+            {
+              "seq": 49,
+              "type": "TRICK",
+              "playerId": "p3",
+              "payload": {
+                "winnerId": "p3",
+                "trickNumber": 8,
+                "cards": [
+                  "2S",
+                  "TS",
+                  "KS",
+                  "AS"
+                ]
+              }
+            },
+            {
+              "seq": 50,
+              "type": "PLAY",
+              "playerId": "p3",
+              "payload": {
+                "card": "QS"
+              }
+            },
+            {
+              "seq": 51,
+              "type": "PLAY",
+              "playerId": "p4",
+              "payload": {
+                "card": "5S"
+              }
+            },
+            {
+              "seq": 52,
+              "type": "PLAY",
+              "playerId": "p1",
+              "payload": {
+                "card": "4S"
+              }
+            },
+            {
+              "seq": 53,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "KH"
+              }
+            },
+            {
+              "seq": 54,
+              "type": "TRICK",
+              "playerId": "p3",
+              "payload": {
+                "winnerId": "p3",
+                "trickNumber": 9,
+                "cards": [
+                  "QS",
+                  "5S",
+                  "4S",
+                  "KH"
+                ]
+              }
+            },
+            {
+              "seq": 55,
+              "type": "PLAY",
+              "playerId": "p3",
+              "payload": {
+                "card": "JS"
+              }
+            },
+            {
+              "seq": 56,
+              "type": "PLAY",
+              "playerId": "p4",
+              "payload": {
+                "card": "9S"
+              }
+            },
+            {
+              "seq": 57,
+              "type": "PLAY",
+              "playerId": "p1",
+              "payload": {
+                "card": "3S"
+              }
+            },
+            {
+              "seq": 58,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "8C"
+              }
+            },
+            {
+              "seq": 59,
+              "type": "TRICK",
+              "playerId": "p3",
+              "payload": {
+                "winnerId": "p3",
+                "trickNumber": 10,
+                "cards": [
+                  "JS",
+                  "9S",
+                  "3S",
+                  "8C"
+                ]
+              }
+            }
+          ],
+          "legal": [
+            {
+              "type": "PLAY",
+              "card": "6S"
+            },
+            {
+              "type": "PLAY",
+              "card": "8H"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "kind": "game",
+      "cap": 8192,
+      "view": {
+        "hash": "2945e1471f2113bd158a8759d928a3090a48b0e855d8560ef67826ee5dd3be87",
+        "view": {
+          "you": "p3",
+          "partner": "p1",
+          "players": [
+            {
+              "id": "p1",
+              "name": "North",
+              "color": "red",
+              "bid": 2,
+              "blindNil": false,
+              "tricksWon": 2,
+              "hand": null,
+              "handCount": 3
+            },
+            {
+              "id": "p2",
+              "name": "East",
+              "color": "blue",
+              "bid": 5,
+              "blindNil": false,
+              "tricksWon": 3,
+              "hand": null,
+              "handCount": 2
+            },
+            {
+              "id": "p3",
+              "name": "South",
+              "color": "green",
+              "bid": 4,
+              "blindNil": false,
+              "tricksWon": 4,
+              "hand": [
+                "9S",
+                "AD",
+                "TS"
+              ],
+              "handCount": 3
+            },
+            {
+              "id": "p4",
+              "name": "West",
+              "color": "yellow",
+              "bid": 0,
+              "blindNil": false,
+              "tricksWon": 1,
+              "hand": null,
+              "handCount": 3
+            }
+          ],
+          "phase": "playing",
+          "handNumber": 2,
+          "trickNumber": 10,
+          "scores": [
+            142,
+            -84
+          ],
+          "bags": [
+            2,
+            6
+          ],
+          "spadesBroken": true,
+          "plays": [
+            {
+              "playerId": "p2",
+              "card": "JS"
+            }
+          ],
+          "lastTrick": {
+            "trickNumber": 9,
+            "winnerId": "p2",
+            "plays": [
+              {
+                "playerId": "p2",
+                "card": "KS"
+              },
+              {
+                "playerId": "p3",
+                "card": "3S"
+              },
+              {
+                "playerId": "p4",
+                "card": "8S"
+              },
+              {
+                "playerId": "p1",
+                "card": "QS"
+              }
+            ]
+          },
+          "history": [
+            {
+              "seq": 72,
+              "type": "BID",
+              "playerId": "p3",
+              "payload": {
+                "bid": 4,
+                "nil": false
+              }
+            },
+            {
+              "seq": 73,
+              "type": "BID",
+              "playerId": "p4",
+              "payload": {
+                "bid": 0,
+                "nil": true
+              }
+            },
+            {
+              "seq": 74,
+              "type": "BID",
+              "playerId": "p1",
+              "payload": {
+                "bid": 2,
+                "nil": false
+              }
+            },
+            {
+              "seq": 75,
+              "type": "BID",
+              "playerId": "p2",
+              "payload": {
+                "bid": 5,
+                "nil": false
+              }
+            },
+            {
+              "seq": 76,
+              "type": "PLAY",
+              "playerId": "p3",
+              "payload": {
+                "card": "3D"
+              }
+            },
+            {
+              "seq": 77,
+              "type": "PLAY",
+              "playerId": "p4",
+              "payload": {
+                "card": "KD"
+              }
+            },
+            {
+              "seq": 78,
+              "type": "PLAY",
+              "playerId": "p1",
+              "payload": {
+                "card": "4D"
+              }
+            },
+            {
+              "seq": 79,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "JD"
+              }
+            },
+            {
+              "seq": 80,
+              "type": "TRICK",
+              "playerId": "p4",
+              "payload": {
+                "winnerId": "p4",
+                "trickNumber": 0,
+                "cards": [
+                  "3D",
+                  "KD",
+                  "4D",
+                  "JD"
+                ]
+              }
+            },
+            {
+              "seq": 81,
+              "type": "PLAY",
+              "playerId": "p4",
+              "payload": {
+                "card": "2D"
+              }
+            },
+            {
+              "seq": 82,
+              "type": "PLAY",
+              "playerId": "p1",
+              "payload": {
+                "card": "QD"
+              }
+            },
+            {
+              "seq": 83,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "2S"
+              }
+            },
+            {
+              "seq": 84,
+              "type": "PLAY",
+              "playerId": "p3",
+              "payload": {
+                "card": "5D"
+              }
+            },
+            {
+              "seq": 85,
+              "type": "TRICK",
+              "playerId": "p2",
+              "payload": {
+                "winnerId": "p2",
+                "trickNumber": 1,
+                "cards": [
+                  "2D",
+                  "QD",
+                  "2S",
+                  "5D"
+                ]
+              }
+            },
+            {
+              "seq": 86,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "3H"
+              }
+            },
+            {
+              "seq": 87,
+              "type": "PLAY",
+              "playerId": "p3",
+              "payload": {
+                "card": "5H"
+              }
+            },
+            {
+              "seq": 88,
+              "type": "PLAY",
+              "playerId": "p4",
+              "payload": {
+                "card": "2H"
+              }
+            },
+            {
+              "seq": 89,
+              "type": "PLAY",
+              "playerId": "p1",
+              "payload": {
+                "card": "TH"
+              }
+            },
+            {
+              "seq": 90,
+              "type": "TRICK",
+              "playerId": "p1",
+              "payload": {
+                "winnerId": "p1",
+                "trickNumber": 2,
+                "cards": [
+                  "3H",
+                  "5H",
+                  "2H",
+                  "TH"
+                ]
+              }
+            },
+            {
+              "seq": 91,
+              "type": "PLAY",
+              "playerId": "p1",
+              "payload": {
+                "card": "KH"
+              }
+            },
+            {
+              "seq": 92,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "7H"
+              }
+            },
+            {
+              "seq": 93,
+              "type": "PLAY",
+              "playerId": "p3",
+              "payload": {
+                "card": "JH"
+              }
+            },
+            {
+              "seq": 94,
+              "type": "PLAY",
+              "playerId": "p4",
+              "payload": {
+                "card": "6H"
+              }
+            },
+            {
+              "seq": 95,
+              "type": "TRICK",
+              "playerId": "p1",
+              "payload": {
+                "winnerId": "p1",
+                "trickNumber": 3,
+                "cards": [
+                  "KH",
+                  "7H",
+                  "JH",
+                  "6H"
+                ]
+              }
+            },
+            {
+              "seq": 96,
+              "type": "PLAY",
+              "playerId": "p1",
+              "payload": {
+                "card": "2C"
+              }
+            },
+            {
+              "seq": 97,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "QC"
+              }
+            },
+            {
+              "seq": 98,
+              "type": "PLAY",
+              "playerId": "p3",
+              "payload": {
+                "card": "AC"
+              }
+            },
+            {
+              "seq": 99,
+              "type": "PLAY",
+              "playerId": "p4",
+              "payload": {
+                "card": "9C"
+              }
+            },
+            {
+              "seq": 100,
+              "type": "TRICK",
+              "playerId": "p3",
+              "payload": {
+                "winnerId": "p3",
+                "trickNumber": 4,
+                "cards": [
+                  "2C",
+                  "QC",
+                  "AC",
+                  "9C"
+                ]
+              }
+            },
+            {
+              "seq": 101,
+              "type": "PLAY",
+              "playerId": "p3",
+              "payload": {
+                "card": "AS"
+              }
+            },
+            {
+              "seq": 102,
+              "type": "PLAY",
+              "playerId": "p4",
+              "payload": {
+                "card": "7S"
+              }
+            },
+            {
+              "seq": 103,
+              "type": "PLAY",
+              "playerId": "p1",
+              "payload": {
+                "card": "4S"
+              }
+            },
+            {
+              "seq": 104,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "5S"
+              }
+            },
+            {
+              "seq": 105,
+              "type": "TRICK",
+              "playerId": "p3",
+              "payload": {
+                "winnerId": "p3",
+                "trickNumber": 5,
+                "cards": [
+                  "AS",
+                  "7S",
+                  "4S",
+                  "5S"
+                ]
+              }
+            },
+            {
+              "seq": 106,
+              "type": "PLAY",
+              "playerId": "p3",
+              "payload": {
+                "card": "AH"
+              }
+            },
+            {
+              "seq": 107,
+              "type": "PLAY",
+              "playerId": "p4",
+              "payload": {
+                "card": "8H"
+              }
+            },
+            {
+              "seq": 108,
+              "type": "PLAY",
+              "playerId": "p1",
+              "payload": {
+                "card": "QH"
+              }
+            },
+            {
+              "seq": 109,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "4H"
+              }
+            },
+            {
+              "seq": 110,
+              "type": "TRICK",
+              "playerId": "p3",
+              "payload": {
+                "winnerId": "p3",
+                "trickNumber": 6,
+                "cards": [
+                  "AH",
+                  "8H",
+                  "QH",
+                  "4H"
+                ]
+              }
+            },
+            {
+              "seq": 111,
+              "type": "PLAY",
+              "playerId": "p3",
+              "payload": {
+                "card": "JC"
+              }
+            },
+            {
+              "seq": 112,
+              "type": "PLAY",
+              "playerId": "p4",
+              "payload": {
+                "card": "6C"
+              }
+            },
+            {
+              "seq": 113,
+              "type": "PLAY",
+              "playerId": "p1",
+              "payload": {
+                "card": "5C"
+              }
+            },
+            {
+              "seq": 114,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "3C"
+              }
+            },
+            {
+              "seq": 115,
+              "type": "TRICK",
+              "playerId": "p3",
+              "payload": {
+                "winnerId": "p3",
+                "trickNumber": 7,
+                "cards": [
+                  "JC",
+                  "6C",
+                  "5C",
+                  "3C"
+                ]
+              }
+            },
+            {
+              "seq": 116,
+              "type": "PLAY",
+              "playerId": "p3",
+              "payload": {
+                "card": "8D"
+              }
+            },
+            {
+              "seq": 117,
+              "type": "PLAY",
+              "playerId": "p4",
+              "payload": {
+                "card": "9D"
+              }
+            },
+            {
+              "seq": 118,
+              "type": "PLAY",
+              "playerId": "p1",
+              "payload": {
+                "card": "7D"
+              }
+            },
+            {
+              "seq": 119,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "6S"
+              }
+            },
+            {
+              "seq": 120,
+              "type": "TRICK",
+              "playerId": "p2",
+              "payload": {
+                "winnerId": "p2",
+                "trickNumber": 8,
+                "cards": [
+                  "8D",
+                  "9D",
+                  "7D",
+                  "6S"
+                ]
+              }
+            },
+            {
+              "seq": 121,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "KS"
+              }
+            },
+            {
+              "seq": 122,
+              "type": "PLAY",
+              "playerId": "p3",
+              "payload": {
+                "card": "3S"
+              }
+            },
+            {
+              "seq": 123,
+              "type": "PLAY",
+              "playerId": "p4",
+              "payload": {
+                "card": "8S"
+              }
+            },
+            {
+              "seq": 124,
+              "type": "PLAY",
+              "playerId": "p1",
+              "payload": {
+                "card": "QS"
+              }
+            },
+            {
+              "seq": 125,
+              "type": "TRICK",
+              "playerId": "p2",
+              "payload": {
+                "winnerId": "p2",
+                "trickNumber": 9,
+                "cards": [
+                  "KS",
+                  "3S",
+                  "8S",
+                  "QS"
+                ]
+              }
+            },
+            {
+              "seq": 126,
+              "type": "PLAY",
+              "playerId": "p2",
+              "payload": {
+                "card": "JS"
+              }
+            }
+          ],
+          "legal": [
+            {
+              "type": "PLAY",
+              "card": "9S"
+            },
+            {
+              "type": "PLAY",
+              "card": "TS"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "kind": "pressure",
+      "cap": 1,
+      "prompt": "Return exactly the JSON object {\"choice\":1}."
+    },
+    {
+      "kind": "pressure",
+      "cap": 1,
+      "prompt": "Return exactly the JSON object {\"choice\":1}."
+    }
+  ],
+  "budget_usd": ".50",
+  "gap_seconds": 30,
+  "deadline_seconds": 240,
+  "no_retries": true,
+  "stop_on_unexpected_failure": true
+}

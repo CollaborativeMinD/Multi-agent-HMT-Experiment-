@@ -1,0 +1,79 @@
+[
+  {
+    "id": "PRO-OFF-01",
+    "model": "deepseek/deepseek-v4-pro-0813",
+    "case": "boundary",
+    "kind": "known",
+    "started_utc": "2026-09-29T05:37:15.815624+00:00",
+    "output_cap": 32,
+    "input_reserve": 2614,
+    "output_reserve": 32800,
+    "input_price": "0.0000004",
+    "output_price": "0.0000042",
+    "reserved_usd": "0.1388056",
+    "accounted_usd": "0.0000434",
+    "status": "PASS",
+    "reasoning": {
+      "enabled": false
+    },
+    "request_sha256": "c7c7664448bda905ed607cc01a5081f89c694057baff9f25b92f7abfb2bbbd0f",
+    "http_status": 200,
+    "generation_id": "gen-1790660235-VzJyGVmxKadU61Xlv8uy",
+    "upstream": [
+      {
+        "model": "DeepSeek-V4-Pro",
+        "stream": true,
+        "temperature": 1,
+        "top_p": 1,
+        "max_tokens": 32,
+        "thinking": {
+          "type": "disabled",
+          "field_names": [
+            "type"
+          ]
+        },
+        "field_names": [
+          "max_tokens",
+          "messages",
+          "model",
+          "response_format",
+          "stream",
+          "stream_options",
+          "temperature",
+          "thinking",
+          "top_p"
+        ],
+        "messages_sha256": "f72f3e7891958ed64227abfaae4b2a06a4d9cf2bdc0bbb7ffe5d4773569d7b80",
+        "response_format_sha256": "9d8e71634fe08b558649eec74adcbaed352756c8de710e5e68f2b87fa44a5f71"
+      }
+    ],
+    "stream_sha256": "6d9604a9f929a30bc48711d104a98df78e82ed7a05d398b8930ce7728eda51e5",
+    "visible_content_characters": 13,
+    "returned_model": "deepseek/deepseek-v4-pro-0813",
+    "returned_provider": "Wafer",
+    "response_sha256": "5e08cdc51b0c93c53e802d63bd09eef4ece8b5b7e040ae81f4d8461981c6b58d",
+    "input_tokens": 35,
+    "total_output_tokens": 7,
+    "reasoning_tokens": 0,
+    "visible_tokens": 7,
+    "estimated_cost_usd": "0.0000434",
+    "provider_reported_cost_usd": "4.34e-05",
+    "finish_reason": "stop",
+    "token_adherence": "PASS",
+    "schema_status": "PASS",
+    "choice": 0,
+    "latency_ms": 767,
+    "completed_utc": "2026-09-29T05:37:16.582906+00:00",
+    "usage_partition_status": "PASS",
+    "case_contract_status": "PASS",
+    "admission_status": "PASS",
+    "checks": {
+      "disabled_echo": true,
+      "zero_reasoning": true,
+      "partition": true,
+      "case": true,
+      "known_answer": true
+    },
+    "pressure_only": false
+  }
+]
