@@ -87,3 +87,5 @@ No game moves applied. Both series remain on HOLD. Provider: Wafer; retries: zer
 | deepseek-v4.1-flash | game | TRUNCATED_AS_BOUNDED | 8192/8192 | 100.76 |
 
 Diagnostic accounted cost: $0.17678838. Separate from frozen series accounting. [Receipts](evidence/deepseek-diagnostic/receipts.json). Truncation tests the boundary, not a usable game action. One probe per condition cannot establish reliability.
+
+**Reviewed verdict:** neither configuration qualifies as a replacement yet. Pro exceeded both tested pressure ceilings. Flash respected the reported total caps but truncated the game response. Some reasoning counters exceeded reported totals, so detailed usage consistency remains unresolved. [Full diagnostic review](evidence/deepseek-diagnostic/REVIEW.md). No game actions applied.
