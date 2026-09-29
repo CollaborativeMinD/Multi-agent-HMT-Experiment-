@@ -119,6 +119,7 @@ def call(req:dict[str,Any],row:dict[str,Any],key:str)->None:
 def ledger(rows:list[dict[str,Any]],unchanged:bool)->None:
     db=sqlite3.connect(OUT/'gates.sqlite')
     db.executescript((ROOT/'evidence/whiz300/gates.sql').read_text())
+    db.executescript((ROOT/'diagnostics/intake-rca.sql').read_text())
     for row in rows:
         ok=row['status']=='PASS' or row['case']=='boundary' and row['status']=='TRUNCATED_AS_BOUNDED'
         db.execute('INSERT INTO cumulative_gate_ledger VALUES (?,?,?,?,?,?,?)',
