@@ -1,0 +1,11 @@
+# DeepSeek diagnostic batch
+
+Authorized: six requests, three per model, maximum $0.50 estimated accounted usage within the existing OpenRouter account ceiling. No retries, fallback, game mutation, roster change, or Free Play. Models: deepseek/deepseek-v4-pro-0813 and deepseek/deepseek-v4.1-flash. Pin Wafer for both, with live endpoint parameter admission before inference.
+
+Each model: JSON canary (1024), boundary pressure (64), held frontier action 102 observation (8192). Medium reasoning, provider defaults for sampling, 240-second deadline, 230-second socket timeout, 30 seconds between calls. Diagnostic results never become game actions. Boundary truncation is expected and acceptable; canary/game truncation does not qualify as a usable response. A boundary response that finishes early provides adherence evidence but may not exercise truncation. Arithmetic accuracy is not scored.
+
+Runbook: workflow runs once on its own path commit; reruns are blocked. Inspect evidence/deepseek-diagnostic/receipts.json and summary.json. Missing usage retains the pre-request reservation. In-flight receipts are written before each request. No raw reasoning, auth headers, or provider error prose is retained. Download Actions artifacts if publication fails. Do not rerun a paid workflow to repair publication.
+
+Agent interception: token, route, usage, and schema findings are recorded per independent condition, without automatic retries. Budget exhaustion stops admission. All game files are hash-compared before/after. Cumulative SQLite and SQL retain prior gates and append diagnostic outcomes. Diagnostic spend is separate from the frozen series ledger and MUST be included before any future game continuation. Account estimates use uncached price ceilings and the larger provider-reported cost when supplied; invoices remain authoritative. Post-response validation cannot guarantee a provider-side billing ceiling.
+
+Validation: eight offline tracer tests cover schema, duplicate keys, unknown usage, route mismatch, exact limit, overrun, request bounds, and function sizes. Existing engine and runner regression gates execute before live probes. Six calls are a screening batch, not statistical evidence of reliability.
