@@ -1,0 +1,51 @@
+name: Flash matched cohort-1 field trial
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/flash100.yml]
+permissions:
+  contents: write
+concurrency:
+  group: whiz-paid-baseline
+  cancel-in-progress: false
+jobs:
+  diagnostic:
+    if: github.run_attempt == 1
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - name: Offline tracer and regression gates
+        run: |
+          npm ci --ignore-scripts --prefix baseline
+          python3 baseline/patch_engine.py
+          python3 baseline/prepare_checkpoint.py
+          node baseline/test_engine.mjs
+          PYTHONPATH=scripts:baseline python3 -m unittest discover -s baseline -p test_runner.py -v
+          PYTHONPATH=scripts python3 -m unittest discover -s tests -p test_smoke.py -v
+          PYTHONPATH=scripts:baseline:diagnostics python3 -m unittest discover -s diagnostics -p 'test_*.py' -v
+          PYTHONPATH=scripts:baseline:diagnostics python3 -c "import probe; assert probe.checkpoint()['you']=='p4'"
+          PYTHONPATH=scripts:baseline:diagnostics:trials python3 -m unittest discover -s trials -p 'test_*100.py' -v
+          git config user.name "Whiz Evidence Runner"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - name: One strict 100-point game
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: python3 trials/flash100.py
+      - name: Publish all findings
+        if: always()
+        run: |
+          if [ -d evidence/flash100 ]; then
+            git add evidence/flash100
+            git diff --cached --quiet || git commit -m "Publish router wire RCA results"
+            git push origin HEAD:main
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: flash100
+          path: evidence/flash100/
+          if-no-files-found: warn
