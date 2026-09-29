@@ -1,0 +1,58 @@
+name: Strict Whiz 300 best-of-five series
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/whiz300-series.yml]
+permissions:
+  contents: write
+concurrency:
+  group: whiz-paid-baseline
+  cancel-in-progress: false
+jobs:
+  series:
+    if: github.run_attempt == 1
+    runs-on: ubuntu-24.04
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Verify strict rules, checkpoints, budget, and series gates
+        run: |
+          npm ci --ignore-scripts --prefix baseline
+          python3 baseline/patch_engine.py
+          python3 baseline/prepare_checkpoint.py
+          node baseline/test_engine.mjs
+          node series/tracer.mjs
+          PYTHONPATH=scripts:baseline python3 -m unittest discover -s baseline -p test_runner.py -v
+          PYTHONPATH=scripts python3 -m unittest discover -s tests -p test_smoke.py -v
+          PYTHONPATH=scripts:baseline:series python3 -m unittest discover -s series -p test_series.py -v
+          git config user.name "Whiz Evidence Runner"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - name: Publish initial status before admitting any paid requests
+        run: |
+          PYTHONPATH=scripts:baseline:series python3 - <<'PYINIT'
+          import campaign as c
+          plan=c.read(c.PLAN)
+          state=c.load_state(plan)
+          c.configure(plan)
+          c.finish(state,plan)
+          PYINIT
+          python3 series/report.py
+          git add README.md evidence/whiz300
+          git commit -m "Start authorized strict 300-point series, no API calls yet"
+          git push origin HEAD:main
+      - name: Run authorized strict series and publish each verified hand
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: bash series/run_series.sh
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: whiz300-series-evidence
+          path: evidence/whiz300/
+          if-no-files-found: warn
+          retention-days: 30
