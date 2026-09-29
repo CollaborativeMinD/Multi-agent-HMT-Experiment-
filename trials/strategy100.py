@@ -1,0 +1,140 @@
+"""Two separately invoked strategy-guided 100-point trials; no inference retries."""
+from __future__ import annotations
+import json,os,sys,time,subprocess,sqlite3
+from pathlib import Path
+from decimal import Decimal as D
+from typing import Any
+ROOT=Path(__file__).resolve().parents[1]
+sys.path[:0]=[str(ROOT/'baseline'),str(ROOT/'scripts'),str(ROOT/'diagnostics')]
+import runner as r
+import probe as p
+import wire_probe as w
+import pro_final as q
+import hand as h
+import analyze
+OUT=ROOT/'evidence/strategy-v3-pro';ORIGINAL_SELECT=r.select
+PREVIOUS=ROOT/'evidence/nil-v2-flash'
+LIMITS={key:D('9.98') for key in ['openai','anthropic','gemini','openrouter']}
+OLD_NIL='Nil +/-100;'
+NEW_NIL=('A nil bid (0) earns the partnership +100 points if that player takes zero tricks '
+         'in the hand, or -100 points if that player takes one or more tricks;')
+
+STRATEGY='Your objective is to maximize your partnership’s probability of winning the game, not your individual trick count. Use the current bids, tricks, score, and bags to decide whether winning or avoiding a trick helps your team. Preserve your own live nil and protect your partner’s live nil while pursuing the partnership’s positive contract. When neither partner is nil, your tricks contribute to the same team contract. Consider setting opponents and bag risk in light of the overall game position. Once a nil has failed, its penalty is already incurred; adapt to the remaining objectives.'
+
+def clarify_rules()->dict[str,str]:
+    old=r.RULES
+    if old.count(OLD_NIL)!=1:raise ValueError('PROMPT_SOURCE_DRIFT')
+    old=old.replace(OLD_NIL,NEW_NIL)
+    r.RULES=old+'\n\n'+STRATEGY
+    return {'version':'strategy-guided-v3','old':old,'new':r.RULES,
+      'old_sha256':p.hashlib.sha256(old.encode()).hexdigest(),'new_sha256':p.hashlib.sha256(r.RULES.encode()).hexdigest()}
+
+
+def pro_fingerprints()->dict[str,str]:
+    return {str(x.relative_to(ROOT)):p.hashlib.sha256(x.read_bytes()).hexdigest() for folder in ['pro100','flash100','nil-v2-pro','nil-v2-flash'] for x in (ROOT/'evidence'/folder).rglob('*') if x.is_file()}
+
+def select(model:dict[str,Any],view:dict[str,Any])->tuple[dict,dict]:
+    r.LIMIT=LIMITS[model['account']]
+    if model['account']!='openrouter' or len(view['legal'])==1:return ORIGINAL_SELECT(model,view)
+    req=p.request(model['model'],'game',r.compact(view));req['messages'][0]['content']=req['messages'][0]['content'].replace('game to 300.','game to 100.')
+    req.update(reasoning={'enabled':False},stream=True,debug={'echo_upstream_body':True})
+    prices=model['native_prices'];ni,no,reserve=q.reserve(req,prices)
+    if ni>20000 or r.spent['openrouter']+reserve>r.LIMIT:raise ValueError('BUDGET_OR_INPUT_HOLD')
+    cooldown=max(0,30-(time.monotonic()-r.last_finished.get('openrouter',-1000)))
+    if cooldown:time.sleep(cooldown)
+    row={'model':model['model'],'provider':'openrouter','case':'game','hand':view['handNumber'],'turn':view['turn'],'seat':view['you'],
+      'attempt':1,'output_cap':8192,'input_reserve':ni,'output_reserve':no,'input_price':prices['prompt'],'output_price':prices['completion'],
+      'reserved_usd':str(reserve),'accounted_usd':str(reserve),'status':'HOLD','http_status':None,'cooldown_seconds':round(cooldown,3),
+      'reasoning':req['reasoning'],'request_sha256':p.digest(req)}
+    r.spent['openrouter']+=reserve
+    p.save('inflight.json',row)
+    w.call(req,row,os.environ['OPENROUTER_API_KEY']);r.last_finished['openrouter']=time.monotonic()
+    echo=row.get('upstream',[])
+    off=bool(echo) and all(x.get('thinking',{}).get('type')=='disabled' and x.get('max_tokens')==8192 for x in echo)
+    ok=row.get('admission_status')=='PASS' and row.get('reasoning_tokens')==0 and off
+    row.update(status='PASS' if ok else 'HOLD',output_tokens_including_reasoning=row.get('total_output_tokens',0))
+    if 'total_output_tokens' in row:row['estimated_cost_usd']=row['accounted_usd']
+    r.spent['openrouter']+=D(row['accounted_usd'])-reserve;r.emit('calls',row)
+    p.save('inflight.json',{'status':'RECORDED','request_sha256':row['request_sha256']})
+    if not ok:raise ValueError('MODEL_HOLD:'+model['model'])
+    return view['legal'][row['choice']],{'kind':'MODEL_CHOICE','call':row}
+
+def report(game:dict[str,Any],opening:dict[str,str],before:dict[str,str])->None:
+    folder=OUT/game['id'];records=h.rows(folder/'frontier.jsonl')
+    verification=analyze.verify_game(records);hands=analyze.hands(records)
+    assert verification['final_hash']==game['final_hash']
+    assert not hands or [x['score'] for x in hands[-1]['teams']]==game['scores']
+    assert before==p.fingerprints()
+    assert pro_fingerprints()==json.loads((OUT/'pro-evidence-fingerprints.json').read_text())
+    prior=h.rows(ROOT/'evidence/pro100/frontier-pro/frontier.jsonl')
+    assert records[0]['snapshot']==prior[0]['snapshot']
+    summary={'game':game,'verification':verification,'hands':hands,'metrics':analyze.call_metrics(h.rows(folder/'calls.jsonl')),
+      'accounting_usd':{k:str(v) for k,v in r.spent.items()},'opening_accounting_usd':opening,'original_series_unchanged':True,
+      'run_id':os.environ.get('GITHUB_RUN_ID'),'source_commit':os.environ.get('GITHUB_SHA')}
+    p.save('summary.json',summary)
+    subprocess.run([sys.executable,str(ROOT/'baseline/build_replay.py'),str(folder)],check=True,stdout=subprocess.DEVNULL)
+    db=sqlite3.connect(OUT/'gates.sqlite')
+    if not db.execute("SELECT name FROM sqlite_master WHERE name='cumulative_gate_ledger'").fetchone():db.executescript(((ROOT/'evidence/strategy-v3-preparation' if OUT.name.endswith('-pro') else PREVIOUS)/'gates.sql').read_text())
+    db.execute('INSERT INTO cumulative_gate_ledger VALUES (?,?,?,?,?,?,?)',(p.now(),'Strategy v3 '+OUT.name,OUT.name+'-HAND-VERIFY','Replay, private views, score, original-series immutability','PASS','summary.json',game['final_hash']))
+    if game['status']=='HOLD':db.execute('INSERT INTO reverse_rca_ledger VALUES (?,?,?,?,?,?,?)',
+      (p.now(),OUT.name+'-HOLD','Gameplay admission',game.get('reason','unknown'),'Saved calls and replay','No automatic retry','INVESTIGATION_INCOMPLETE; REQUIRES_OPERATOR_ESCALATION'))
+    db.commit();(OUT/'gates.sql').write_text('\n'.join(db.iterdump())+'\n');db.close()
+    update_readme(summary)
+    for cmd in [['git','add',str(OUT.relative_to(ROOT)),'README.md'],['git','commit','-m','Publish verified strategy-guided game checkpoint'],['git','push','origin','HEAD:main']]:
+        subprocess.run(cmd,cwd=ROOT,check=True,stdout=subprocess.DEVNULL)
+
+
+def update_readme(summary:dict[str,Any])->None:
+    path=ROOT/'README.md';text=path.read_text()
+    start='<!-- STRATEGY3:BEGIN -->';end='<!-- STRATEGY3:END -->'
+    lines=[start,'## Strategy-guided v3 trials','',
+      'Explicit partnership guidance; strict 100-point games, seed 707, candidate thinking disabled.',
+      'All four players receive the same guidance. One trial per condition does not establish causality.','',
+      '| Candidate | Status | Hands | N/S | E/W | Evidence |','|---|---|---:|---:|---:|---|']
+    for name in ['pro','flash']:
+        relative='evidence/strategy-v3-'+name+'/summary.json';file=ROOT/relative
+        if file.exists():
+            g=json.loads(file.read_text())['game']
+            lines.append(f"| {name} | {g['status']} | {g['hands']} | {g['scores'][0]} | {g['scores'][1]} | [Summary]({relative}) |")
+        else:lines.append(f'| {name} | NOT_STARTED | 0 | 0 | 0 | Pending |')
+    lines+=['','Latest cumulative accounting, including retained unknown-usage reservations:']
+    lines += [f"- {key}: ${value}" for key,value in summary['accounting_usd'].items()]
+    lines+=['','Per-account guards are frozen in config/strategy-v3-budget.json, less $0.02 probe buffers. No retries or Free Play.',end]
+    block='\n'.join(lines)
+    if start in text:text=text[:text.index(start)]+block+text[text.index(end)+len(end):]
+    else:text+='\n\n'+block+'\n'
+    path.write_text(text)
+
+def main()->None:
+    global OUT,PREVIOUS,LIMITS
+    name=sys.argv[1]
+    if name not in ['pro','flash']:raise ValueError('MODEL_NOT_AUTHORIZED')
+    model_id=p.MODELS[0 if name=='pro' else 1]
+    OUT=ROOT/('evidence/strategy-v3-'+name)
+    PREVIOUS=ROOT/('evidence/nil-v2-flash' if name=='pro' else 'evidence/strategy-v3-pro')
+    if OUT.exists() or os.environ.get('GITHUB_RUN_ATTEMPT','1')!='1':raise ValueError('RERUN_BLOCKED')
+    limits=json.loads((ROOT/'config/strategy-v3-budget.json').read_text())
+    LIMITS={key:D(value)-D('0.02') for key,value in limits['cumulative_ceilings_usd'].items()}
+    p.OUT=OUT;before=p.fingerprints()
+    delta=clarify_rules();p.save('prompt-delta.json',delta)
+    p.save('pro-evidence-fingerprints.json',pro_fingerprints())
+    opening=json.loads((PREVIOUS/'summary.json').read_text())['accounting_usd']
+    r.spent={k:D(opening[k]) for k in ['openai','anthropic','gemini','openrouter']};r.LIMIT=D('9.98')
+    manifest=json.loads(r.MODEL_FILE.read_text())
+    models=[next(m for m in manifest['models'] if m['cohort']=='frontier' and m['account']==k) for k in r.spent]
+    prices=p.endpoint(model_id)['pricing']
+    models[3]={**models[3],'model':model_id,'native_prices':prices,'provider':{'only':['wafer'],'allow_fallbacks':False,'require_parameters':True}}
+    models[3]['standard_text_usd_per_million_tokens']={k:str(D(prices[v])*1000000) for k,v in [('input','prompt'),('output','completion')]}
+    p.save('plan.json',{'target':100,'seed':707,'max_hands':6,'models':models,'reasoning_candidate':{'enabled':False},'output_cap':8192,
+      'deadline_seconds':240,'opening_accounting_usd':opening,'prompt_version':delta['version'],'prompt_sha256':delta['new_sha256'],'free_play':False,'budget':limits})
+    r.select=select;h.OUT=OUT
+    game={'id':'frontier-pro','cohort':'frontier','seed':707,'status':'IN_PROGRESS','hands':0,'actions':0,'scores':[0,0]}
+    for _ in range(6):
+        game=h.play_hand(game,models,{'max_hands_per_game':6});report(game,opening,before)
+        if game['status']!='IN_PROGRESS':break
+        time.sleep(30)
+    if game['status']!='COMPLETE':raise SystemExit(2)
+
+if __name__=='__main__':main()
+
+
