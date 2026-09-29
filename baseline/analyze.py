@@ -16,7 +16,7 @@ def transact(proc,cmd):
 def verify_game(records):
     proc=subprocess.Popen(['node',str(ROOT/'engine.mjs')],stdin=subprocess.PIPE,stdout=subprocess.PIPE,text=True)
     try:
-        first=records[0];frame=transact(proc,{'op':'init','seed':first['seed'],'id':first['snapshot']['id']})
+        first=records[0];frame=transact(proc,{'op':'init','seed':first['seed'],'id':first['snapshot']['id'],'target':first.get('target',100)})
         assert frame['hash']==first['hash']
         for row in records:
             if row['kind']!='ACTION':continue
