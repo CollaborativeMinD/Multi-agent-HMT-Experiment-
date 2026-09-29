@@ -1,0 +1,23 @@
+{
+  "evidence/pro100/inflight.json": "c13215edef90dfb47d73988472655360c19362b1ce20fa8bc89ad45051e89bc8",
+  "evidence/pro100/plan.json": "370d05d61dc20b82db76b9034827890918bc299e7590c8a8e03897fb9e550314",
+  "evidence/pro100/gates.sqlite": "6a212016d53871cde5288e8397da7d479fc6be0963cd012132135a0d4a325e40",
+  "evidence/pro100/deepseek-v4-pro-0813-endpoint.json": "93a78843bb083c637197124b54efa80228ec3372422742cc69b2508d7d3a22be",
+  "evidence/pro100/summary.json": "4fe7a242ce9c7ac81c8288db4ae21a278770540e8a4e7123c0280252082aff21",
+  "evidence/pro100/gates.sql": "58e63d29db57485d77b9a008ce136383c34d16879448e1d6d122d17434bc4780",
+  "evidence/pro100/frontier-pro/calls.jsonl": "b8d4eaea9ac909b4c7694dcce49c59e863b9bf9bc8533c4f234fa8de8f23f5f2",
+  "evidence/pro100/frontier-pro/Whiz_100_Baseline_Replay.html": "f3aae5b707fd647684fc0016320ba660092fb6264c381df2cfb1b63a8b393b8a",
+  "evidence/pro100/frontier-pro/frontier.jsonl": "360692d81987a2d4862e323da16d5310a94422c42e39007c6570946b1eb52a6d",
+  "evidence/flash100/inflight.json": "9f17ec9604d9331b4f6989d22fc089ea086e7690607b11be00419f8ceec69663",
+  "evidence/flash100/pro-evidence-fingerprints.json": "74b8cfd3e32996e5dada82ad1c42a5b4a208c44215b3eb3be0f3f6192835c644",
+  "evidence/flash100/plan.json": "f79b4041fe13467260be0b163b558e07714b353028747e5f1efb6c9a50981d43",
+  "evidence/flash100/gates.sqlite": "9f4ce9870b5e0906dd019d2c6822c938633847f0482217ec578363262bbbb981",
+  "evidence/flash100/SHA256SUMS.txt": "7c8d6dd31235fc79de4b67f72157c494bd16f05331c45bfb4a49a16503c027df",
+  "evidence/flash100/deepseek-v4.1-flash-endpoint.json": "554828c5a2acd83c6d4972baa77ed3d50d11bbfcb1a3d72158a5d7cb869f7688",
+  "evidence/flash100/summary.json": "5f34b42d7017c51e471a5cac52ad089f26893a8bd81e74f75f10804abeeaaa09",
+  "evidence/flash100/gates.sql": "7806a4b132e81e894588e622770d4a45581a98e2b12e5f69fab7dc2cda14bcca",
+  "evidence/flash100/comparison.json": "f52b6ab9c9ca95a298ae06e1bafbadea9984bb4a15937ae9649b2d476c12a844",
+  "evidence/flash100/frontier-pro/calls.jsonl": "d81c35a4e51fec495a1c8f1ef43c983d120a574120aefbab4c49d9215603a13b",
+  "evidence/flash100/frontier-pro/Whiz_100_Baseline_Replay.html": "ad2f2f9c0fc4f0f905e97cd6f9d49aeeb829e71c0a55e70823eb5a4c1da3450f",
+  "evidence/flash100/frontier-pro/frontier.jsonl": "aaa5c3db63aabe62d67a82cd5416a4f2cce06766932b66a6487ae57885040ff1"
+}
