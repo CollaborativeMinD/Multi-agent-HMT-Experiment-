@@ -56,6 +56,15 @@ class RunnerTests(unittest.TestCase):
    self.assertEqual(opener.return_value.open.call_args.kwargs['timeout'],230)
    self.assertEqual(opener.return_value.open.call_count,1)
   r.spent['openai']=r.Decimal(0)
+ def test_typed_rate_limit_metadata_no_secrets(self):
+  import urllib.error
+  payload={'error':{'message':'secret-TEST','metadata':{'limit_source':'upstream_provider_shared_pool','provider_name':'Alibaba','raw':'secret-TEST'}}}
+  exc=urllib.error.HTTPError('url',429,'secret-TEST',{'Retry-After':'60'},io.BytesIO(json.dumps(payload).encode()))
+  row={};r.http_metadata(exc,row)
+  self.assertEqual(row,{'retry_after_seconds':60,'limit_source':'upstream_provider_shared_pool','error_provider':'Alibaba'})
+  self.assertNotIn('secret-TEST',json.dumps(row))
+  exc=urllib.error.HTTPError('url',429,'secret-TEST',{'Retry-After':'secret-TEST'},io.BytesIO(b'bad-json'))
+  row={};r.http_metadata(exc,row);self.assertEqual(row,{})
  def test_function_length(self):
   for n in ast.walk(ast.parse(Path(r.__file__).read_text())):
    if isinstance(n,ast.FunctionDef):self.assertLessEqual(n.end_lineno-n.lineno+1,60,n.name)
