@@ -1,0 +1,48 @@
+name: Flash supported low-effort tracer
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/flash-low-tracer.yml]
+permissions:
+  contents: write
+concurrency:
+  group: whiz-paid-baseline
+  cancel-in-progress: false
+jobs:
+  diagnostic:
+    if: github.run_attempt == 1
+    runs-on: ubuntu-24.04
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - name: Offline gates and verified observation
+        run: |
+          npm ci --ignore-scripts --prefix baseline
+          python3 baseline/patch_engine.py
+          python3 baseline/prepare_checkpoint.py
+          node baseline/test_engine.mjs
+          PYTHONPATH=scripts:baseline python3 -m unittest discover -s baseline -p test_runner.py -v
+          PYTHONPATH=scripts python3 -m unittest discover -s tests -p test_smoke.py -v
+          PYTHONPATH=scripts:baseline:diagnostics python3 -m unittest discover -s diagnostics -p 'test_*.py' -v
+          PYTHONPATH=scripts:baseline:diagnostics python3 -c "import probe; assert probe.checkpoint()['you']=='p4'; print('Checkpoint PASS')"
+          git config user.name "Whiz Evidence Runner"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - name: Three supported-effort requests
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: python3 diagnostics/flash_low.py
+      - name: Publish results
+        if: always()
+        run: |
+          if [ -d evidence/flash-low-tracer ]; then
+            git add README.md evidence/flash-low-tracer
+            git diff --cached --quiet || git commit -m "Publish Flash low-effort tracer evidence and accounting"
+            git push origin HEAD:main
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: flash-low-tracer-evidence
+          path: evidence/flash-low-tracer/
+          if-no-files-found: warn
+          retention-days: 30
