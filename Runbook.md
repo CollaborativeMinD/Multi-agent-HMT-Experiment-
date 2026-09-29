@@ -1,8 +1,25 @@
 # Runbook
 
+## Current pilot status: HOLD after the 8,192-token test
+
+Read [the latest result](evidence/whiz8192-results-20260929.md) and [cumulative gates](evidence/whiz8192-gates.sql). Run 36504424064 stopped at frontier action 100 when Qwen reached the unchanged 120-second deadline. There was no retry. Mainstream has not started; neither game is complete. Known estimated cost is $1.60005550, plus a retained $0.06768 timeout reservation. No inference is running.
+
+The user explicitly authorized this limited scored pilot and directed reevaluation on the next issue. Broader unrestricted campaigns remain disabled. Preserve the 100-action checkpoint; do not restart or silently replace a player. The proposed 240-second deadline test has not been executed.
+
+### Verify the current game evidence offline
+
+1. Install exact dependencies: `npm ci --ignore-scripts --prefix baseline`.
+2. Apply the source-checked patch once after install: `python baseline/patch_engine.py`.
+3. Prepare the reviewed start checkpoint: `python baseline/prepare_checkpoint.py`.
+4. Run engine gates: `node baseline/test_engine.mjs`.
+5. Run runner gates: `PYTHONPATH=scripts:baseline python -m unittest discover -s baseline -p test_runner.py -v`.
+6. After extracting the run artifact, verify the new checkpoint with `python baseline/analyze.py PATH_TO_EVIDENCE`, then render with `python baseline/build_replay.py PATH_TO_EVIDENCE`.
+
+These commands require no model keys. The checked-in resume8192 package is the 92-action starting checkpoint; the new 100-action terminal checkpoint is in the run's evidence artifact and delivered evidence bundle. Never confuse them.
+
 ## Scope
 
-This repository currently contains model selection and API probes for a Whiz Spades experiment. A passed smoke canary proves one valid response at the recorded settings. It does not authorize scored play or prove strategic quality, sustained throughput, or remaining balance.
+This repository contains model selection, API probes, and a bounded strict Whiz Spades pilot. A passed smoke canary proves one valid response at the recorded settings. It does not authorize scored play or prove strategic quality, sustained throughput, or remaining balance.
 
 ## Inspect evidence
 
