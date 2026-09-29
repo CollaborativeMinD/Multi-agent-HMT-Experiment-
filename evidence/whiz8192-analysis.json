@@ -1,0 +1,126 @@
+{
+  "games": [
+    {
+      "cohort": "frontier",
+      "status": "HOLD",
+      "verification": {
+        "replay": "PASS",
+        "private_projections": "PASS",
+        "all_frame_hashes": "PASS",
+        "actions": 100,
+        "final_hash": "e43325d7222d4ddfe17ed10686ef547e1e1364d64857cbf53eb5b6c5668b6ae7"
+      },
+      "completed_hands": [
+        {
+          "hand": 1,
+          "bids": [
+            4,
+            2,
+            5,
+            2
+          ],
+          "tricks": [
+            5,
+            2,
+            5,
+            1
+          ],
+          "nil_results": [
+            null,
+            null,
+            null,
+            null
+          ],
+          "teams": [
+            {
+              "contract": 9,
+              "contract_tricks": 10,
+              "made": true,
+              "nil_points": 0,
+              "bags_earned": 1,
+              "bag_penalty": 0,
+              "bags": 1,
+              "score": 91
+            },
+            {
+              "contract": 4,
+              "contract_tricks": 3,
+              "made": false,
+              "nil_points": 0,
+              "bags_earned": 0,
+              "bag_penalty": 0,
+              "bags": 0,
+              "score": -40
+            }
+          ]
+        }
+      ],
+      "decision_counts": {
+        "MODEL_CHOICE": 83,
+        "FORCED_SINGLE_LEGAL_ACTION": 17
+      }
+    }
+  ],
+  "model_metrics": [
+    {
+      "model": "claude-fable-5-1",
+      "attempts": 20,
+      "accepted": 20,
+      "diagnostic_attempts": 0,
+      "holds": 0,
+      "http_429": 0,
+      "latency_median_ms": 4389.0,
+      "latency_max_ms": 22076,
+      "cooldown_seconds": 0,
+      "input_tokens": 44364,
+      "output_tokens": 5799,
+      "known_estimated_cost_usd": "0.73359",
+      "unknown_usage_reserve_usd": "0"
+    },
+    {
+      "model": "gemini-3.8-flash",
+      "attempts": 21,
+      "accepted": 21,
+      "diagnostic_attempts": 0,
+      "holds": 0,
+      "http_429": 0,
+      "latency_median_ms": 5875,
+      "latency_max_ms": 17341,
+      "cooldown_seconds": 0,
+      "input_tokens": 24526,
+      "output_tokens": 27668,
+      "known_estimated_cost_usd": "0.12214950",
+      "unknown_usage_reserve_usd": "0"
+    },
+    {
+      "model": "qwen/qwen3.8-2.4t-a95b",
+      "attempts": 24,
+      "accepted": 21,
+      "diagnostic_attempts": 1,
+      "holds": 3,
+      "http_429": 0,
+      "latency_median_ms": 29399.0,
+      "latency_max_ms": 120000,
+      "cooldown_seconds": 243.657,
+      "input_tokens": 28659,
+      "output_tokens": 41753,
+      "known_estimated_cost_usd": "0.307836",
+      "unknown_usage_reserve_usd": "0.06768"
+    },
+    {
+      "model": "gpt-6-astra",
+      "attempts": 22,
+      "accepted": 22,
+      "diagnostic_attempts": 0,
+      "holds": 0,
+      "http_429": 0,
+      "latency_median_ms": 5094.0,
+      "latency_max_ms": 21357,
+      "cooldown_seconds": 0,
+      "input_tokens": 27893,
+      "output_tokens": 3151,
+      "known_estimated_cost_usd": "0.43648",
+      "unknown_usage_reserve_usd": "0"
+    }
+  ]
+}
