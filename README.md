@@ -104,3 +104,9 @@ Same Wafer route, held observation, and 8192 game cap. Prior medium effort is no
 Cost accounted: $0.0109330942. OpenRouter cumulative including both diagnostic batches: $0.8795580842. [Receipts](evidence/flash-low-tracer/receipts.json). Three probes cannot establish general reliability or move quality. Original series remain on HOLD.
 
 **Flash tracer verdict:** one of two identical game requests passed under supported low effort; the repeat truncated. Reported total caps held, but both truncated responses had reasoning counts exceeding their totals. Candidate remains HOLD for replacement. [Review and interpretation](evidence/flash-low-tracer/REVIEW.md).
+
+## Router RCA: translation, accounting, and demand
+
+Upstream echo preserved requested numeric token ceilings. Pro still exceeded 64 with 24640 reported tokens. Nine historical generation records confirmed our native-token parsing; truncated reasoning counters remain inconsistent. On the same Flash/Wafer game state, thinking low truncated at 8192 tokens in 67.635s, while thinking disabled returned a valid choice with 7 output tokens in 0.777s. This is a candidate configuration, not a qualified replacement or a model-quality ranking. No game moves applied. [Full RCA review](evidence/router-wire-tracer/REVIEW.md).
+
+Wire tracer accounted cost: $0.1094308348. OpenRouter cumulative accounted including all diagnostics: $0.9889889190.
