@@ -78,3 +78,7 @@ Build and verify the game rules and private observations, replay, seat/partner r
 3. Compare generation-metadata.json with delayed-metadata.json. Preserve both initial and delayed 404 records. A missing generation record does not authorize paid inference replay.
 4. Verify archived evidence from its directory with `sha256sum -c SHA256SUMS.txt`. Inspect cumulative SQL using SQLite; do not regenerate historical evidence merely to clear a HOLD.
 5. Do not rerun completed paid workflows. Any subsequent diagnostic requires reviewed scope, remaining-budget admission, and a fresh single-use workflow. No fourth-seat substitution follows from these interface tests.
+
+## Authorized Pro 100-point field trial
+
+The user's subsequent order authorizes one fresh strict 100-point cohort-1 game with thinking-disabled DeepSeek Pro in p4 despite the preserved metadata qualification HOLD. Flash thinking-disabled is selected for cohort 2 p4; no cohort-2 game is started by this order. Read config/seat-selections.json. The trial uses seed 707, up to six hands, 8192 tokens, a 240-second request deadline, existing per-account budget ceilings, and no automatic retries. Earlier series remain immutable. Run trials/test_pro100.py offline before trials/pro100.py; the latter is paid and single-use. Inspect evidence/pro100/summary.json, gates.sql, and frontier-pro/Whiz_100_Baseline_Replay.html after each verified hand. HOLD stops play. No Free Play.
