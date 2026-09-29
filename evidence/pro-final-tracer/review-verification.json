@@ -1,0 +1,12 @@
+{
+  "checks": {
+    "native_metadata_matches": true,
+    "cap_slope_matches_prediction": true,
+    "paired_messages": true,
+    "paired_schema": true,
+    "disabled_cases_pass": true,
+    "game_unchanged": true
+  },
+  "new_inference_calls": 0,
+  "run_id": "36523528706"
+}
