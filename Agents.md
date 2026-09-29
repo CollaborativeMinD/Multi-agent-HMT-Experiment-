@@ -17,3 +17,7 @@ The authorized 240-second continuation completed both strict games. Read evidenc
 ## Pro thinking-off qualification boundary
 
 Read docs/PRO_OFF_REVIEW.md and evidence/pro-off-eval/qualification.json before further model qualification. Preserve the 12/12 inference result and separate 9/12 metadata reconciliation result. Full qualification remains HOLD after three generation IDs returned 404 twice. Do not suppress that gate or retry inference to manufacture replacement receipts. Thinking-disabled Pro is a distinct evaluation profile, and these checks do not authorize a frontier seat change, scored play, or Free Play.
+
+## Authorized Pro 100-point field trial
+
+The user's subsequent order authorizes one fresh strict 100-point cohort-1 game with thinking-disabled DeepSeek Pro in p4 despite the preserved metadata qualification HOLD. Flash thinking-disabled is selected for cohort 2 p4; no cohort-2 game is started by this order. Read config/seat-selections.json. The trial uses seed 707, up to six hands, 8192 tokens, a 240-second request deadline, existing per-account budget ceilings, and no automatic retries. Earlier series remain immutable. Run trials/test_pro100.py offline before trials/pro100.py; the latter is paid and single-use. Inspect evidence/pro100/summary.json, gates.sql, and frontier-pro/Whiz_100_Baseline_Replay.html after each verified hand. HOLD stops play. No Free Play.
