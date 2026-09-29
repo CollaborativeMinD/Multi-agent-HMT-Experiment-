@@ -89,6 +89,21 @@ def parse(body:dict[str,Any],m:dict[str,Any],n:int,row:dict[str,Any])->int:
     row.update(status='PASS',returned_model=r['model'],choice=answer['choice'])
     return answer['choice']
 
+def http_metadata(exc:urllib.error.HTTPError,row:dict[str,Any])->None:
+    """Keep only bounded, typed retry metadata; never error prose or raw payloads."""
+    for header,key in [('Retry-After','retry_after_seconds'),('X-RateLimit-Limit','rate_limit'),('X-RateLimit-Remaining','rate_remaining'),('X-RateLimit-Reset','rate_reset')]:
+        value=str((exc.headers or {}).get(header,''))
+        if value.isdigit() and len(value)<=16:row[key]=int(value)
+    try:
+        payload=json.loads(exc.read(16385))
+        meta=payload.get('error',{}).get('metadata',{})
+        admitted={'openrouter_in_flight_budget','openrouter_key_limit','openrouter_credits',
+                  'upstream_provider_shared_pool','upstream_provider_rate_limit','upstream_provider_quota'}
+        source=meta.get('limit_source')
+        if source in admitted:row['limit_source']=source
+        if meta.get('provider_name')=='Alibaba':row['error_provider']='Alibaba'
+    except (ValueError,TypeError,AttributeError,KeyError,OSError):pass
+
 def call(m:dict[str,Any],v:dict[str,Any],attempt:int)->tuple[int|None,dict[str,Any]]:
     provider=m['account'];url,body=request(m,v);encoded=canonical(body)
     input_reserve=len(encoded)+2048
@@ -110,7 +125,7 @@ def call(m:dict[str,Any],v:dict[str,Any],attempt:int)->tuple[int|None,dict[str,A
         if len(raw)>1048576:raise ValueError('RESPONSE_TOO_LARGE')
         choice=parse(json.loads(raw),m,len(v['legal']),row)
     except urllib.error.HTTPError as exc:
-        row['http_status']=exc.code;row['reason']='HTTP_ERROR'
+        row['http_status']=exc.code;row['reason']='HTTP_ERROR';http_metadata(exc,row)
     except (urllib.error.URLError,TimeoutError):row['reason']='NETWORK_OR_TIMEOUT'
     except ValueError as exc:
         allowed={'TOKEN_RESERVATION_EXCEEDED','INCOMPLETE_OR_REFUSAL','MODEL_ID_MISMATCH','PROVIDER_ROUTE_MISMATCH',
