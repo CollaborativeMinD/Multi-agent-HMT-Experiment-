@@ -25,26 +25,26 @@
       "number": 1,
       "seed": 101,
       "status": "IN_PROGRESS",
-      "hands": 0,
-      "actions": 3,
+      "hands": 1,
+      "actions": 56,
       "scores": [
-        0,
-        0
+        140,
+        63
       ],
       "winners": [],
-      "final_hash": "d9cffe5037e2178d3829c65a8821e2f519b29807400f45db8ce7874b562eff87",
+      "final_hash": "128f59bb63195f5d8cc111cc7e8541731a4d07bab0704fb1b8862a5c36ad72dd",
       "replay_verified": true,
       "reason": null
     }
   ],
-  "next_cohort": "mainstream",
+  "next_cohort": "frontier",
   "source_commit": "56f5cd21d9632113f2863753a1deca4099195d70",
   "run_id": "36512137292",
   "accounting_usd": {
-    "openai": "0.770728",
-    "anthropic": "1.616908",
-    "gemini": "0.28307510",
-    "openrouter": "0.53538031"
+    "openai": "0.804794",
+    "anthropic": "1.727160",
+    "gemini": "0.30490370",
+    "openrouter": "0.53998661"
   },
   "series_wins": {
     "frontier": [
@@ -56,7 +56,7 @@
       0
     ]
   },
-  "updated_utc": "2026-09-29T02:21:50.952723+00:00",
+  "updated_utc": "2026-09-29T02:29:14.522459+00:00",
   "recovery_attempted": true,
   "recovery_source_run": 36510344003,
   "recovery_commit": "4cfdbe7e6098108eea57c4cf2d885b5176e0c388"

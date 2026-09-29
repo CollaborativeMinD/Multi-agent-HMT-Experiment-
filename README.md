@@ -16,7 +16,7 @@ All 224 baseline actions and four hand scores were verified. The baseline involv
 <!-- WHIZ300:BEGIN -->
 ## Strict 300-point best-of-five
 
-Status: **IN_PROGRESS**. Updated 2026-09-29T02:21:50.952723+00:00.
+Status: **IN_PROGRESS**. Updated 2026-09-29T02:29:14.522459+00:00.
 
 First partnership to three game wins takes its cohort series. Free Play is **not authorized**.
 
@@ -28,16 +28,16 @@ First partnership to three game wins takes its cohort series. Free Play is **not
 | Game | Status | Hands | N/S score | E/W score | Replay |
 |---|---|---:|---:|---:|---|
 | frontier-g01 | IN_PROGRESS | 1 | 142 | -84 | [Download HTML](evidence/whiz300/frontier-g01/replay.html) |
-| mainstream-g01 | IN_PROGRESS | 0 | 0 | 0 | [Download HTML](evidence/whiz300/mainstream-g01/replay.html) |
+| mainstream-g01 | IN_PROGRESS | 1 | 140 | 63 | [Download HTML](evidence/whiz300/mainstream-g01/replay.html) |
 
 Replay links open repository files. Download the HTML and open it locally for playback.
 
 | Account | Cumulative accounted USD |
 |---|---:|
-| openai | 0.770728 |
-| anthropic | 1.616908 |
-| gemini | 0.28307510 |
-| openrouter | 0.53538031 |
+| openai | 0.804794 |
+| anthropic | 1.727160 |
+| gemini | 0.30490370 |
+| openrouter | 0.53998661 |
 
 Accounting includes prior pilot usage and its unresolved $0.06768 timeout reservation. Each account retains a separate $0.02 probe buffer under its original $10 ceiling. Provider invoices are authoritative.
 
