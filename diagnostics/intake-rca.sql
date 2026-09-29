@@ -1,0 +1,1 @@
+INSERT INTO reverse_rca_ledger VALUES ('2026-09-29T03:40:51Z','DIAG-FIXTURE-001','Offline runner regression','Missing baseline/resume240/frontier.jsonl','Workflow omitted baseline/prepare_checkpoint.py; run 36518198406 paid step skipped','Restore fixture preparation; rerun unchanged regression suite','INVESTIGATION_COMPLETE; SOLUTION_CANDIDATE_APPLIED');
