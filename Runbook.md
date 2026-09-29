@@ -86,3 +86,11 @@ The user's subsequent order authorizes one fresh strict 100-point cohort-1 game 
 ## Authorized matched Flash cohort-1 trial
 
 The user authorizes one strict 100-point game substituting thinking-disabled deepseek/deepseek-v4.1-flash for Pro in cohort 1 seat p4. Reuse seed 707, initial game state, the other three models and settings, rules, 8192-token cap, 240-second deadline, six-hand bound, and no automatic retries. Provider remains Wafer. Fresh model decisions may cause trajectories to diverge. Begin cumulative accounting from evidence/pro100/summary.json. Preserve both earlier series and all Pro game files by hash. Run trials/test_flash100.py before the paid, single-use trials/flash100.py. Inspect evidence/flash100/summary.json and frontier-pro/Whiz_100_Baseline_Replay.html, where the internal frontier-pro ID is deliberately retained to match initial state exactly. The final model label identifies Flash. No cohort-2 game or Free Play is authorized by this trial.
+
+## Inspect the completed Pro/Flash comparison
+
+1. Read docs/PRO_FLASH_100_COMPARISON.md for results and shared prompt/sampling limits.
+2. Read evidence/flash100/comparison.json for verified matching controls and the first differing action.
+3. Download the replay HTML from each trial's frontier-pro directory. The retained internal directory name allows an identical initial game ID; the displayed model names distinguish the trials.
+4. Verify Flash evidence from evidence/flash100 with `sha256sum -c SHA256SUMS.txt`. Cumulative gates and RCA observations are in gates.sql and gates.sqlite.
+5. Treat both games as complete. Do not rerun paid workflows or revise their prompts retrospectively. Future wording changes require a separately identified evaluation profile.
