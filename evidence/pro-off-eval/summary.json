@@ -1,0 +1,14 @@
+{
+  "calls": 12,
+  "planned_calls": 12,
+  "passed": 12,
+  "status": "HOLD",
+  "accounted_usd": "0.0045826",
+  "openrouter_cumulative_accounted_usd": "1.0982313190",
+  "game_evidence_unchanged": true,
+  "metadata_matches": false,
+  "game_actions_applied": 0,
+  "retries": 0,
+  "run_id": "36527010768",
+  "source_commit": "b7720e3f6520ac360c511100dd921f6a78863522"
+}
