@@ -36,3 +36,8 @@ The user authorizes a neutral nil-definition clarification and one new 100-point
 The user authorizes one new strict 100-point game each for Pro and Flash, appending the approved partnership-strategy paragraph to the nil-explicit v2 prompt. All four players receive identical guidance. Preserve seed 707, seats, candidate thinking-disabled settings, 8192-token cap, 240-second deadline, six-hand bound, and no retries. Run all offline gates before trials/strategy100.py pro, then flash only if Pro completes. Carry cumulative accounting from evidence/nil-v2-flash/summary.json, including the Anthropic HTTP 529 unknown-usage reservation. The prior Flash v2 game remains HOLD; these are fresh conditions, not a retry of that game. Freeze cumulative account ceilings in config/strategy-v3-budget.json, retaining the $0.02/account buffer. An announced top-up alone does not specify a new numeric ceiling.
 
 Each hand verifies replay, private views, scores, and historical evidence hashes, publishes summary, receipts, HTML replay, and cumulative SQL, and updates the README. Inspect evidence/strategy-v3-pro or evidence/strategy-v3-flash. No Free Play. Do not infer prompt causality or individual rankings from one game per condition. Backend sampling parity remains unproven.
+
+
+## Authorized Kimi/Mistral seat tracers
+
+Read docs/SEAT_TRACER.md. The user authorizes up to ten isolated calls, $2 batch admission under the existing cumulative OpenRouter guard, with no retries, fallback, game moves, or seat changes. Run all offline workflow gates first. Inspect evidence/seat-tracer-kimi-mistral. This supersedes earlier restrictions only for these bounded probes.

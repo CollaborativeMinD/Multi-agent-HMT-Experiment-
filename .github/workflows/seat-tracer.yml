@@ -1,0 +1,48 @@
+name: Bounded Kimi and Mistral seat tracers
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/seat-tracer.yml]
+permissions:
+  contents: write
+concurrency:
+  group: whiz-paid-baseline
+  cancel-in-progress: false
+jobs:
+  tracer:
+    if: github.run_attempt == 1
+    runs-on: ubuntu-24.04
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+      - name: Offline replay and regression gates
+        run: |
+          npm ci --ignore-scripts --prefix baseline
+          python3 baseline/patch_engine.py
+          python3 baseline/prepare_checkpoint.py
+          node baseline/test_engine.mjs
+          PYTHONPATH=scripts:baseline python3 -m unittest discover -s baseline -p test_runner.py -q
+          PYTHONPATH=scripts python3 -m unittest discover -s tests -p test_smoke.py -q
+          PYTHONPATH=scripts:baseline:series python3 -m unittest discover -s series -p test_series.py -q
+          PYTHONPATH=scripts:baseline:series:trials python3 -m unittest discover -s trials -p 'test_*.py' -q
+          PYTHONPATH=scripts:baseline:diagnostics python3 -m unittest discover -s diagnostics -p 'test_*.py' -q
+          git config user.name "Whiz Evidence Runner"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - name: At most ten bounded diagnostic calls
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: python3 diagnostics/seat_tracer.py
+      - name: Preserve all receipts and holds
+        if: always()
+        run: |
+          if [ -d evidence/seat-tracer-kimi-mistral ]; then
+            git add evidence/seat-tracer-kimi-mistral
+            git diff --cached --quiet || git commit -m "Seal bounded seat tracer results"
+            git push origin HEAD:main
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: seat-tracer-kimi-mistral
+          path: evidence/seat-tracer-kimi-mistral/
+          if-no-files-found: warn
