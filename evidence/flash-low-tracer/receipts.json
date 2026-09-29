@@ -1,0 +1,40 @@
+[
+  {
+    "id": "FLASH-LOW-01",
+    "case": "boundary",
+    "model": "deepseek/deepseek-v4.1-flash",
+    "provider_pin": "wafer",
+    "started_utc": "2026-09-29T04:05:24.353726+00:00",
+    "input_reserve": 2658,
+    "output_cap": 64,
+    "input_price": "0.0000000449",
+    "output_price": "0.0000007",
+    "reserved_usd": "0.0001641442",
+    "accounted_usd": "0.000048392",
+    "status": "TRUNCATED_AS_BOUNDED",
+    "request_sha256": "2242465aa63eaec7b91e9dc6dbae9e8b7e8ffb62eb226ebc6da5c30579772e67",
+    "reasoning": {
+      "effort": "low"
+    },
+    "http_status": 200,
+    "request_id": null,
+    "generation_id": "gen-1790654724-5l941CA7LcqyHcSfJup4",
+    "returned_model": "deepseek/deepseek-v4.1-flash",
+    "returned_provider": "Wafer",
+    "response_sha256": "37a93fdf3ef11199c2ef63c40d43fa145383db1df238dc60e57ebb751f02fbfa",
+    "input_tokens": 80,
+    "total_output_tokens": 64,
+    "reasoning_tokens": 69,
+    "visible_tokens": null,
+    "estimated_cost_usd": "0.0000483920",
+    "provider_reported_cost_usd": "4.8392e-05",
+    "finish_reason": "length",
+    "token_adherence": "PASS",
+    "schema_status": "NOT_ASSESSED",
+    "latency_ms": 1062,
+    "completed_utc": "2026-09-29T04:05:25.416057+00:00",
+    "usage_partition_status": "HOLD",
+    "case_contract_status": "PASS",
+    "admission_status": "HOLD"
+  }
+]
