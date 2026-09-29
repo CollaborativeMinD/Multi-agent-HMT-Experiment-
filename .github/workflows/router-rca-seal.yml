@@ -1,0 +1,53 @@
+name: Seal router RCA review, no inference
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/router-rca-seal.yml]
+permissions:
+  contents: write
+concurrency:
+  group: whiz-paid-baseline
+  cancel-in-progress: false
+jobs:
+  seal:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify review evidence and append RCA dispositions
+        run: |
+          python3 - <<'PY'
+          import json,sqlite3,hashlib
+          from pathlib import Path
+          from datetime import datetime,timezone
+          root=Path('evidence/router-wire-tracer')
+          rows=json.loads((root/'receipts.json').read_text())
+          metadata=json.loads(Path('evidence/router-rca/generation-metadata.json').read_text())
+          assert len(metadata)==9
+          assert all(x['comparison']['native_completion_matches_receipt'] and x['comparison']['native_reasoning_matches_receipt'] for x in metadata)
+          assert rows[0]['upstream'][0]['max_tokens']==64 and rows[0]['total_output_tokens']==24640
+          assert rows[1]['upstream'][0]['messages_sha256']==rows[2]['upstream'][0]['messages_sha256']
+          assert rows[1]['upstream'][0]['response_format_sha256']==rows[2]['upstream'][0]['response_format_sha256']
+          assert rows[2]['upstream'][0]['thinking']['type']=='disabled' and rows[2]['choice']==2
+          assert json.loads((root/'summary.json').read_text())['game_evidence_unchanged']
+          db=sqlite3.connect(root/'gates.sqlite')
+          now=datetime.now(timezone.utc).isoformat()
+          for row in json.loads(Path('diagnostics/router-review.json').read_text()):
+              if not db.execute('SELECT 1 FROM reverse_rca_ledger WHERE incident_id=?',(row[0],)).fetchone():
+                  db.execute('INSERT INTO reverse_rca_ledger VALUES (?,?,?,?,?,?,?)',(now,*row))
+          db.execute('INSERT INTO cumulative_gate_ledger VALUES (?,?,?,?,?,?,?)',(now,'Router RCA review','RCA-REVIEW-VERIFY','Published claims match receipts and paired inputs','PASS','REVIEW.md',hashlib.sha256((root/'REVIEW.md').read_bytes()).hexdigest()))
+          db.commit()
+          assert db.execute('PRAGMA integrity_check').fetchone()[0]=='ok'
+          (root/'gates.sql').write_text('\n'.join(db.iterdump())+'\n')
+          db.close()
+          lines=[hashlib.sha256(p.read_bytes()).hexdigest()+'  '+p.name for p in sorted(root.iterdir()) if p.is_file() and p.name!='SHA256SUMS.txt']
+          (root/'SHA256SUMS.txt').write_text('\n'.join(lines)+'\n')
+          print('RCA review, native counts, paired hashes, and SQLite integrity: PASS. Zero inference calls.')
+          PY
+      - name: Publish reviewed ledger and hashes
+        run: |
+          git config user.name "Whiz Evidence Runner"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add evidence/router-wire-tracer
+          git diff --cached --quiet || git commit -m "Seal reviewed router RCA ledger and hashes"
+          git push origin HEAD:main
