@@ -1,0 +1,16 @@
+{
+  "utc": "2026-09-29T22:12:05.021048+00:00",
+  "calls": 6,
+  "planned_max": 10,
+  "holds": [],
+  "interface_passes": 5,
+  "metadata_matches": false,
+  "accounted_usd": "0.0217080",
+  "opening_openrouter_usd": "1.1697940684",
+  "openrouter_cumulative_accounted_usd": "1.1915020684",
+  "historical_evidence_unchanged": true,
+  "game_actions_applied": 0,
+  "retries": 0,
+  "run_id": "36637788608",
+  "source_commit": "da967796232a298c45c69a818e6cdb2b81073525"
+}
