@@ -1,0 +1,26 @@
+[
+  [
+    "RCA-TRANSLATION",
+    "Echoed upstream controls",
+    "max_tokens unchanged; medium mapped to low on Pro",
+    "WIRE-01 upstream echo and response",
+    "Echoed64 versus reported24640; caller parser cleared",
+    "INVESTIGATION_COMPLETE at echoed request boundary; enforcement cause remains INVESTIGATION_INCOMPLETE"
+  ],
+  [
+    "RCA-ACCOUNTING",
+    "Stored native counts",
+    "Five historical truncated reasoning counts exceed totals",
+    "Nine ID-matched records reproduce native counts",
+    "Native counts equal receipts; normalized fields kept separate",
+    "INVESTIGATION_INCOMPLETE; provider/gateway accounting boundary unresolved"
+  ],
+  [
+    "RCA-DEMAND",
+    "Flash thinking toggle",
+    "Low truncates; disabled returns valid choice",
+    "Same upstream messages/schema hashes, provider, ceiling, transport",
+    "One paired ablation; no strategic-quality or reliability claim",
+    "INVESTIGATION_COMPLETE for this pair; SOLUTION_CANDIDATE_APPLIED diagnostic only"
+  ]
+]
