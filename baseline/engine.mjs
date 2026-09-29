@@ -12,8 +12,9 @@ export function whizApply(s,id,a){
  if(id!==s.players[s.activePlayerIndex].id||!whizLegal(s).some(x=>JSON.stringify(x)===JSON.stringify(a)))throw Error('ILLEGAL_ACTION');
  return applyAction(s,id,a);
 }
-export function setup(seed,id){
- return createGame({id,players:['North','East','South','West'].map(name=>({name})),rng:mulberry32(seed),options:{target:'100',blindNil:false}});
+export function setup(seed,id,target=100){
+ if(![100,300].includes(target))throw Error('TARGET_NOT_ADMITTED');
+ return createGame({id,players:['North','East','South','West'].map(name=>({name})),rng:mulberry32(seed),options:{target:String(target),blindNil:false}});
 }
 function hash(s){return createHash('sha256').update(JSON.stringify(s)).digest('hex');}
 function snapshot(s){const {deckSeed,log,...rest}=s;return rest;}
@@ -26,7 +27,7 @@ function observe(s){
  return {...visible,history,you:p.id,partner:s.players[(s.activePlayerIndex+2)%4].id,legal:whizLegal(s)};
 }
 function dispatch(cmd){
- if(cmd.op==='init'){state=setup(cmd.seed,cmd.id);initial=state;events=[];}
+ if(cmd.op==='init'){state=setup(cmd.seed,cmd.id,cmd.target??100);initial=state;events=[];}
  if(cmd.op==='step'){
   const before=state,player=state.players[state.activePlayerIndex].id;
   state=whizApply(state,player,cmd.action);events.push({player,action:cmd.action});
