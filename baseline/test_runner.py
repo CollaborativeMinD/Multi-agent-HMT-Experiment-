@@ -43,6 +43,19 @@ class RunnerTests(unittest.TestCase):
   with patch.object(r,'call',return_value=(None,{'http_status':429} )) as c,patch.object(r.time,'sleep') as wait:
    with self.assertRaises(ValueError):r.select(self.model(),{'legal':[{},{}]})
    self.assertEqual(c.call_count,1);wait.assert_not_called()
+ def test_deadline_timeout_preserves_reservation(self):
+  v={'legal':[{},{}],'handNumber':2,'turn':100,'you':'p4'}
+  r.spent['openai']=r.Decimal(0)
+  with patch.object(r,'request',return_value=('https://api.openai.com/v1/responses',{})),patch.object(r,'headers',return_value={}),patch.object(r.signal,'alarm') as alarm,patch.object(r.urllib.request,'build_opener') as opener,patch.object(r,'emit'):
+   opener.return_value.open.side_effect=TimeoutError
+   choice,row=r.call(self.model(),v,1)
+   self.assertIsNone(choice);self.assertEqual(row['reason'],'NETWORK_OR_TIMEOUT')
+   self.assertEqual(r.spent['openai'],r.Decimal(row['reserved_usd']))
+   self.assertEqual(alarm.call_args_list[0].args,(240,))
+   self.assertEqual(alarm.call_args_list[-1].args,(0,))
+   self.assertEqual(opener.return_value.open.call_args.kwargs['timeout'],230)
+   self.assertEqual(opener.return_value.open.call_count,1)
+  r.spent['openai']=r.Decimal(0)
  def test_function_length(self):
   for n in ast.walk(ast.parse(Path(r.__file__).read_text())):
    if isinstance(n,ast.FunctionDef):self.assertLessEqual(n.end_lineno-n.lineno+1,60,n.name)
@@ -55,7 +68,7 @@ class RunnerTests(unittest.TestCase):
     original=[json.loads(x) for x in (r.RESUME/'frontier.jsonl').read_text().splitlines()]
     frame=r.engine(proc,{'op':'init','seed':7,'id':'whiz100-frontier'})
     frame,count=r.restore(proc,'frontier',[{'model':m} for m in original[0]['models']],frame)
-    self.assertEqual(count,92);self.assertEqual(frame['hash'],original[-1]['final_hash'])
+    self.assertEqual(count,100);self.assertEqual(frame['hash'],original[-1]['final_hash'])
     self.assertTrue(r.engine(proc,{'op':'verify'})['replay_verified'])
    finally:proc.terminate();proc.wait();proc.stdin.close();proc.stdout.close()
  def test_headless_evidence(self):
