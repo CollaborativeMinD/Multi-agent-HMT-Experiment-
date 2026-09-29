@@ -102,3 +102,5 @@ Same Wafer route, held observation, and 8192 game cap. Prior medium effort is no
 | FLASH-LOW-03 | game | TRUNCATED_AS_BOUNDED | 8192/8192 | 8194 | 109.64 | HOLD |
 
 Cost accounted: $0.0109330942. OpenRouter cumulative including both diagnostic batches: $0.8795580842. [Receipts](evidence/flash-low-tracer/receipts.json). Three probes cannot establish general reliability or move quality. Original series remain on HOLD.
+
+**Flash tracer verdict:** one of two identical game requests passed under supported low effort; the repeat truncated. Reported total caps held, but both truncated responses had reasoning counts exceeding their totals. Candidate remains HOLD for replacement. [Review and interpretation](evidence/flash-low-tracer/REVIEW.md).
