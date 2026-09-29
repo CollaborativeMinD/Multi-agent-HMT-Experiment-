@@ -1,0 +1,41 @@
+name: Strict Whiz 8192-token continuation
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/whiz8192-continuation.yml]
+permissions:
+  contents: read
+concurrency:
+  group: whiz-paid-baseline
+  cancel-in-progress: false
+jobs:
+  baseline:
+    if: github.run_attempt == 1
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Materialize reviewed checkpoint and rerun gates
+        run: |
+          python3 baseline/prepare_checkpoint.py
+          npm ci --ignore-scripts --prefix baseline
+          python3 baseline/patch_engine.py
+          node baseline/test_engine.mjs
+          PYTHONPATH=scripts:baseline python3 -m unittest discover -s baseline -p test_runner.py -v
+          python3 baseline/analyze.py baseline/resume8192
+      - name: Resume strict games with 8192 tokens and stop on first issue
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: python3 baseline/runner.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: whiz8192-evidence
+          path: baseline/evidence/
+          if-no-files-found: error
+          retention-days: 30
