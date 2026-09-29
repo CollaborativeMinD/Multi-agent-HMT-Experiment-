@@ -1,0 +1,29 @@
+name: Seal final Pro RCA, no inference
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/pro-final-seal.yml]
+permissions:
+  contents: write
+concurrency:
+  group: whiz-paid-baseline
+  cancel-in-progress: false
+jobs:
+  review:
+    if: github.run_attempt == 1
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reconcile existing generation receipts
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: python3 diagnostics/pro_seal.py
+      - name: Publish review evidence
+        if: always()
+        run: |
+          git config user.name "Whiz Evidence Runner"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add evidence/pro-final-tracer
+          git diff --cached --quiet || git commit -m "Seal final Pro RCA evidence"
+          git push origin HEAD:main
