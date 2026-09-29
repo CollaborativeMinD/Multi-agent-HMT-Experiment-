@@ -72,6 +72,7 @@ def call_metrics(calls):
     for model in dict.fromkeys(c['model'] for c in calls):
         group=[c for c in calls if c['model']==model];lat=[c['latency_ms'] for c in group]
         result.append({'model':model,'attempts':len(group),'accepted':sum(c['status']=='PASS' for c in group),
+                       'diagnostic_attempts':sum(bool(c.get('diagnostic_only')) for c in group),
                        'holds':sum(c['status']!='PASS' for c in group),'http_429':sum(c['http_status']==429 for c in group),
                        'latency_median_ms':statistics.median(lat),'latency_max_ms':max(lat),
                        'cooldown_seconds':round(sum(c['cooldown_seconds'] for c in group),3),
