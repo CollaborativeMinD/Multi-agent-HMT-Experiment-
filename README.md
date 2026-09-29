@@ -140,3 +140,10 @@ With the same seed, deals, other three models, rules, and client limits, Anthrop
 At their first differing action, both received the same observation after bidding nil. Pro played 8D under partner JD; Flash played KD and subsequently won the trick, breaking nil. The final scores are team outcomes on diverging trajectories, not individual rankings. The shared prompt leaves nil's zero-trick condition implicit, and effective backend sampling parity is unproven. [Full comparison and limits](docs/PRO_FLASH_100_COMPARISON.md) · [Flash replay](evidence/flash100/frontier-pro/Whiz_100_Baseline_Replay.html).
 
 All six offline comparison checks passed, including matching deals and unchanged Pro evidence. Flash game cost $1.4172806985 across all accounts; Flash itself $0.0020409485. OpenRouter cumulative accounted: $1.1118230675. No further games or Free Play started.
+
+
+## Nil-explicit v2 results and strategy-guided v3 preparation
+
+Pro completed six hands: OpenAI + Google 107, Anthropic + Pro -730. Pro failed all five nil bids. Flash changed its opening bid to 2 and its team made the first-hand contract; after two hands both teams were -8. Flash v2 stopped in hand 3 on Anthropic HTTP 529, with 126 admitted actions. It is incomplete, not a loss. [Pro v2](evidence/nil-v2-pro/summary.json), [Flash v2](evidence/nil-v2-flash/summary.json).
+
+The user authorized a new strategy-guided condition for both candidates. The exact [added paragraph](trials/strategy-v3-prompt.txt) goes to all four players. Engine rules and inference profiles are unchanged. The runs preserve earlier evidence and cumulative spend. Status: PREPARED; funding ceiling confirmation pending before launch. [Protocol](docs/STRATEGY_V3.md).
