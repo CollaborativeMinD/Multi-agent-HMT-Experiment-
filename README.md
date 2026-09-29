@@ -71,3 +71,19 @@ Game engine: `@game-hub/game-spades@0.1.1` and `@game-hub/kernel@1.5.0`, with ex
 ## Reviewed recovery after the first 429
 
 The first series run published frontier hand 1 at 142 to −84, then held on Qwen Flash's opening mainstream bid. The provider gap was 35.7255 seconds, above the configured 30 seconds. The exact upstream limit remained unknown. A single agent-reviewed recovery at the saved bid uses a further 60-second cooldown and bounded rate-limit metadata capture. It preserves the original failed receipt and reservation, and resumes the series only on a valid response. Another failure holds. This is separate from automatic retries, which remain disabled. [Recovery protocol](series/PROTOCOL.md#reviewed-recovery-after-first-429).
+
+
+## DeepSeek isolated diagnostic batch
+
+No game moves applied. Both series remain on HOLD. Provider: Wafer; retries: zero.
+
+| Model | Case | Result | Output/cap | Seconds |
+|---|---|---|---:|---:|
+| deepseek-v4-pro-0813 | canary | PASS | 22/1024 | 0.78 |
+| deepseek-v4-pro-0813 | boundary | HOLD | 24640/64 | 143.26 |
+| deepseek-v4-pro-0813 | game | HOLD | 15842/8192 | 105.37 |
+| deepseek-v4.1-flash | canary | PASS | 24/1024 | 0.50 |
+| deepseek-v4.1-flash | boundary | TRUNCATED_AS_BOUNDED | 64/64 | 1.34 |
+| deepseek-v4.1-flash | game | TRUNCATED_AS_BOUNDED | 8192/8192 | 100.76 |
+
+Diagnostic accounted cost: $0.17678838. Separate from frozen series accounting. [Receipts](evidence/deepseek-diagnostic/receipts.json). Truncation tests the boundary, not a usable game action. One probe per condition cannot establish reliability.
