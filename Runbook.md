@@ -70,3 +70,11 @@ Record output-first cause, evidence, regression, and disposition in the Reverse 
 ## Before scored games
 
 Build and verify the game rules and private observations, replay, seat/partner rotation, campaign-wide budget guard, and explicit reasoning/token settings. The smoke profile uses economical reasoning and must not silently become the frontier benchmark profile. Both cohorts share each account's original $10 ceiling, including tests and retries.
+
+## Pro thinking-off diagnostic evidence
+
+1. Read docs/PRO_OFF_REVIEW.md and evidence/pro-off-eval/qualification.json. Twelve inference checks passed; metadata availability holds full qualification.
+2. Inspect plan.json and receipts.json in evidence/pro-off-eval. The two one-token cutoffs intentionally truncate and are not gameplay responses.
+3. Compare generation-metadata.json with delayed-metadata.json. Preserve both initial and delayed 404 records. A missing generation record does not authorize paid inference replay.
+4. Verify archived evidence from its directory with `sha256sum -c SHA256SUMS.txt`. Inspect cumulative SQL using SQLite; do not regenerate historical evidence merely to clear a HOLD.
+5. Do not rerun completed paid workflows. Any subsequent diagnostic requires reviewed scope, remaining-budget admission, and a fresh single-use workflow. No fourth-seat substitution follows from these interface tests.
