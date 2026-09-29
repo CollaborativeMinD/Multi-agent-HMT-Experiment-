@@ -1,0 +1,47 @@
+name: DeepSeek isolated contract diagnostic
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/deepseek-diagnostic.yml]
+permissions:
+  contents: write
+concurrency:
+  group: whiz-paid-baseline
+  cancel-in-progress: false
+jobs:
+  diagnostic:
+    if: github.run_attempt == 1
+    runs-on: ubuntu-24.04
+    timeout-minutes: 32
+    steps:
+      - uses: actions/checkout@v4
+      - name: Offline contract and regression gates
+        run: |
+          npm ci --ignore-scripts --prefix baseline
+          python3 baseline/patch_engine.py
+          node baseline/test_engine.mjs
+          PYTHONPATH=scripts:baseline python3 -m unittest discover -s baseline -p test_runner.py -v
+          PYTHONPATH=scripts python3 -m unittest discover -s tests -p test_smoke.py -v
+          PYTHONPATH=scripts:baseline:diagnostics python3 -m unittest discover -s diagnostics -p test_probe.py -v
+          PYTHONPATH=scripts:baseline:diagnostics python3 -c "import probe; v=probe.checkpoint(); assert v['you']=='p4'; print('Held observation verified, no move applied')"
+      - name: Six isolated requests, no game continuation
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: python3 diagnostics/probe.py
+      - name: Publish diagnostic evidence
+        if: always()
+        run: |
+          git config user.name "Whiz Evidence Runner"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [ -d evidence/deepseek-diagnostic ]; then
+            git add README.md evidence/deepseek-diagnostic
+            git diff --cached --quiet || git commit -m "Publish isolated DeepSeek diagnostic receipts"
+            git push origin HEAD:main
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: deepseek-diagnostic-evidence
+          path: evidence/deepseek-diagnostic/
+          if-no-files-found: warn
+          retention-days: 30
