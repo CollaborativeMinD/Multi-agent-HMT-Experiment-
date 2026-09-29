@@ -1,0 +1,11 @@
+{
+  "utc": "2026-09-29T04:25:35.779446+00:00",
+  "run_id": "36521245904",
+  "source_commit": "b86fccf976f2286f57e82f89fb2537f3e2669385",
+  "calls": 3,
+  "accounted_usd": "0.1094308348",
+  "openrouter_cumulative_accounted_usd": "0.9889889190",
+  "game_evidence_unchanged": true,
+  "game_actions_applied": 0,
+  "retries": 0
+}
