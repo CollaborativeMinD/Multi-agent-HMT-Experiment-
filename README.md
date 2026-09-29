@@ -124,3 +124,11 @@ Three calls, no retries, zero applied moves, unchanged game evidence. Batch cost
 Identical game requests chose all three legal options, with latencies of 100.739s, 0.693s, and 0.799s. Strategic quality and decision consistency are not established. Nine stored generation records matched; the remaining three returned 404 twice, including a reviewed delayed lookup. Missing metadata is not a token mismatch. [Full qualification review](docs/PRO_OFF_REVIEW.md).
 
 Batch accounted cost: $0.0045826. OpenRouter cumulative accounted: $1.0982313190. No game moves, retries of inference, roster changes, or Free Play.
+
+## Pro strict 100-point field trial: COMPLETE
+
+OpenAI + Google defeated Anthropic + thinking-disabled Pro **132 to -195**, in two hands. Pro bid nil twice and failed twice, taking two and three tricks. In hand 1 it broke nil by playing QH over its partner's TH with a legal losing 4H available. This is specific adverse playing evidence, not an individual-model ranking.
+
+All 22 Pro calls passed; zero reported reasoning tokens, 154 output tokens total. Median latency 0.640s; maximum 61.898s. All 112 game actions, private views, and independent hand scores verified. Pro cost $0.0115508; total game cost $1.57317205. No retries or changes to earlier series evidence.
+
+[Full field-trial review](docs/PRO100_REVIEW.md) · [Download HTML replay](evidence/pro100/frontier-pro/Whiz_100_Baseline_Replay.html) · [Summary and account totals](evidence/pro100/summary.json). Flash is the user's selected cohort-2 fourth seat; no cohort-2 game ran in this trial. Free Play remains disabled.
