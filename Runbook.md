@@ -1,10 +1,10 @@
 # Runbook
 
-## Current pilot status: authorized 240-second continuation
+## Current pilot status: COMPLETE
 
-Read [the latest result](evidence/whiz8192-results-20260929.md) and [cumulative gates](evidence/whiz8192-gates.sql). Run 36504424064 stopped at frontier action 100 when Qwen reached the unchanged 120-second deadline. There was no retry. Mainstream has not started; neither game is complete. Known estimated cost is $1.60005550, plus a retained $0.06768 timeout reservation. No inference is running.
+Both authorized strict games finished in run 36506341980: frontier 134 to -175; mainstream 132 to -130. Each has two completed hands and 112 actions. Read evidence/whiz240-results-20260929.md and evidence/whiz240-gates.sql. All 94 new API calls passed. No request exceeded 120 seconds; the 240-second deadline is not proven necessary. No inference is running and no deeper or Free Play campaign is enabled.
 
-The user explicitly authorized this limited scored pilot and directed reevaluation on the next issue. Broader unrestricted campaigns remain disabled. Preserve the 100-action checkpoint; do not restart or silently replace a player. The user has now authorized a 240-second total deadline and 230-second socket timeout, keeping 8,192 tokens. The new single-use whiz240-continuation workflow resumes 100 actions and carries $1.66773550 including the prior timeout reservation. Stop at the first new issue; no retries.
+Cumulative known estimated pilot usage is $2.07369450, plus the prior unresolved $0.06768 timeout reservation, totaling $2.14137450. Preserve all earlier failures. Do not rerun the paid workflow. The active resume240 package remains the 100-action starting checkpoint, not the complete-game evidence.
 
 ### Verify the current game evidence offline
 
