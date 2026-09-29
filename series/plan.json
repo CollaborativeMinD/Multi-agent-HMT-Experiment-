@@ -1,0 +1,43 @@
+{
+  "id": "strict-whiz-300-bo5-20260928",
+  "target": 300,
+  "wins_required": 3,
+  "max_games_per_cohort": 5,
+  "seeds": [
+    101,
+    202,
+    303,
+    404,
+    505
+  ],
+  "mode": "strict_whiz",
+  "free_play_authorized": false,
+  "max_hands_per_game": 20,
+  "per_account_limit_usd": "9.98",
+  "probe_buffer_per_account_usd": "0.02",
+  "original_per_account_ceiling_usd": "10.00",
+  "opening_accounting_usd": {
+    "openai": "0.610648",
+    "anthropic": "0.938752",
+    "gemini": "0.17274110",
+    "openrouter": "0.41923340"
+  },
+  "prior_timeout_reserve_usd": "0.06768",
+  "opening_source_run": 36506341980,
+  "registry_sha256": "ad30a6bb116bfdd77354d60313e84fdb018056b1295db56e8de67591295b23d7",
+  "output_cap": 8192,
+  "request_deadline_seconds": 240,
+  "socket_timeout_seconds": 230,
+  "automatic_retries": 0,
+  "partnerships": {
+    "north_south": [
+      "openai",
+      "gemini"
+    ],
+    "east_west": [
+      "anthropic",
+      "openrouter"
+    ]
+  },
+  "rotation": "fixed seats, varied matched seeds; no claim of individual model ranking"
+}
