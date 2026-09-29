@@ -1,0 +1,25 @@
+name: Qwen combined-limit tracer
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/qwen-limit-tracer.yml]
+permissions:
+  contents: read
+jobs:
+  tracer:
+    if: github.run_attempt == 1
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: One diagnostic request, no game action
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: python3 baseline/qwen_limit_tracer.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qwen-limit-tracer
+          path: baseline/evidence/
