@@ -1,0 +1,47 @@
+{
+  "model": "deepseek/deepseek-v4-pro-0813",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Play strict Whiz Spades to win your partnership game to 300. Four seats; partner opposite. Bid nil (0) or exactly your spade count. Nil +/-100; no blind nil or table talk. Positive contracts: at least the team bid, +10/bid trick if made, -10/bid trick if set. Extra tricks +1 point/bag; ten bags -100. Nil tricks never help partner contract; failed-nil tricks are bags even when partner is set. Follow suit; spades trump. Do not lead spades until broken unless only spades remain. Ace high. Use only your private hand and public information below. Select the zero-based index of your preferred legal action. Return only {\"choice\": integer}. No explanation.\n{\"bags\":[0,0],\"handNumber\":1,\"history\":[{\"payload\":{\"bid\":1,\"nil\":false},\"playerId\":\"p2\",\"seq\":1,\"type\":\"BID\"},{\"payload\":{\"bid\":4,\"nil\":false},\"playerId\":\"p3\",\"seq\":2,\"type\":\"BID\"},{\"payload\":{\"bid\":0,\"nil\":true},\"playerId\":\"p4\",\"seq\":3,\"type\":\"BID\"},{\"payload\":{\"bid\":0,\"nil\":true},\"playerId\":\"p1\",\"seq\":4,\"type\":\"BID\"},{\"payload\":{\"card\":\"AD\"},\"playerId\":\"p2\",\"seq\":5,\"type\":\"PLAY\"},{\"payload\":{\"card\":\"8D\"},\"playerId\":\"p3\",\"seq\":6,\"type\":\"PLAY\"},{\"payload\":{\"card\":\"JD\"},\"playerId\":\"p4\",\"seq\":7,\"type\":\"PLAY\"},{\"payload\":{\"card\":\"9D\"},\"playerId\":\"p1\",\"seq\":8,\"type\":\"PLAY\"},{\"payload\":{\"cards\":[\"AD\",\"8D\",\"JD\",\"9D\"],\"trickNumber\":0,\"winnerId\":\"p2\"},\"playerId\":\"p2\",\"seq\":9,\"type\":\"TRICK\"},{\"payload\":{\"card\":\"KD\"},\"playerId\":\"p2\",\"seq\":10,\"type\":\"PLAY\"},{\"payload\":{\"card\":\"QD\"},\"playerId\":\"p3\",\"seq\":11,\"type\":\"PLAY\"},{\"payload\":{\"card\":\"QH\"},\"playerId\":\"p4\",\"seq\":12,\"type\":\"PLAY\"},{\"payload\":{\"card\":\"5D\"},\"playerId\":\"p1\",\"seq\":13,\"type\":\"PLAY\"},{\"payload\":{\"cards\":[\"KD\",\"QD\",\"QH\",\"5D\"],\"trickNumber\":1,\"winnerId\":\"p2\"},\"playerId\":\"p2\",\"seq\":14,\"type\":\"TRICK\"},{\"payload\":{\"card\":\"4D\"},\"playerId\":\"p2\",\"seq\":15,\"type\":\"PLAY\"},{\"payload\":{\"card\":\"TD\"},\"playerId\":\"p3\",\"seq\":16,\"type\":\"PLAY\"},{\"payload\":{\"card\":\"AH\"},\"playerId\":\"p4\",\"seq\":17,\"type\":\"PLAY\"},{\"payload\":{\"card\":\"3D\"},\"playerId\":\"p1\",\"seq\":18,\"type\":\"PLAY\"},{\"payload\":{\"cards\":[\"4D\",\"TD\",\"AH\",\"3D\"],\"trickNumber\":2,\"winnerId\":\"p3\"},\"playerId\":\"p3\",\"seq\":19,\"type\":\"TRICK\"},{\"payload\":{\"card\":\"5C\"},\"playerId\":\"p3\",\"seq\":20,\"type\":\"PLAY\"},{\"payload\":{\"card\":\"9C\"},\"playerId\":\"p4\",\"seq\":21,\"type\":\"PLAY\"},{\"payload\":{\"card\":\"6C\"},\"playerId\":\"p1\",\"seq\":22,\"type\":\"PLAY\"},{\"payload\":{\"card\":\"JC\"},\"playerId\":\"p2\",\"seq\":23,\"type\":\"PLAY\"},{\"payload\":{\"cards\":[\"5C\",\"9C\",\"6C\",\"JC\"],\"trickNumber\":3,\"winnerId\":\"p2\"},\"playerId\":\"p2\",\"seq\":24,\"type\":\"TRICK\"},{\"payload\":{\"card\":\"2H\"},\"playerId\":\"p2\",\"seq\":25,\"type\":\"PLAY\"},{\"payload\":{\"card\":\"JH\"},\"playerId\":\"p3\",\"seq\":26,\"type\":\"PLAY\"},{\"payload\":{\"card\":\"9H\"},\"playerId\":\"p4\",\"seq\":27,\"type\":\"PLAY\"},{\"payload\":{\"card\":\"TH\"},\"playerId\":\"p1\",\"seq\":28,\"type\":\"PLAY\"},{\"payload\":{\"cards\":[\"2H\",\"JH\",\"9H\",\"TH\"],\"trickNumber\":4,\"winnerId\":\"p3\"},\"playerId\":\"p3\",\"seq\":29,\"type\":\"TRICK\"},{\"payload\":{\"card\":\"7C\"},\"playerId\":\"p3\",\"seq\":30,\"type\":\"PLAY\"},{\"payload\":{\"card\":\"2C\"},\"playerId\":\"p4\",\"seq\":31,\"type\":\"PLAY\"},{\"payload\":{\"card\":\"3C\"},\"playerId\":\"p1\",\"seq\":32,\"type\":\"PLAY\"},{\"payload\":{\"card\":\"KC\"},\"playerId\":\"p2\",\"seq\":33,\"type\":\"PLAY\"},{\"payload\":{\"cards\":[\"7C\",\"2C\",\"3C\",\"KC\"],\"trickNumber\":5,\"winnerId\":\"p2\"},\"playerId\":\"p2\",\"seq\":34,\"type\":\"TRICK\"},{\"payload\":{\"card\":\"7D\"},\"playerId\":\"p2\",\"seq\":35,\"type\":\"PLAY\"},{\"payload\":{\"card\":\"4H\"},\"playerId\":\"p3\",\"seq\":36,\"type\":\"PLAY\"},{\"payload\":{\"card\":\"3H\"},\"playerId\":\"p4\",\"seq\":37,\"type\":\"PLAY\"},{\"payload\":{\"card\":\"2D\"},\"playerId\":\"p1\",\"seq\":38,\"type\":\"PLAY\"},{\"payload\":{\"cards\":[\"7D\",\"4H\",\"3H\",\"2D\"],\"trickNumber\":6,\"winnerId\":\"p2\"},\"playerId\":\"p2\",\"seq\":39,\"type\":\"TRICK\"},{\"payload\":{\"card\":\"6D\"},\"playerId\":\"p2\",\"seq\":40,\"type\":\"PLAY\"},{\"payload\":{\"card\":\"7H\"},\"playerId\":\"p3\",\"seq\":41,\"type\":\"PLAY\"},{\"payload\":{\"card\":\"7S\"},\"playerId\":\"p4\",\"seq\":42,\"type\":\"PLAY\"},{\"payload\":{\"card\":\"QC\"},\"playerId\":\"p1\",\"seq\":43,\"type\":\"PLAY\"},{\"payload\":{\"cards\":[\"6D\",\"7H\",\"7S\",\"QC\"],\"trickNumber\":7,\"winnerId\":\"p4\"},\"playerId\":\"p4\",\"seq\":44,\"type\":\"TRICK\"},{\"payload\":{\"card\":\"2S\"},\"playerId\":\"p4\",\"seq\":45,\"type\":\"PLAY\"},{\"payload\":{\"card\":\"TS\"},\"playerId\":\"p1\",\"seq\":46,\"type\":\"PLAY\"},{\"payload\":{\"card\":\"KS\"},\"playerId\":\"p2\",\"seq\":47,\"type\":\"PLAY\"},{\"payload\":{\"card\":\"AS\"},\"playerId\":\"p3\",\"seq\":48,\"type\":\"PLAY\"},{\"payload\":{\"cards\":[\"2S\",\"TS\",\"KS\",\"AS\"],\"trickNumber\":8,\"winnerId\":\"p3\"},\"playerId\":\"p3\",\"seq\":49,\"type\":\"TRICK\"},{\"payload\":{\"card\":\"QS\"},\"playerId\":\"p3\",\"seq\":50,\"type\":\"PLAY\"},{\"payload\":{\"card\":\"5S\"},\"playerId\":\"p4\",\"seq\":51,\"type\":\"PLAY\"},{\"payload\":{\"card\":\"4S\"},\"playerId\":\"p1\",\"seq\":52,\"type\":\"PLAY\"},{\"payload\":{\"card\":\"KH\"},\"playerId\":\"p2\",\"seq\":53,\"type\":\"PLAY\"},{\"payload\":{\"cards\":[\"QS\",\"5S\",\"4S\",\"KH\"],\"trickNumber\":9,\"winnerId\":\"p3\"},\"playerId\":\"p3\",\"seq\":54,\"type\":\"TRICK\"},{\"payload\":{\"card\":\"JS\"},\"playerId\":\"p3\",\"seq\":55,\"type\":\"PLAY\"},{\"payload\":{\"card\":\"9S\"},\"playerId\":\"p4\",\"seq\":56,\"type\":\"PLAY\"},{\"payload\":{\"card\":\"3S\"},\"playerId\":\"p1\",\"seq\":57,\"type\":\"PLAY\"},{\"payload\":{\"card\":\"8C\"},\"playerId\":\"p2\",\"seq\":58,\"type\":\"PLAY\"},{\"payload\":{\"cards\":[\"JS\",\"9S\",\"3S\",\"8C\"],\"trickNumber\":10,\"winnerId\":\"p3\"},\"playerId\":\"p3\",\"seq\":59,\"type\":\"TRICK\"}],\"lastTrick\":{\"plays\":[{\"card\":\"JS\",\"playerId\":\"p3\"},{\"card\":\"9S\",\"playerId\":\"p4\"},{\"card\":\"3S\",\"playerId\":\"p1\"},{\"card\":\"8C\",\"playerId\":\"p2\"}],\"trickNumber\":10,\"winnerId\":\"p3\"},\"legal\":[{\"card\":\"6S\",\"type\":\"PLAY\"},{\"card\":\"8H\",\"type\":\"PLAY\"}],\"partner\":\"p1\",\"phase\":\"playing\",\"players\":[{\"bid\":0,\"blindNil\":false,\"color\":\"red\",\"hand\":null,\"handCount\":2,\"id\":\"p1\",\"name\":\"North\",\"tricksWon\":0},{\"bid\":1,\"blindNil\":false,\"color\":\"blue\",\"hand\":null,\"handCount\":2,\"id\":\"p2\",\"name\":\"East\",\"tricksWon\":5},{\"bid\":4,\"blindNil\":false,\"color\":\"green\",\"hand\":[\"6S\",\"8H\"],\"handCount\":2,\"id\":\"p3\",\"name\":\"South\",\"tricksWon\":5},{\"bid\":0,\"blindNil\":false,\"color\":\"yellow\",\"hand\":null,\"handCount\":2,\"id\":\"p4\",\"name\":\"West\",\"tricksWon\":1}],\"plays\":[],\"scores\":[0,0],\"spadesBroken\":true,\"trickNumber\":11,\"you\":\"p3\"}"
+    }
+  ],
+  "max_tokens": 8192,
+  "reasoning": {
+    "enabled": false
+  },
+  "provider": {
+    "only": [
+      "wafer"
+    ],
+    "allow_fallbacks": false,
+    "require_parameters": true
+  },
+  "response_format": {
+    "type": "json_schema",
+    "json_schema": {
+      "name": "play_action",
+      "strict": true,
+      "schema": {
+        "type": "object",
+        "properties": {
+          "choice": {
+            "type": "integer",
+            "enum": [
+              0,
+              1
+            ]
+          }
+        },
+        "required": [
+          "choice"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "stream": true,
+  "debug": {
+    "echo_upstream_body": true
+  }
+}
