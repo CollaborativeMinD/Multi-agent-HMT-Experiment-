@@ -1,0 +1,47 @@
+{
+  "model": "deepseek/deepseek-v4-pro-0813",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Play strict Whiz Spades to win your partnership game to 300. Four seats; partner opposite. Bid nil (0) or exactly your spade count. Nil +/-100; no blind nil or table talk. Positive contracts: at least the team bid, +10/bid trick if made, -10/bid trick if set. Extra tricks +1 point/bag; ten bags -100. Nil tricks never help partner contract; failed-nil tricks are bags even when partner is set. Follow suit; spades trump. Do not lead spades until broken unless only spades remain. Ace high. Use only your private hand and public information below. Select the zero-based index of your preferred legal action. Return only {\"choice\": integer}. No explanation.\n{\"bags\":[0,0],\"handNumber\":1,\"history\":[],\"lastTrick\":null,\"legal\":[{\"bid\":0,\"type\":\"BID\"},{\"bid\":1,\"type\":\"BID\"}],\"partner\":\"p4\",\"phase\":\"bidding\",\"players\":[{\"bid\":null,\"blindNil\":false,\"color\":\"red\",\"hand\":null,\"handCount\":13,\"id\":\"p1\",\"name\":\"North\",\"tricksWon\":0},{\"bid\":null,\"blindNil\":false,\"color\":\"blue\",\"hand\":[\"2H\",\"4C\",\"4D\",\"5H\",\"6D\",\"7D\",\"8C\",\"AD\",\"JC\",\"KC\",\"KD\",\"KH\",\"KS\"],\"handCount\":13,\"id\":\"p2\",\"name\":\"East\",\"tricksWon\":0},{\"bid\":null,\"blindNil\":false,\"color\":\"green\",\"hand\":null,\"handCount\":13,\"id\":\"p3\",\"name\":\"South\",\"tricksWon\":0},{\"bid\":null,\"blindNil\":false,\"color\":\"yellow\",\"hand\":null,\"handCount\":13,\"id\":\"p4\",\"name\":\"West\",\"tricksWon\":0}],\"plays\":[],\"scores\":[0,0],\"spadesBroken\":false,\"trickNumber\":0,\"you\":\"p2\"}"
+    }
+  ],
+  "max_tokens": 8192,
+  "reasoning": {
+    "enabled": false
+  },
+  "provider": {
+    "only": [
+      "wafer"
+    ],
+    "allow_fallbacks": false,
+    "require_parameters": true
+  },
+  "response_format": {
+    "type": "json_schema",
+    "json_schema": {
+      "name": "play_action",
+      "strict": true,
+      "schema": {
+        "type": "object",
+        "properties": {
+          "choice": {
+            "type": "integer",
+            "enum": [
+              0,
+              1
+            ]
+          }
+        },
+        "required": [
+          "choice"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "stream": true,
+  "debug": {
+    "echo_upstream_body": true
+  }
+}
