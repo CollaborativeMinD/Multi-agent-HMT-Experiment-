@@ -1,0 +1,49 @@
+{
+  "model": "moonshotai/kimi-k3",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Play strict Whiz Spades to win your partnership game to 100. Four seats; partner opposite. Bid nil (0) or exactly your spade count. A nil bid (0) earns the partnership +100 points if that player takes zero tricks in the hand, or -100 points if that player takes one or more tricks; no blind nil or table talk. Positive contracts: at least the team bid, +10/bid trick if made, -10/bid trick if set. Extra tricks +1 point/bag; ten bags -100. Nil tricks never help partner contract; failed-nil tricks are bags even when partner is set. Follow suit; spades trump. Do not lead spades until broken unless only spades remain. Ace high. Use only your private hand and public information below. Select the zero-based index of your preferred legal action. Return only {\"choice\": integer}. No explanation.\n\nYour objective is to maximize your partnership\u2019s probability of winning the game, not your individual trick count. Use the current bids, tricks, score, and bags to decide whether winning or avoiding a trick helps your team. Preserve your own live nil and protect your partner\u2019s live nil while pursuing the partnership\u2019s positive contract. When neither partner is nil, your tricks contribute to the same team contract. Consider setting opponents and bag risk in light of the overall game position. Once a nil has failed, its penalty is already incurred; adapt to the remaining objectives.\n{\"bags\":[0,0],\"handNumber\":1,\"history\":[{\"payload\":{\"bid\":4,\"nil\":false},\"playerId\":\"p2\",\"seq\":1,\"type\":\"BID\"},{\"payload\":{\"bid\":2,\"nil\":false},\"playerId\":\"p3\",\"seq\":2,\"type\":\"BID\"},{\"payload\":{\"bid\":0,\"nil\":true},\"playerId\":\"p4\",\"seq\":3,\"type\":\"BID\"},{\"payload\":{\"bid\":5,\"nil\":false},\"playerId\":\"p1\",\"seq\":4,\"type\":\"BID\"},{\"payload\":{\"card\":\"JD\"},\"playerId\":\"p2\",\"seq\":5,\"type\":\"PLAY\"},{\"payload\":{\"card\":\"2D\"},\"playerId\":\"p3\",\"seq\":6,\"type\":\"PLAY\"},{\"payload\":{\"card\":\"8D\"},\"playerId\":\"p4\",\"seq\":7,\"type\":\"PLAY\"},{\"payload\":{\"card\":\"6D\"},\"playerId\":\"p1\",\"seq\":8,\"type\":\"PLAY\"},{\"payload\":{\"cards\":[\"JD\",\"2D\",\"8D\",\"6D\"],\"trickNumber\":0,\"winnerId\":\"p2\"},\"playerId\":\"p2\",\"seq\":9,\"type\":\"TRICK\"},{\"payload\":{\"card\":\"4C\"},\"playerId\":\"p2\",\"seq\":10,\"type\":\"PLAY\"},{\"payload\":{\"card\":\"3C\"},\"playerId\":\"p3\",\"seq\":11,\"type\":\"PLAY\"},{\"payload\":{\"card\":\"2C\"},\"playerId\":\"p4\",\"seq\":12,\"type\":\"PLAY\"},{\"payload\":{\"card\":\"5C\"},\"playerId\":\"p1\",\"seq\":13,\"type\":\"PLAY\"},{\"payload\":{\"cards\":[\"4C\",\"3C\",\"2C\",\"5C\"],\"trickNumber\":1,\"winnerId\":\"p1\"},\"playerId\":\"p1\",\"seq\":14,\"type\":\"TRICK\"},{\"payload\":{\"card\":\"2H\"},\"playerId\":\"p1\",\"seq\":15,\"type\":\"PLAY\"},{\"payload\":{\"card\":\"TH\"},\"playerId\":\"p2\",\"seq\":16,\"type\":\"PLAY\"},{\"payload\":{\"card\":\"3H\"},\"playerId\":\"p3\",\"seq\":17,\"type\":\"PLAY\"}],\"lastTrick\":{\"plays\":[{\"card\":\"4C\",\"playerId\":\"p2\"},{\"card\":\"3C\",\"playerId\":\"p3\"},{\"card\":\"2C\",\"playerId\":\"p4\"},{\"card\":\"5C\",\"playerId\":\"p1\"}],\"trickNumber\":1,\"winnerId\":\"p1\"},\"legal\":[{\"card\":\"4H\",\"type\":\"PLAY\"},{\"card\":\"AH\",\"type\":\"PLAY\"},{\"card\":\"KH\",\"type\":\"PLAY\"},{\"card\":\"QH\",\"type\":\"PLAY\"}],\"partner\":\"p2\",\"phase\":\"playing\",\"players\":[{\"bid\":5,\"blindNil\":false,\"color\":\"red\",\"hand\":null,\"handCount\":10,\"id\":\"p1\",\"name\":\"North\",\"tricksWon\":1},{\"bid\":4,\"blindNil\":false,\"color\":\"blue\",\"hand\":null,\"handCount\":10,\"id\":\"p2\",\"name\":\"East\",\"tricksWon\":1},{\"bid\":2,\"blindNil\":false,\"color\":\"green\",\"hand\":null,\"handCount\":10,\"id\":\"p3\",\"name\":\"South\",\"tricksWon\":0},{\"bid\":0,\"blindNil\":false,\"color\":\"yellow\",\"hand\":[\"4H\",\"4S\",\"AC\",\"AH\",\"JS\",\"KC\",\"KD\",\"KH\",\"QC\",\"QD\",\"QH\"],\"handCount\":11,\"id\":\"p4\",\"name\":\"West\",\"tricksWon\":0}],\"plays\":[{\"card\":\"2H\",\"playerId\":\"p1\"},{\"card\":\"TH\",\"playerId\":\"p2\"},{\"card\":\"3H\",\"playerId\":\"p3\"}],\"scores\":[0,0],\"spadesBroken\":false,\"trickNumber\":2,\"you\":\"p4\"}"
+    }
+  ],
+  "max_tokens": 8192,
+  "reasoning": {
+    "effort": "low"
+  },
+  "provider": {
+    "only": [
+      "moonshotai/mxfp4"
+    ],
+    "allow_fallbacks": false,
+    "require_parameters": true
+  },
+  "response_format": {
+    "type": "json_schema",
+    "json_schema": {
+      "name": "play_action",
+      "strict": true,
+      "schema": {
+        "type": "object",
+        "properties": {
+          "choice": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2,
+              3
+            ]
+          }
+        },
+        "required": [
+          "choice"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "stream": true,
+  "debug": {
+    "echo_upstream_body": true
+  }
+}
