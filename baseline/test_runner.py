@@ -15,6 +15,19 @@ class RunnerTests(unittest.TestCase):
   with self.assertRaises(ValueError):r.parse(b,self.model(),2,{'input_reserve':500})
   b=self.body();b['usage']['input_tokens']=None
   with self.assertRaises(ValueError):r.parse(b,self.model(),2,{'input_reserve':500})
+ def test_8192_all_models_and_boundary(self):
+  manifest=json.loads(r.MODEL_FILE.read_text())
+  v=json.loads((Path(r.__file__).parent/'qwen_limit_view.json').read_text())
+  for m in manifest['models']:
+   _,body=r.request(m,v)
+   caps=[body.get('max_tokens'),body.get('max_output_tokens'),body.get('generationConfig',{}).get('maxOutputTokens')]
+   self.assertEqual([x for x in caps if x is not None],[8192],m['model'])
+  for tokens in [5515,8192]:
+   body=self.body();body['usage']['output_tokens']=tokens
+   self.assertEqual(r.parse(body,self.model(),2,{'input_reserve':500}),0)
+  body=self.body();body['usage']['output_tokens']=8193
+  with self.assertRaisesRegex(ValueError,'TOKEN_RESERVATION_EXCEEDED'):
+   r.parse(body,self.model(),2,{'input_reserve':500})
  def test_private_boundary(self):
   with self.assertRaises(ValueError):r.compact({'deckSeed':7})
   with self.assertRaises(ValueError):r.compact({'you':'p1','players':[{'id':'p2','hand':['AS']}]})
@@ -24,12 +37,12 @@ class RunnerTests(unittest.TestCase):
    with self.assertRaises(ValueError):r.call(self.model(),v,1)
    h.assert_not_called()
   r.spent['openai']=r.Decimal(0)
- def test_forced_and_retry_bounds(self):
+ def test_forced_and_stop_first_issue(self):
   with patch.object(r,'call') as c:
    self.assertEqual(r.select(self.model(),{'legal':[{'type':'PLAY','card':'AS'}]})[1]['kind'],'FORCED_SINGLE_LEGAL_ACTION');c.assert_not_called()
   with patch.object(r,'call',return_value=(None,{'http_status':429} )) as c,patch.object(r.time,'sleep') as wait:
    with self.assertRaises(ValueError):r.select(self.model(),{'legal':[{},{}]})
-   self.assertEqual(c.call_count,2);wait.assert_called_once_with(60)
+   self.assertEqual(c.call_count,1);wait.assert_not_called()
  def test_function_length(self):
   for n in ast.walk(ast.parse(Path(r.__file__).read_text())):
    if isinstance(n,ast.FunctionDef):self.assertLessEqual(n.end_lineno-n.lineno+1,60,n.name)
@@ -39,10 +52,10 @@ class RunnerTests(unittest.TestCase):
   with tempfile.TemporaryDirectory() as d,patch.object(r,'OUT',Path(d)):
    proc=subprocess.Popen(['node',str(root/'engine.mjs')],stdin=subprocess.PIPE,stdout=subprocess.PIPE,text=True)
    try:
-    original=[json.loads(x) for x in (root/'resume/frontier.jsonl').read_text().splitlines()]
+    original=[json.loads(x) for x in (r.RESUME/'frontier.jsonl').read_text().splitlines()]
     frame=r.engine(proc,{'op':'init','seed':7,'id':'whiz100-frontier'})
     frame,count=r.restore(proc,'frontier',[{'model':m} for m in original[0]['models']],frame)
-    self.assertEqual(count,10);self.assertEqual(frame['hash'],original[-1]['final_hash'])
+    self.assertEqual(count,92);self.assertEqual(frame['hash'],original[-1]['final_hash'])
     self.assertTrue(r.engine(proc,{'op':'verify'})['replay_verified'])
    finally:proc.terminate();proc.wait();proc.stdin.close();proc.stdout.close()
  def test_headless_evidence(self):
