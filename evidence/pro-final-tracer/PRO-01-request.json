@@ -1,0 +1,48 @@
+{
+  "model": "deepseek/deepseek-v4-pro-0813",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Compute the remainder of 987654321987654321 raised to 123456789 modulo 1000000007. Choose 0 if the remainder is even, 1 if odd, or 2 if uncertain. Return only the choice JSON."
+    }
+  ],
+  "max_tokens": 128,
+  "reasoning": {
+    "effort": "low"
+  },
+  "provider": {
+    "only": [
+      "wafer"
+    ],
+    "allow_fallbacks": false,
+    "require_parameters": true
+  },
+  "response_format": {
+    "type": "json_schema",
+    "json_schema": {
+      "name": "play_action",
+      "strict": true,
+      "schema": {
+        "type": "object",
+        "properties": {
+          "choice": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2
+            ]
+          }
+        },
+        "required": [
+          "choice"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "stream": true,
+  "debug": {
+    "echo_upstream_body": true
+  }
+}

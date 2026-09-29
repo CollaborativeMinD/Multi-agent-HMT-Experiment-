@@ -1,0 +1,70 @@
+[
+  {
+    "id": "PRO-01",
+    "model": "deepseek/deepseek-v4-pro-0813",
+    "case": "boundary",
+    "started_utc": "2026-09-29T04:45:59.361864+00:00",
+    "output_cap": 128,
+    "input_reserve": 2710,
+    "output_reserve": 32896,
+    "input_price": "0.0000004",
+    "output_price": "0.0000042",
+    "reserved_usd": "0.1392472",
+    "accounted_usd": "0.1037784",
+    "status": "HOLD",
+    "reasoning": {
+      "effort": "low"
+    },
+    "request_sha256": "affc1623c4d8ba8d022da7165bf3bca3e8d36ec7ae009f0552adfb467ea39904",
+    "http_status": 200,
+    "generation_id": "gen-1790657159-Fl9UZ17a3hbjxO1PfUeU",
+    "upstream": [
+      {
+        "model": "DeepSeek-V4-Pro",
+        "stream": true,
+        "temperature": 1,
+        "top_p": 1,
+        "max_tokens": 128,
+        "reasoning_effort": "low",
+        "thinking": {
+          "type": "enabled",
+          "field_names": [
+            "type"
+          ]
+        },
+        "field_names": [
+          "max_tokens",
+          "messages",
+          "model",
+          "reasoning_effort",
+          "response_format",
+          "stream",
+          "stream_options",
+          "temperature",
+          "thinking",
+          "top_p"
+        ],
+        "messages_sha256": "7c54e68df053b45ecbffb7096520f6fe347cd07b10484b0a98a15ec6f011e928",
+        "response_format_sha256": "9d8e71634fe08b558649eec74adcbaed352756c8de710e5e68f2b87fa44a5f71"
+      }
+    ],
+    "stream_sha256": "74941e5a3f4733a227028c6919cb9047d8513d3641ddc41035a5c82fd4f48126",
+    "visible_content_characters": 0,
+    "returned_model": "deepseek/deepseek-v4-pro-0813",
+    "returned_provider": "Wafer",
+    "response_sha256": "cef28e52f14fa3b95c6afa0977ab482770302a23db336ddb68919cd532c07123",
+    "input_tokens": 54,
+    "total_output_tokens": 24704,
+    "reasoning_tokens": 24704,
+    "visible_tokens": 0,
+    "estimated_cost_usd": "0.1037784",
+    "provider_reported_cost_usd": "0.1037784",
+    "finish_reason": "length",
+    "reason": "OUTPUT_CAP_EXCEEDED",
+    "latency_ms": 184435,
+    "completed_utc": "2026-09-29T04:49:03.796880+00:00",
+    "usage_partition_status": "PASS",
+    "case_contract_status": "HOLD",
+    "admission_status": "HOLD"
+  }
+]
