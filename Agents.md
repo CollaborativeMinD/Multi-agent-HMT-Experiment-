@@ -13,3 +13,7 @@ Do not enable the campaign from a smoke PASS. Freeze scored-play settings and va
 ## Campaign interception
 
 The authorized 240-second continuation completed both strict games. Read evidence/whiz240-results-20260929.md and Runbook.md. The user has subsequently authorized the strict 300-point best-of-five campaign only, as frozen in series/plan.json and series/PROTOCOL.md. Preserve earlier token-control incidents and the $0.06768 unknown-usage reservation. Opening cumulative accounting is $2.14137450. Admit requests only under the $9.98/account guard plus $0.02/account prior-probe buffer. Stop at first issue, never retry or substitute automatically. Publish and verify each hand before admitting the next. Free Play is explicitly prohibited. Both complete replays contain 112 actions; resume240 remains their historical 100-action frontier starting checkpoint. No new call exceeded 120 seconds, so do not claim that a longer deadline was necessary or that provider-side token enforcement was established.
+
+## Pro thinking-off qualification boundary
+
+Read docs/PRO_OFF_REVIEW.md and evidence/pro-off-eval/qualification.json before further model qualification. Preserve the 12/12 inference result and separate 9/12 metadata reconciliation result. Full qualification remains HOLD after three generation IDs returned 404 twice. Do not suppress that gate or retry inference to manufacture replacement receipts. Thinking-disabled Pro is a distinct evaluation profile, and these checks do not authorize a frontier seat change, scored play, or Free Play.
