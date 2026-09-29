@@ -132,3 +132,11 @@ OpenAI + Google defeated Anthropic + thinking-disabled Pro **132 to -195**, in t
 All 22 Pro calls passed; zero reported reasoning tokens, 154 output tokens total. Median latency 0.640s; maximum 61.898s. All 112 game actions, private views, and independent hand scores verified. Pro cost $0.0115508; total game cost $1.57317205. No retries or changes to earlier series evidence.
 
 [Full field-trial review](docs/PRO100_REVIEW.md) · [Download HTML replay](evidence/pro100/frontier-pro/Whiz_100_Baseline_Replay.html) · [Summary and account totals](evidence/pro100/summary.json). Flash is the user's selected cohort-2 fourth seat; no cohort-2 game ran in this trial. Free Play remains disabled.
+
+## Matched Flash versus Pro trial: COMPLETE
+
+With the same seed, deals, other three models, rules, and client limits, Anthropic + thinking-disabled Flash lost **-207 to 135**. Anthropic + thinking-disabled Pro previously lost **-195 to 132**. Both games completed two hands. Flash passed 23/23 calls with zero reported reasoning tokens, median latency 0.866s, and maximum 1.265s. Pro passed 22/22, with median 0.640s and maximum 61.898s.
+
+At their first differing action, both received the same observation after bidding nil. Pro played 8D under partner JD; Flash played KD and subsequently won the trick, breaking nil. The final scores are team outcomes on diverging trajectories, not individual rankings. The shared prompt leaves nil's zero-trick condition implicit, and effective backend sampling parity is unproven. [Full comparison and limits](docs/PRO_FLASH_100_COMPARISON.md) · [Flash replay](evidence/flash100/frontier-pro/Whiz_100_Baseline_Replay.html).
+
+All six offline comparison checks passed, including matching deals and unchanged Pro evidence. Flash game cost $1.4172806985 across all accounts; Flash itself $0.0020409485. OpenRouter cumulative accounted: $1.1118230675. No further games or Free Play started.
