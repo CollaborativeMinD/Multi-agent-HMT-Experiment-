@@ -7,13 +7,15 @@ from pathlib import Path
 from typing import Any
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
 import smoke
-smoke.CAP=4096  # Protocol amendment after observed 1024-token reservation breach.
+smoke.CAP=8192  # User-authorized doubling of the prior gameplay cap.
 ROOT=Path(__file__).resolve().parent
 OUT=ROOT/'evidence';OUT.mkdir(exist_ok=True)
 LIMIT=Decimal('3.00')
 spent={p:Decimal('0') for p in ['openai','anthropic','gemini','openrouter']}
 last_finished:dict[str,float]={}
 MODEL_FILE=ROOT.parent/'config/models.lock.json'
+RESUME=ROOT/'resume8192'
+SOURCE_RUN=36496680649
 RULES=('Play strict Whiz Spades to win your partnership game to 100. Four seats; partner opposite. '
        'Bid nil (0) or exactly your spade count. Nil +/-100; no blind nil or table talk. '
        'Positive contracts: at least the team bid, +10/bid trick if made, -10/bid trick if set. '
@@ -123,13 +125,11 @@ def call(m:dict[str,Any],v:dict[str,Any],attempt:int)->tuple[int|None,dict[str,A
 def select(m:dict[str,Any],v:dict[str,Any])->tuple[dict[str,Any],dict[str,Any]]:
     if len(v['legal'])==1:return v['legal'][0],{'kind':'FORCED_SINGLE_LEGAL_ACTION'}
     choice,row=call(m,v,1)
-    if row['http_status']==429:
-        time.sleep(60);choice,row=call(m,v,2)
     if choice is None:raise ValueError('MODEL_HOLD:'+m['model'])
     return v['legal'][choice],{'kind':'MODEL_CHOICE','call':row}
 
 def restore(proc:subprocess.Popen,cohort:str,models:list,frame:dict)->tuple[dict,int]:
-    source=ROOT/'resume'/f'{cohort}.jsonl'
+    source=RESUME/f'{cohort}.jsonl'
     if not source.exists():
         emit(cohort,{'kind':'INITIAL','seed':7,'models':[m['model'] for m in models],**frame})
         return frame,0
@@ -142,8 +142,8 @@ def restore(proc:subprocess.Popen,cohort:str,models:list,frame:dict)->tuple[dict
             frame=engine(proc,{'op':'step','action':row['action']})
             if frame['hash']!=row['hash']:raise ValueError('RESUME_STATE_MISMATCH')
             count+=1
-        if row['kind'] in ['INITIAL','ACTION']:emit(cohort,row)
-    emit(cohort,{'kind':'RESUME','source_run':36496016934,'actions':count,'output_cap':smoke.CAP})
+        if row['kind'] in ['INITIAL','ACTION','RESUME']:emit(cohort,row)
+    emit(cohort,{'kind':'RESUME','source_run':SOURCE_RUN,'actions':count,'output_cap':smoke.CAP})
     return frame,count
 
 
@@ -176,10 +176,10 @@ def game(cohort:str,models:list[dict[str,Any]])->dict[str,Any]:
 def main()->int:
     if os.environ.get('GITHUB_RUN_ATTEMPT','1')!='1':raise ValueError('RERUN_BLOCKED')
     manifest=json.loads(MODEL_FILE.read_text());results=[]
-    prior=ROOT/'resume'/'summary.json'
+    prior=RESUME/'summary.json'
     if prior.exists():
         for p,cost in json.loads(prior.read_text())['accounting_usd'].items():spent[p]=Decimal(cost)
-        (OUT/'prior_calls.jsonl').write_bytes((ROOT/'resume'/'calls.jsonl').read_bytes())
+        (OUT/'prior_calls.jsonl').write_bytes((RESUME/'calls.jsonl').read_bytes())
     if not all(m['inference_verified'] for m in manifest['models']):raise ValueError('ROSTER_NOT_VERIFIED')
     for cohort in ['frontier','mainstream']:
         models=[next(m for m in manifest['models'] if m['cohort']==cohort and m['account']==p) for p in spent]
@@ -187,7 +187,7 @@ def main()->int:
         if result['status']!='COMPLETE':break
     report=dict(utc=datetime.now(timezone.utc).isoformat(),commit=os.environ.get('GITHUB_SHA'),
                 target=100,mode='strict_whiz',seed=7,results=results,output_cap=smoke.CAP,
-                resumed_from_run=36496016934 if prior.exists() else None,
+                resumed_from_run=SOURCE_RUN if prior.exists() else None,
                 accounting_usd={p:str(v) for p,v in spent.items()},per_account_limit=str(LIMIT),
                 nonclaims=['single unrotated partnership game per cohort','legal-action-assisted','not general intelligence ranking'])
     (OUT/'summary.json').write_text(json.dumps(report,indent=2)+'\n')
