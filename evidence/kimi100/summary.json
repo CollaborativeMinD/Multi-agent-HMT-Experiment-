@@ -3,24 +3,24 @@
     "id": "frontier-pro",
     "cohort": "frontier",
     "seed": 707,
-    "status": "IN_PROGRESS",
+    "status": "HOLD",
     "hands": 1,
-    "actions": 56,
+    "actions": 69,
     "scores": [
       -70,
       64
     ],
     "winners": [],
-    "final_hash": "e8cb1d603dcbc839ac355e85e4b6ff9a2371bfa5f4535d66f202b25753dd4857",
+    "final_hash": "98785a976819787da1eacb98dd8bebd90a50748d73b939d31fc5bee23cfddb31",
     "replay_verified": true,
-    "reason": null
+    "reason": "MODEL_HOLD:STREAM_ERROR"
   },
   "verification": {
     "replay": "PASS",
     "private_projections": "PASS",
     "all_frame_hashes": "PASS",
-    "actions": 56,
-    "final_hash": "e8cb1d603dcbc839ac355e85e4b6ff9a2371bfa5f4535d66f202b25753dd4857"
+    "actions": 69,
+    "final_hash": "98785a976819787da1eacb98dd8bebd90a50748d73b939d31fc5bee23cfddb31"
   },
   "hands": [
     {
@@ -70,70 +70,70 @@
   "metrics": [
     {
       "model": "claude-fable-5-1",
-      "attempts": 11,
-      "accepted": 11,
+      "attempts": 14,
+      "accepted": 14,
       "diagnostic_attempts": 0,
       "holds": 0,
       "http_429": 0,
-      "latency_median_ms": 4226,
+      "latency_median_ms": 4146.0,
       "latency_max_ms": 24135,
       "cooldown_seconds": 0,
-      "input_tokens": 25422,
-      "output_tokens": 5287,
-      "known_estimated_cost_usd": "0.51857",
+      "input_tokens": 29718,
+      "output_tokens": 5317,
+      "known_estimated_cost_usd": "0.56303",
       "unknown_usage_reserve_usd": "0"
     },
     {
       "model": "gemini-3.8-flash",
-      "attempts": 10,
-      "accepted": 10,
+      "attempts": 14,
+      "accepted": 14,
       "diagnostic_attempts": 0,
       "holds": 0,
       "http_429": 0,
-      "latency_median_ms": 5833.0,
+      "latency_median_ms": 5499.5,
       "latency_max_ms": 13229,
       "cooldown_seconds": 0,
-      "input_tokens": 12903,
-      "output_tokens": 13149,
-      "known_estimated_cost_usd": "0.05898600",
+      "input_tokens": 16198,
+      "output_tokens": 16886,
+      "known_estimated_cost_usd": "0.07547100",
       "unknown_usage_reserve_usd": "0"
     },
     {
       "model": "moonshotai/kimi-k3",
-      "attempts": 12,
-      "accepted": 12,
+      "attempts": 16,
+      "accepted": 15,
       "diagnostic_attempts": 0,
-      "holds": 0,
+      "holds": 1,
       "http_429": 0,
-      "latency_median_ms": 27195.0,
+      "latency_median_ms": 25564.5,
       "latency_max_ms": 99395,
-      "cooldown_seconds": 171.556,
-      "input_tokens": 18682,
-      "output_tokens": 13297,
-      "known_estimated_cost_usd": "0.255501",
-      "unknown_usage_reserve_usd": "0"
+      "cooldown_seconds": 209.983,
+      "input_tokens": 21368,
+      "output_tokens": 14643,
+      "known_estimated_cost_usd": "0.283749",
+      "unknown_usage_reserve_usd": "0.511155"
     },
     {
       "model": "gpt-6-astra",
-      "attempts": 10,
-      "accepted": 10,
+      "attempts": 13,
+      "accepted": 13,
       "diagnostic_attempts": 0,
       "holds": 0,
       "http_429": 0,
-      "latency_median_ms": 4963.0,
-      "latency_max_ms": 12450,
+      "latency_median_ms": 4624,
+      "latency_max_ms": 18055,
       "cooldown_seconds": 0,
-      "input_tokens": 15281,
-      "output_tokens": 1212,
-      "known_estimated_cost_usd": "0.21341",
+      "input_tokens": 17654,
+      "output_tokens": 1251,
+      "known_estimated_cost_usd": "0.23909",
       "unknown_usage_reserve_usd": "0"
     }
   ],
   "accounting_usd": {
-    "openai": "5.479314",
-    "anthropic": "11.660600",
-    "gemini": "1.74923870",
-    "openrouter": "1.4470030684"
+    "openai": "5.504994",
+    "anthropic": "11.705060",
+    "gemini": "1.76572370",
+    "openrouter": "1.9864060684"
   },
   "opening_accounting_usd": {
     "openai": "5.265904",

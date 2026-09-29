@@ -174,8 +174,8 @@ Per-account guards are frozen in config/strategy-v3-budget.json, less $0.02 prob
 ## Kimi cohort-1 field evaluation
 
 Strict 100-point game; seed 707; v3 guidance; Moonshot AI mxfp4; low reasoning.
-Status: **IN_PROGRESS**. Hands: 1. OpenAI + Google: -70; Anthropic + Kimi: 64.
+Status: **HOLD**. Hands: 1. OpenAI + Google: -70; Anthropic + Kimi: 64.
 [Summary](evidence/kimi100/summary.json) · [Replay](evidence/kimi100/frontier-pro/Whiz_100_Baseline_Replay.html)
 Prior tracer metadata HOLDs remain preserved. One game is not a general ranking or permanent seat assignment.
-Cumulative accounting: {"openai": "5.479314", "anthropic": "11.660600", "gemini": "1.74923870", "openrouter": "1.4470030684"}
+Cumulative accounting: {"openai": "5.504994", "anthropic": "11.705060", "gemini": "1.76572370", "openrouter": "1.9864060684"}
 <!-- KIMI100:END -->
