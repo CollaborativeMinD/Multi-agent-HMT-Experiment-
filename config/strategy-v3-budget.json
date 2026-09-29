@@ -1,9 +1,9 @@
 {
   "cumulative_ceilings_usd": {
     "openai": "10.00",
-    "anthropic": "10.00",
+    "anthropic": "20.00",
     "gemini": "10.00",
     "openrouter": "10.00"
   },
-  "authorization": "Original $10/account ceiling. Anthropic top-up announced; revised amount pending. Preserve cumulative spend and unknown-usage reserves."
+  "authorization": "2026-09-29: user confirmed Anthropic credits increased from approximately $2 to $12, an additional $10. Cumulative Anthropic ceiling $20; other accounts remain $10. Preserve prior spend, unknown-usage reservations, and $0.02/account probe buffers."
 }
