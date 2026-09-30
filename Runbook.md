@@ -115,3 +115,9 @@ Read docs/SEAT_TRACER.md. The user authorizes up to ten isolated calls, $2 batch
 ## Authorized Kimi cohort-1 field evaluation
 
 The user authorizes one strict 100-point game with Kimi K3 in p4, partnered with Anthropic. Read trials/kimi100.py and inspect evidence/kimi100/plan.json, summary.json, gates.sql, and frontier-pro/Whiz_100_Baseline_Replay.html. Reuse seed 707, v3 guidance for all players, the other three models, 8192 total output tokens, 240-second deadlines, six-hand/336-action limit, and no retries. Pin moonshotai/mxfp4 with low reasoning, as tested. Carry all account totals from strategy-v3-flash and subsequent OpenRouter tracer usage. Preserve historical evidence and metadata HOLDs; the user authorizes this field trial despite those HOLDs. No permanent seat assignment or Free Play. Run all prior offline gates plus test_kimi100.py before the single-use own-path workflow launch. Publish and independently verify each completed hand before proceeding; execution HOLD stops play. Never rerun the paid workflow.
+
+## Gemini 4 Argon metadata discovery
+
+Run 36772114476 completed the metadata-only admission tracer after the full offline regression suite passed. The existing `GEMINI_API_KEY` successfully enumerated 61 Gemini API models, but none matched `gemini-4`, `gemini 4`, or `argon`. Evidence: `evidence/gemini4-argon-discovery/receipt.json`, `gates.sql`, and `SHA256SUMS.txt`. Disposition: HOLD / `MODEL_NOT_EXPOSED_TO_API_KEY`.
+
+No generation request was sent, so this discovery consumed no model-output budget and generated no gameplay evidence. Do not add Gemini 4 to `config/models.lock.json`, change South/p3, or launch a paid tracer until the API exposes an exact model ID and current official API contract/pricing can be reviewed. Existing Google seats remain `gemini-3.8-flash` frontier and `gemini-3.5-flash-lite` mainstream.
