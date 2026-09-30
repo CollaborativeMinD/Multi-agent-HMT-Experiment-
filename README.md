@@ -179,3 +179,7 @@ Status: **HOLD**. Hands: 1. OpenAI + Google: -70; Anthropic + Kimi: 64.
 Prior tracer metadata HOLDs remain preserved. One game is not a general ranking or permanent seat assignment.
 Cumulative accounting: {"openai": "5.504994", "anthropic": "11.705060", "gemini": "1.76572370", "openrouter": "1.9864060684"}
 <!-- KIMI100:END -->
+
+## Gemini 4 Argon admission check
+
+Authenticated Gemini API discovery completed with **HOLD**. The configured key enumerated 61 models, with no Gemini 4 / Argon model exposed. No inference requests, game moves, retries, spend, or seat changes occurred. Google remains South/p3 in both cohorts with the existing 3.8 Flash and 3.5 Flash Lite models. [Discovery evidence](evidence/gemini4-argon-discovery/receipt.json) · [Tracer protocol](docs/GEMINI4_ARGON_TRACER.md).
