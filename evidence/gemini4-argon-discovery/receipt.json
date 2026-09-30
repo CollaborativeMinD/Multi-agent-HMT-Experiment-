@@ -1,0 +1,10 @@
+{
+  "matches": [],
+  "models_enumerated": 61,
+  "reason": "MODEL_NOT_EXPOSED_TO_API_KEY",
+  "requests_max": 10,
+  "retries": 0,
+  "scope": "metadata_only_no_inference",
+  "status": "HOLD",
+  "utc": "2026-09-30T20:22:19.441885+00:00"
+}
